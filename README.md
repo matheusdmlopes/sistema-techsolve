@@ -4,6 +4,6 @@ Este sistema é parte do Projeto Integrado Multidisciplinar pro curso de Anális
 
 # Ideia Inicial de Arquitetura
 
-![Arquitetura](arquitetura.jpeg)
+<img src="arquitetura.jpeg" alt="Arquitetura" width="600">
 
 
