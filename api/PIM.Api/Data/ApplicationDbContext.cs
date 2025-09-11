@@ -86,7 +86,7 @@ public class ApplicationDbContext : DbContext
                 .HasConstraintName("FK_Usuario_Setor")
                 .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(e => e.Perfil)
+            entity.HasOne(e => e.PerfilAcesso)
                 .WithMany()
                 .HasForeignKey(e => e.IdPerfil)
                 .HasConstraintName("FK_Usuario_PerfilAcesso")
