@@ -1,4 +1,6 @@
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using PIM.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Default");
@@ -8,6 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+// Configuração do Entity Framework
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 
 
