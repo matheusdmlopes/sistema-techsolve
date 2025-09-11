@@ -1,5 +1,8 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using PIM.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // CORS simples - permite tudo (projeto acadêmico)
 builder.Services.AddCors();
+
+// Configuração JWT simples
+var jwtKey = "ChaveSecretaSuperSegura123456789012345678901234567890";
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+    });
 
 // Validação automática padrão do ASP.NET mantida
 
@@ -55,6 +73,9 @@ app.UseHttpsRedirection();
 
 // CORS simples
 app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
