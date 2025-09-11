@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using PIM.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Logging básico padrão do ASP.NET já configurado
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
 // Add services to the container.
@@ -14,6 +16,11 @@ builder.Services.AddControllers();
 // Configuração do Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+// CORS simples - permite tudo (projeto acadêmico)
+builder.Services.AddCors();
+
+// Validação automática padrão do ASP.NET mantida
 
 
 
@@ -35,7 +42,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapControllers();
+// Middleware removido - try/catch simples nos controllers
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -45,6 +52,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CORS simples
+app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+app.MapControllers();
 
 app.MapGet("/health", () =>
 {
