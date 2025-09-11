@@ -19,6 +19,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
+// Aplicar migrations automaticamente na inicialização
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    try
+    {
+        // Aplica todas as migrations pendentes automaticamente
+        context.Database.Migrate();
+        app.Logger.LogInformation("Migrations aplicadas com sucesso!");
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, "Erro ao aplicar migrations: {Message}", ex.Message);
+    }
+}
+
 app.MapControllers();
 
 // Configure the HTTP request pipeline.
