@@ -5,7 +5,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using PIM.Api.Data;
-using BCrypt.Net;
 
 namespace PIM.Api.Controllers
 {
@@ -42,7 +41,7 @@ namespace PIM.Api.Controllers
                 }
 
                 // Verificar senha com BCrypt
-                if (!BCrypt.Net.BCrypt.Verify(request.Senha, usuario.Senha))
+                if (!Utils.PasswordHelper.VerifyPassword(request.Senha, usuario.Senha))
                 {
                     return Unauthorized(new { erro = "Credenciais inválidas" });
                 }

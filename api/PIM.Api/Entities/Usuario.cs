@@ -39,7 +39,7 @@ public class Usuario
     
     // Navigation Properties  
     public Setor Setor { get; set; } = null!;
-    public PerfilAcesso Perfil { get; set; } = null!;
+    public PerfilAcesso PerfilAcesso { get; set; } = null!;
     public ICollection<Chamado> ChamadosCriados { get; set; } = [];
     public ICollection<Chamado> ChamadosAtendidos { get; set; } = [];
     public ICollection<HistoricoChamado> HistoricosChamado { get; set; } = [];
