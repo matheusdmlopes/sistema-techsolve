@@ -1,4 +1,3 @@
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -81,24 +80,10 @@ app.MapControllers();
 
 app.MapGet("/health", () =>
 {
-    return "Testando API";
+    return "API Sistema TechSolve - Online";
 })
 .WithName("HealthCheck")
 .WithOpenApi();
-
-app.MapGet("/teste-conexao", async () =>
-{
-    try
-    {
-        using var connection = new SqlConnection(connectionString);
-        await connection.OpenAsync();
-        return Results.Ok(new { mensagem = "Conexão com SQL Azure funcionando" });
-    }
-    catch (Exception ex)
-    {
-        return Results.BadRequest(new { erro = "Falha na conexão com o banco", detalhes = ex.Message });
-    }
-});
 
 app.UseSwagger();
 app.UseSwaggerUI();
