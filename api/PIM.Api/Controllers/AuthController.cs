@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -94,6 +95,50 @@ namespace PIM.Api.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        /// <summary>
+        /// Retorna informações do usuário autenticado
+        /// </summary>
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            try
+            {
+                var userId = User.FindFirst("id")?.Value;
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized(new { erro = "Token inválido" });
+                }
+
+                var usuario = await _context.Usuarios
+                    .Include(u => u.PerfilAcesso)
+                    .Include(u => u.Setor)
+                    .FirstOrDefaultAsync(u => u.IdUsuario == int.Parse(userId) && u.Ativo);
+
+                if (usuario == null)
+                {
+                    return NotFound(new { erro = "Usuário não encontrado" });
+                }
+
+                return Ok(new
+                {
+                    id = usuario.IdUsuario,
+                    nome = usuario.NomeCompleto,
+                    email = usuario.Email,
+                    telefone = usuario.Telefone,
+                    perfil = usuario.PerfilAcesso?.NomePerfil,
+                    setor = usuario.Setor?.NomeSetor,
+                    primeiroAcesso = usuario.PrimeiroAcesso,
+                    dataCadastro = usuario.DataCadastro,
+                    ultimoLogin = usuario.UltimoLogin
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro interno do servidor", detalhes = ex.Message });
+            }
         }
     }
 

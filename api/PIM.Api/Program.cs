@@ -52,10 +52,14 @@ using (var scope = app.Services.CreateScope())
         // Aplica todas as migrations pendentes automaticamente
         context.Database.Migrate();
         app.Logger.LogInformation("Migrations aplicadas com sucesso!");
+
+        // Popular banco com dados iniciais se necessário
+        await DataSeeder.SeedAsync(context);
+        app.Logger.LogInformation("Dados iniciais verificados/criados com sucesso!");
     }
     catch (Exception ex)
     {
-        app.Logger.LogError(ex, "Erro ao aplicar migrations: {Message}", ex.Message);
+        app.Logger.LogError(ex, "Erro ao aplicar migrations ou seeds: {Message}", ex.Message);
     }
 }
 
