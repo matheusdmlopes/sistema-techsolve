@@ -239,6 +239,168 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
+        /// Exportar dados pessoais do usuário (LGPD - Direito de Portabilidade)
+        /// </summary>
+        [HttpGet("{id}/dados")]
+        [Authorize]
+        public async Task<IActionResult> ExportarDadosPessoais(int id)
+        {
+            try
+            {
+                // Validar se o usuário pode acessar esses dados
+                var userId = User.FindFirst("id")?.Value;
+                var userRole = User.FindFirst("role")?.Value;
+
+                // Apenas o próprio usuário ou Admin pode exportar dados
+                if (userRole != "Admin" && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
+                {
+                    return StatusCode(403, new { erro = "Você não tem permissão para acessar esses dados" });
+                }
+
+                var usuario = await _context.Usuarios
+                    .Include(u => u.Setor)
+                    .Include(u => u.PerfilAcesso)
+                    .FirstOrDefaultAsync(u => u.IdUsuario == id);
+
+                if (usuario == null)
+                {
+                    return NotFound(new { erro = "Usuário não encontrado" });
+                }
+
+                // Chamados criados pelo usuário
+                var chamadosCriados = await _context.Chamados
+                    .Where(c => c.IdUsuarioCriador == id)
+                    .Select(c => new
+                    {
+                        id = c.IdChamado,
+                        titulo = c.Titulo,
+                        descricao = c.Descricao,
+                        dataAbertura = c.DataAbertura,
+                        dataFechamento = c.DataFechamento
+                    })
+                    .ToListAsync();
+
+                // Feedbacks deixados pelo usuário
+                var feedbacks = await _context.Feedbacks
+                    .Include(f => f.Chamado)
+                    .Where(f => f.Chamado.IdUsuarioCriador == id)
+                    .Select(f => new
+                    {
+                        idChamado = f.IdChamado,
+                        tituloChamado = f.Chamado.Titulo,
+                        nota = f.Nota,
+                        comentario = f.Comentario,
+                        dataFeedback = f.DataHoraFeedback
+                    })
+                    .ToListAsync();
+
+                // Chamados atendidos (se for técnico)
+                var chamadosAtendidos = await _context.Chamados
+                    .Where(c => c.IdUsuarioTecnico == id)
+                    .Select(c => new
+                    {
+                        id = c.IdChamado,
+                        titulo = c.Titulo,
+                        dataAbertura = c.DataAbertura,
+                        dataFechamento = c.DataFechamento
+                    })
+                    .ToListAsync();
+
+                var dadosPessoais = new
+                {
+                    informacoesPessoais = new
+                    {
+                        id = usuario.IdUsuario,
+                        nomeCompleto = usuario.NomeCompleto,
+                        email = usuario.Email,
+                        telefone = usuario.Telefone,
+                        setor = usuario.Setor?.NomeSetor,
+                        perfil = usuario.PerfilAcesso?.NomePerfil,
+                        dataCadastro = usuario.DataCadastro,
+                        ultimoLogin = usuario.UltimoLogin,
+                        ativo = usuario.Ativo
+                    },
+                    chamadosCriados = new
+                    {
+                        total = chamadosCriados.Count,
+                        lista = chamadosCriados
+                    },
+                    feedbacks = new
+                    {
+                        total = feedbacks.Count,
+                        lista = feedbacks
+                    },
+                    chamadosAtendidos = new
+                    {
+                        total = chamadosAtendidos.Count,
+                        lista = chamadosAtendidos
+                    },
+                    dataExportacao = DateTime.UtcNow,
+                    avisoLGPD = "Estes são todos os dados pessoais armazenados no sistema conforme a Lei Geral de Proteção de Dados (LGPD)"
+                };
+
+                return Ok(dadosPessoais);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao exportar dados pessoais", detalhes = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Remover dados pessoais do usuário (LGPD - Direito ao Esquecimento)
+        /// </summary>
+        [HttpDelete("{id}/dados")]
+        [Authorize]
+        public async Task<IActionResult> RemoverDadosPessoais(int id)
+        {
+            try
+            {
+                // Validar se o usuário pode remover esses dados
+                var userId = User.FindFirst("id")?.Value;
+                var userRole = User.FindFirst("role")?.Value;
+
+                // Apenas o próprio usuário ou Admin pode remover dados
+                if (userRole != "Admin" && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
+                {
+                    return StatusCode(403, new { erro = "Você não tem permissão para remover esses dados" });
+                }
+
+                var usuario = await _context.Usuarios.FindAsync(id);
+                if (usuario == null)
+                {
+                    return NotFound(new { erro = "Usuário não encontrado" });
+                }
+
+                // LGPD - Anonimizar dados ao invés de deletar completamente
+                // Mantém registros para auditoria, mas remove dados pessoais identificáveis
+                usuario.NomeCompleto = $"Usuário Removido #{id}";
+                usuario.Email = $"removido{id}@anonimizado.lgpd";
+                usuario.Telefone = null;
+                usuario.Senha = PasswordHelper.HashPassword(Guid.NewGuid().ToString()); // Senha aleatória
+                usuario.Ativo = false;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    mensagem = "Dados pessoais removidos com sucesso (anonimização LGPD)",
+                    detalhes = new
+                    {
+                        idUsuario = id,
+                        dadosAnonimizados = true,
+                        dataRemocao = DateTime.UtcNow,
+                        observacao = "Os dados foram anonimizados conforme LGPD. Registros de chamados foram mantidos para auditoria, mas sem informações pessoais identificáveis."
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao remover dados pessoais", detalhes = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Desativa um usuário (soft delete)
         /// </summary>
         [HttpDelete("{id}")]
