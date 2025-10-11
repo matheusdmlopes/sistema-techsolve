@@ -70,6 +70,14 @@ namespace PIM.Web.Controllers
 
                     _logger.LogInformation($"Usuário {model.Email} autenticado com sucesso");
 
+                    // Verifica se é primeiro acesso
+                    if (response.Usuario.PrimeiroAcesso)
+                    {
+                        _logger.LogInformation($"Usuário {model.Email} precisa trocar a senha (primeiro acesso)");
+                        TempData["MensagemPrimeiroAcesso"] = "Este é seu primeiro acesso. Por favor, altere sua senha.";
+                        return RedirectToAction("PrimeiroAcesso");
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -82,6 +90,86 @@ namespace PIM.Web.Controllers
             {
                 _logger.LogError($"Erro ao realizar login: {ex.Message}");
                 ModelState.AddModelError(string.Empty, "Erro ao realizar login. Tente novamente.");
+                return View(model);
+            }
+        }
+
+        /// <summary>
+        /// Exibe a página de primeiro acesso para troca de senha
+        /// </summary>
+        [HttpGet]
+        public IActionResult PrimeiroAcesso()
+        {
+            // Verifica se está autenticado
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("JwtToken")))
+            {
+                return RedirectToAction("Login");
+            }
+
+            var viewModel = new PrimeiroAcessoViewModel
+            {
+                NomeUsuario = HttpContext.Session.GetString("UsuarioNome") ?? "",
+                Email = HttpContext.Session.GetString("UsuarioEmail") ?? ""
+            };
+
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// Processa a troca de senha no primeiro acesso
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PrimeiroAcesso(PrimeiroAcessoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.NomeUsuario = HttpContext.Session.GetString("UsuarioNome") ?? "";
+                model.Email = HttpContext.Session.GetString("UsuarioEmail") ?? "";
+                return View(model);
+            }
+
+            try
+            {
+                var usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+                if (!usuarioId.HasValue)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                // Envia requisição para API trocar a senha
+                var request = new
+                {
+                    senhaAtual = model.SenhaAtual,
+                    novaSenha = model.NovaSenha
+                };
+
+                var response = await _apiService.PutAsync<object, object>(
+                    $"/api/usuarios/{usuarioId}/alterar-senha",
+                    request
+                );
+
+                if (response != null)
+                {
+                    _logger.LogInformation($"Usuário {usuarioId} alterou senha no primeiro acesso");
+                    TempData["Sucesso"] = "Senha alterada com sucesso! Bem-vindo ao sistema.";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Erro ao alterar senha. Verifique se a senha atual está correta.");
+                    model.NomeUsuario = HttpContext.Session.GetString("UsuarioNome") ?? "";
+                    model.Email = HttpContext.Session.GetString("UsuarioEmail") ?? "";
+                    return View(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao alterar senha no primeiro acesso: {ex.Message}");
+                ModelState.AddModelError(string.Empty, "Erro ao alterar senha. Tente novamente.");
+                model.NomeUsuario = HttpContext.Session.GetString("UsuarioNome") ?? "";
+                model.Email = HttpContext.Session.GetString("UsuarioEmail") ?? "";
                 return View(model);
             }
         }

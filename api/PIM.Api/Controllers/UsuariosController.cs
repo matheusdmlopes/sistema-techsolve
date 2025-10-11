@@ -426,6 +426,47 @@ namespace PIM.Api.Controllers
                 return StatusCode(500, new { erro = "Erro ao desativar usuário", detalhes = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Altera a senha do usuário (para primeiro acesso ou troca de senha)
+        /// </summary>
+        [HttpPut("{id}/alterar-senha")]
+        public async Task<IActionResult> AlterarSenha(int id, [FromBody] AlterarSenhaRequest request)
+        {
+            try
+            {
+                var usuario = await _context.Usuarios.FindAsync(id);
+
+                if (usuario == null)
+                {
+                    return NotFound(new { erro = "Usuário não encontrado" });
+                }
+
+                // Verifica se a senha atual está correta
+                if (!PasswordHelper.VerifyPassword(request.SenhaAtual, usuario.Senha))
+                {
+                    return BadRequest(new { erro = "Senha atual incorreta" });
+                }
+
+                // Valida nova senha
+                if (string.IsNullOrWhiteSpace(request.NovaSenha) || request.NovaSenha.Length < 6)
+                {
+                    return BadRequest(new { erro = "A nova senha deve ter pelo menos 6 caracteres" });
+                }
+
+                // Atualiza a senha e marca que não é mais primeiro acesso
+                usuario.Senha = PasswordHelper.HashPassword(request.NovaSenha);
+                usuario.PrimeiroAcesso = false;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new { mensagem = "Senha alterada com sucesso" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao alterar senha", detalhes = ex.Message });
+            }
+        }
     }
 
     // DTOs para requests
@@ -448,5 +489,11 @@ namespace PIM.Api.Controllers
         public int? IdSetor { get; set; }
         public int? IdPerfil { get; set; }
         public bool? PrimeiroAcesso { get; set; }
+    }
+
+    public class AlterarSenhaRequest
+    {
+        public string SenhaAtual { get; set; } = string.Empty;
+        public string NovaSenha { get; set; } = string.Empty;
     }
 }
