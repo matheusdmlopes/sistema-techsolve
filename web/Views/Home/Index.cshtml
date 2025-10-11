@@ -1,8 +1,65 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row mb-4">
+    <div class="col-12">
+        <h2>Bem-vindo ao Sistema TechSolve, @ViewData["UsuarioNome"]!</h2>
+        <p class="text-muted">Central de Atendimento Acadêmico - UNIP</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Chamados Abertos</h5>
+                <h2 class="display-4">--</h2>
+                <p class="card-text">Aguardando atendimento</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Em Atendimento</h5>
+                <h2 class="display-4">--</h2>
+                <p class="card-text">Sendo resolvidos</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Resolvidos</h5>
+                <h2 class="display-4">--</h2>
+                <p class="card-text">Finalizados hoje</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total</h5>
+                <h2 class="display-4">--</h2>
+                <p class="card-text">Todos os chamados</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Chamados Recentes</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted text-center">Carregando dados da API...</p>
+            </div>
+        </div>
+    </div>
 </div>

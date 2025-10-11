@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PIM.Web.Models;
+using PIM.Web.Filters;
 
 namespace PIM.Web.Controllers;
 
+[AuthorizeSession]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -15,6 +17,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ViewData["UsuarioNome"] = HttpContext.Session.GetString("UsuarioNome");
         return View();
     }
 
