@@ -65,24 +65,32 @@ Para desenvolvimento local, você pode alterar a URL no `appsettings.Development
 
 ```
 web/
-├── Controllers/        # Controladores MVC
-│   ├── AuthController.cs       # Autenticação
-│   └── HomeController.cs       # Dashboard
-├── Models/            # ViewModels e DTOs
+├── Controllers/
+│   ├── AuthController.cs         # Autenticação
+│   ├── ChamadosController.cs     # Gestão de chamados
+│   └── HomeController.cs         # Dashboard
+├── Models/
 │   ├── LoginViewModel.cs
-│   └── LoginResponseDto.cs
-├── Views/             # Views Razor
+│   ├── LoginResponseDto.cs
+│   ├── ChamadoDto.cs             # DTOs de chamados
+│   ├── ChamadoViewModels.cs      # ViewModels de chamados
+│   └── DashboardDto.cs           # Métricas do dashboard
+├── Views/
 │   ├── Auth/
 │   │   └── Login.cshtml
+│   ├── Chamados/
+│   │   ├── Index.cshtml          # Lista de chamados
+│   │   ├── Novo.cshtml           # Formulário novo chamado
+│   │   └── Detalhes.cshtml       # Detalhes completos
 │   ├── Home/
-│   │   └── Index.cshtml
+│   │   └── Index.cshtml          # Dashboard integrado
 │   └── Shared/
 │       └── _Layout.cshtml
-├── Services/          # Serviços de integração
-│   └── ApiService.cs           # Cliente HTTP para API
-├── Filters/           # Filtros customizados
+├── Services/
+│   └── ApiService.cs             # Cliente HTTP genérico
+├── Filters/
 │   └── AuthorizeSessionAttribute.cs
-├── wwwroot/           # Arquivos estáticos
+├── wwwroot/
 ├── appsettings.json
 └── Program.cs
 ```
@@ -99,26 +107,72 @@ O sistema utiliza sessões para armazenar o token JWT retornado pela API:
 
 ## 📝 Funcionalidades Implementadas
 
-### ✅ Concluído
+### ✅ Sistema de Autenticação
+- ✅ Login/Logout de usuários
+- ✅ Sessão com token JWT
+- ✅ Filtro de autorização customizado (`[AuthorizeSession]`)
+- ✅ Controle de perfis (Admin, Técnico, Solicitante)
 
-- Login/Logout de usuários
-- Dashboard inicial com cards de estatísticas
-- Layout responsivo com Bootstrap
-- Serviço de comunicação com API (GET, POST, PUT, DELETE)
-- Autenticação via JWT armazenado em sessão
-- Filtro de autorização customizado
+### ✅ Dashboard
+- ✅ Métricas em tempo real da API
+- ✅ Cards com estatísticas:
+  - Chamados Abertos
+  - Chamados Em Atendimento
+  - Chamados Resolvidos
+  - Total de Chamados
+  - Técnicos Ativos
+  - Tempo Médio de Resolução
+- ✅ Lista de chamados recentes
+- ✅ Layout responsivo com Bootstrap
 
-### 🔜 Próximos Passos
+### ✅ Módulo de Chamados - SOLICITANTES
+- ✅ **Listar Meus Chamados** - Visualização filtrada dos próprios chamados
+- ✅ **Abrir Novo Chamado** - Formulário completo com:
+  - Título e descrição detalhada
+  - Seleção de categoria
+  - Seleção de prioridade
+  - Validações de formulário
+- ✅ **Visualizar Detalhes** - Página completa com:
+  - Informações do chamado
+  - Status e prioridade visual
+  - Dados do solicitante e técnico
+  - Datas de abertura/fechamento
+- ✅ **Enviar Feedback** - Sistema de avaliação com:
+  - Nota de 1 a 5 estrelas
+  - Comentário opcional
+  - Apenas para chamados resolvidos
 
-- CRUD de Chamados
-- CRUD de Usuários
-- Listagem de Categorias e Prioridades
-- Visualização de histórico de chamados
+### ✅ Módulo de Chamados - TÉCNICOS
+- ✅ **Listar Todos Chamados** - Visualização completa com filtros
+- ✅ **Assumir Chamado** - Atribuir chamado a si mesmo
+- ✅ **Alterar Status** - Modal para mudança de status:
+  - Seleção de novo status
+  - Campo de observação
+  - Campo de solução final
+  - Histórico automático
+- ✅ **Visualizar Histórico** - Timeline de alterações com:
+  - Data e hora de cada mudança
+  - Técnico responsável
+  - Status anterior e novo
+  - Observações registradas
+
+### ✅ Recursos Avançados
+- ✅ **Histórico de Chamados** - Auditoria completa de alterações
+- ✅ **Visualização de Anexos** - Lista de arquivos anexados
+- ✅ **Sugestões de IA** - Exibição de sugestões geradas pela IA
+- ✅ **Sistema de Feedback** - Avaliação de atendimento
+- ✅ **Badges visuais** - Cores diferenciadas para status e prioridades
+- ✅ **Responsividade** - Layout adaptável para mobile
+
+### 🔜 Próximos Passos (Opcional)
+
 - Upload de anexos
-- Sistema de feedback
-- Integração completa com dashboard (dados reais da API)
-- Implementação de busca e filtros
+- CRUD de Usuários (admin)
+- Filtros avançados e busca
 - Paginação de listagens
+- Exportação de relatórios
+- Notificações em tempo real
+- Gráficos e estatísticas avançadas
 
 ## 🎨 Interface
 
@@ -134,13 +188,23 @@ O sistema utiliza sessões para armazenar o token JWT retornado pela API:
 
 ## 🔗 Endpoints da API Consumidos
 
+### Autenticação
 - `POST /api/auth/login` - Autenticação de usuários
 
-**Próximos endpoints a serem integrados:**
-- `GET /api/chamados` - Listar chamados
-- `POST /api/chamados` - Criar chamado
-- `GET /api/usuarios` - Listar usuários
-- E outros conforme necessário
+### Dashboard
+- `GET /api/dashboard/metricas` - Métricas gerais do sistema
+
+### Chamados
+- `GET /api/chamados` - Listar todos chamados
+- `GET /api/chamados/{id}` - Obter detalhes completos
+- `POST /api/chamados` - Criar novo chamado
+- `PUT /api/chamados/{id}/atribuir` - Técnico assume chamado
+- `PUT /api/chamados/{id}/status` - Alterar status do chamado
+- `POST /api/chamados/{id}/feedback` - Enviar feedback
+
+### Listas de Apoio
+- `GET /api/categorias` - Listar categorias
+- `GET /api/prioridades` - Listar prioridades
 
 ## 🐛 Debug
 

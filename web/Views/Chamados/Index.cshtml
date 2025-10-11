@@ -1,0 +1,137 @@
+@model List<PIM.Web.Models.ChamadoDto>
+@{
+    ViewData["Title"] = "Chamados";
+    var perfilAcessoId = ViewData["PerfilAcessoId"] as int?;
+    var isTecnico = perfilAcessoId != 3;
+}
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h2>@(isTecnico ? "Todos os Chamados" : "Meus Chamados")</h2>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-action="Novo" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Novo Chamado
+        </a>
+    </div>
+</div>
+
+@if (ViewBag.Erro != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @ViewBag.Erro
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Sucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Nenhum chamado encontrado.
+        <a asp-action="Novo">Criar primeiro chamado</a>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Categoria</th>
+                            <th>Prioridade</th>
+                            <th>Status</th>
+                            @if (isTecnico)
+                            {
+                                <th>Solicitante</th>
+                                <th>Técnico</th>
+                            }
+                            <th>Data Abertura</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var chamado in Model)
+                        {
+                            <tr>
+                                <td><strong>#@chamado.Id</strong></td>
+                                <td>@chamado.Titulo</td>
+                                <td>
+                                    <span class="badge bg-secondary">@chamado.Categoria.Nome</span>
+                                </td>
+                                <td>
+                                    @{
+                                        var prioridadeBadge = chamado.Prioridade.Nivel.ToLower() switch
+                                        {
+                                            "baixa" => "bg-success",
+                                            "média" => "bg-warning",
+                                            "alta" => "bg-danger",
+                                            _ => "bg-secondary"
+                                        };
+                                    }
+                                    <span class="badge @prioridadeBadge">@chamado.Prioridade.Nivel</span>
+                                </td>
+                                <td>
+                                    @{
+                                        var statusBadge = chamado.Status.Nome.ToLower() switch
+                                        {
+                                            "aberto" => "bg-primary",
+                                            "em atendimento" => "bg-warning text-dark",
+                                            "resolvido" => "bg-success",
+                                            "fechado" => "bg-dark",
+                                            _ => "bg-secondary"
+                                        };
+                                    }
+                                    <span class="badge @statusBadge">@chamado.Status.Nome</span>
+                                </td>
+                                @if (isTecnico)
+                                {
+                                    <td>@chamado.UsuarioCriador.Nome</td>
+                                    <td>
+                                        @if (chamado.UsuarioTecnico != null)
+                                        {
+                                            <span>@chamado.UsuarioTecnico.Nome</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Não atribuído</span>
+                                        }
+                                    </td>
+                                }
+                                <td>@chamado.DataAbertura.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <a asp-action="Detalhes" asp-route-id="@chamado.Id" class="btn btn-sm btn-outline-primary">
+                                        Ver Detalhes
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <p class="text-muted">Total: <strong>@Model.Count</strong> chamados</p>
+    </div>
+}

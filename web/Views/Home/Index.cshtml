@@ -1,5 +1,8 @@
-﻿@{
+﻿@using PIM.Web.Models
+@{
     ViewData["Title"] = "Dashboard";
+    var metricas = ViewData["Metricas"] as DashboardMetricasDto;
+    var chamadosRecentes = ViewData["ChamadosRecentes"] as List<ChamadoDto>;
 }
 
 <div class="row mb-4">
@@ -14,7 +17,7 @@
         <div class="card text-white bg-primary mb-3">
             <div class="card-body">
                 <h5 class="card-title">Chamados Abertos</h5>
-                <h2 class="display-4">--</h2>
+                <h2 class="display-4">@(metricas?.ChamadosAbertos ?? 0)</h2>
                 <p class="card-text">Aguardando atendimento</p>
             </div>
         </div>
@@ -24,7 +27,7 @@
         <div class="card text-white bg-warning mb-3">
             <div class="card-body">
                 <h5 class="card-title">Em Atendimento</h5>
-                <h2 class="display-4">--</h2>
+                <h2 class="display-4">@(metricas?.ChamadosEmAndamento ?? 0)</h2>
                 <p class="card-text">Sendo resolvidos</p>
             </div>
         </div>
@@ -34,8 +37,8 @@
         <div class="card text-white bg-success mb-3">
             <div class="card-body">
                 <h5 class="card-title">Resolvidos</h5>
-                <h2 class="display-4">--</h2>
-                <p class="card-text">Finalizados hoje</p>
+                <h2 class="display-4">@(metricas?.ChamadosResolvidos ?? 0)</h2>
+                <p class="card-text">Aguardando feedback</p>
             </div>
         </div>
     </div>
@@ -44,21 +47,121 @@
         <div class="card text-white bg-info mb-3">
             <div class="card-body">
                 <h5 class="card-title">Total</h5>
-                <h2 class="display-4">--</h2>
+                <h2 class="display-4">@(metricas?.TotalChamados ?? 0)</h2>
                 <p class="card-text">Todos os chamados</p>
             </div>
         </div>
     </div>
 </div>
 
+@if (metricas != null)
+{
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Técnicos Ativos</h6>
+                    <h3 class="text-primary">@metricas.TecnicosAtivos</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Chamados Fechados</h6>
+                    <h3 class="text-dark">@metricas.ChamadosFechados</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">Tempo Médio de Resolução</h6>
+                    <h3 class="text-success">
+                        @if (metricas.TempoMedioResolucaoHoras.HasValue)
+                        {
+                            <span>@metricas.TempoMedioResolucaoHoras.Value.ToString("F1")h</span>
+                        }
+                        else
+                        {
+                            <span>--</span>
+                        }
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <div class="row mt-4">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-                <h5>Chamados Recentes</h5>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Chamados Recentes</h5>
+                <a asp-controller="Chamados" asp-action="Index" class="btn btn-sm btn-primary">Ver Todos</a>
             </div>
             <div class="card-body">
-                <p class="text-muted text-center">Carregando dados da API...</p>
+                @if (chamadosRecentes != null && chamadosRecentes.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Título</th>
+                                    <th>Status</th>
+                                    <th>Prioridade</th>
+                                    <th>Data</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var chamado in chamadosRecentes)
+                                {
+                                    <tr>
+                                        <td><strong>#@chamado.Id</strong></td>
+                                        <td>@chamado.Titulo</td>
+                                        <td>
+                                            @{
+                                                var statusBadge = chamado.Status.Nome.ToLower() switch
+                                                {
+                                                    "aberto" => "bg-primary",
+                                                    "em atendimento" => "bg-warning text-dark",
+                                                    "resolvido" => "bg-success",
+                                                    "fechado" => "bg-dark",
+                                                    _ => "bg-secondary"
+                                                };
+                                            }
+                                            <span class="badge @statusBadge">@chamado.Status.Nome</span>
+                                        </td>
+                                        <td>
+                                            @{
+                                                var prioridadeBadge = chamado.Prioridade.Nivel.ToLower() switch
+                                                {
+                                                    "baixa" => "bg-success",
+                                                    "média" => "bg-warning",
+                                                    "alta" => "bg-danger",
+                                                    _ => "bg-secondary"
+                                                };
+                                            }
+                                            <span class="badge @prioridadeBadge">@chamado.Prioridade.Nivel</span>
+                                        </td>
+                                        <td>@chamado.DataAbertura.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            <a asp-controller="Chamados" asp-action="Detalhes" asp-route-id="@chamado.Id" class="btn btn-sm btn-outline-primary">
+                                                Ver
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted text-center">Nenhum chamado encontrado.</p>
+                }
             </div>
         </div>
     </div>

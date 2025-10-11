@@ -1,0 +1,368 @@
+@model PIM.Web.Models.ChamadoDetalhadoDto
+@{
+    ViewData["Title"] = $"Chamado #{Model.IdChamado}";
+    var perfilAcessoId = ViewData["PerfilAcessoId"] as int?;
+    var usuarioId = ViewData["UsuarioId"] as int?;
+    var isTecnico = perfilAcessoId != 3;
+    var isCriador = Model.UsuarioCriador.Id == usuarioId;
+    var podeAvaliar = isCriador && Model.Status.Nome.ToLower() == "resolvido" && Model.Feedback == null;
+}
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
+</div>
+
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Sucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row">
+    <!-- Coluna Principal -->
+    <div class="col-md-8">
+        <!-- Card Principal do Chamado -->
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Chamado #@Model.IdChamado</h4>
+                    @{
+                        var statusBadge = Model.Status.Nome.ToLower() switch
+                        {
+                            "aberto" => "bg-light text-dark",
+                            "em atendimento" => "bg-warning text-dark",
+                            "resolvido" => "bg-success",
+                            "fechado" => "bg-dark",
+                            _ => "bg-secondary"
+                        };
+                    }
+                    <span class="badge @statusBadge">@Model.Status.Nome</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Titulo</h5>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <small class="text-muted">Categoria:</small>
+                        <p><span class="badge bg-secondary">@Model.Categoria.Nome</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="text-muted">Prioridade:</small>
+                        <p>
+                            @{
+                                var prioridadeBadge = Model.Prioridade.Nivel.ToLower() switch
+                                {
+                                    "baixa" => "bg-success",
+                                    "média" => "bg-warning",
+                                    "alta" => "bg-danger",
+                                    _ => "bg-secondary"
+                                };
+                            }
+                            <span class="badge @prioridadeBadge">@Model.Prioridade.Nivel</span>
+                        </p>
+                    </div>
+                </div>
+
+                <hr />
+
+                <h6>Descrição do Problema</h6>
+                <p class="card-text">@Model.Descricao</p>
+
+                @if (!string.IsNullOrEmpty(Model.SolucaoFinal))
+                {
+                    <hr />
+                    <h6 class="text-success">Solução Final</h6>
+                    <p class="card-text">@Model.SolucaoFinal</p>
+                }
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <small class="text-muted">Aberto por:</small>
+                        <p><strong>@Model.UsuarioCriador.Nome</strong></p>
+                        @if (Model.UsuarioCriador.Setor != null)
+                        {
+                            <small class="text-muted">Setor: @Model.UsuarioCriador.Setor.Nome</small>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <small class="text-muted">Técnico Responsável:</small>
+                        <p>
+                            @if (Model.UsuarioTecnico != null)
+                            {
+                                <strong>@Model.UsuarioTecnico.Nome</strong>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Não atribuído</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <small class="text-muted">Data de Abertura:</small>
+                        <p>@Model.DataAbertura.ToString("dd/MM/yyyy HH:mm")</p>
+                    </div>
+                    @if (Model.DataFechamento.HasValue)
+                    {
+                        <div class="col-md-6">
+                            <small class="text-muted">Data de Fechamento:</small>
+                            <p>@Model.DataFechamento.Value.ToString("dd/MM/yyyy HH:mm")</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Histórico -->
+        @if (Model.Historicos.Count > 0)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Histórico de Alterações</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        @foreach (var historico in Model.Historicos.OrderByDescending(h => h.DataMudanca))
+                        {
+                            <div class="mb-3 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between">
+                                    <strong>@historico.Tecnico.Nome</strong>
+                                    <small class="text-muted">@historico.DataMudanca.ToString("dd/MM/yyyy HH:mm")</small>
+                                </div>
+                                <p class="mb-1">
+                                    Status alterado:
+                                    <span class="badge bg-secondary">@historico.StatusAnterior</span>
+                                    <i class="bi bi-arrow-right"></i>
+                                    <span class="badge bg-primary">@historico.StatusNovo</span>
+                                </p>
+                                @if (!string.IsNullOrEmpty(historico.Observacao))
+                                {
+                                    <p class="mb-0"><em>@historico.Observacao</em></p>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Sugestões de IA -->
+        @if (Model.Sugestoes.Count > 0)
+        {
+            <div class="card mb-3">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-robot"></i> Sugestões da IA</h5>
+                </div>
+                <div class="card-body">
+                    @foreach (var sugestao in Model.Sugestoes.OrderByDescending(s => s.DataSugestao))
+                    {
+                        <div class="mb-2">
+                            <small class="text-muted">@sugestao.DataSugestao.ToString("dd/MM/yyyy HH:mm")</small>
+                            <p>@sugestao.TextoSugestao</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Coluna Lateral - Ações -->
+    <div class="col-md-4">
+        <!-- Ações do Técnico -->
+        @if (isTecnico)
+        {
+            <div class="card mb-3">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0">Ações do Técnico</h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.UsuarioTecnico == null || Model.UsuarioTecnico.Id != usuarioId)
+                    {
+                        <form asp-action="Assumir" asp-route-id="@Model.IdChamado" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-warning w-100 mb-2">
+                                <i class="bi bi-person-check"></i> Assumir Chamado
+                            </button>
+                        </form>
+                    }
+
+                    @if (Model.UsuarioTecnico?.Id == usuarioId || perfilAcessoId == 1)
+                    {
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAlterarStatus">
+                            <i class="bi bi-arrow-repeat"></i> Alterar Status
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Feedback -->
+        @if (podeAvaliar)
+        {
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">Avaliar Atendimento</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small">Seu chamado foi resolvido! Por favor, avalie o atendimento.</p>
+                    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalFeedback">
+                        <i class="bi bi-star"></i> Enviar Avaliação
+                    </button>
+                </div>
+            </div>
+        }
+
+        @if (Model.Feedback != null)
+        {
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">Avaliação do Usuário</h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-1">
+                        <strong>Nota:</strong>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            @if (i <= Model.Feedback.Nota)
+                            {
+                                <i class="bi bi-star-fill text-warning"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-star text-muted"></i>
+                            }
+                        }
+                    </p>
+                    @if (!string.IsNullOrEmpty(Model.Feedback.Comentario))
+                    {
+                        <p class="mb-0"><em>"@Model.Feedback.Comentario"</em></p>
+                    }
+                    <small class="text-muted">@Model.Feedback.DataFeedback.ToString("dd/MM/yyyy")</small>
+                </div>
+            </div>
+        }
+
+        <!-- Anexos -->
+        @if (Model.Anexos.Count > 0)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0">Anexos</h6>
+                </div>
+                <div class="card-body">
+                    @foreach (var anexo in Model.Anexos)
+                    {
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>@anexo.NomeArquivo</span>
+                            <a href="@anexo.CaminhoArquivo" target="_blank" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-download"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal - Alterar Status -->
+@if (isTecnico)
+{
+    <div class="modal fade" id="modalAlterarStatus" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-action="AlterarStatus" asp-route-id="@Model.IdChamado" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <h5 class="modal-title">Alterar Status do Chamado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="idStatus" class="form-label">Novo Status</label>
+                            <select name="idStatus" id="idStatus" class="form-select" required>
+                                <option value="1" selected="@(Model.Status.Id == 1)">Aberto</option>
+                                <option value="2" selected="@(Model.Status.Id == 2)">Em Atendimento</option>
+                                <option value="3" selected="@(Model.Status.Id == 3)">Resolvido</option>
+                                <option value="4" selected="@(Model.Status.Id == 4)">Fechado</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observacao" class="form-label">Observação</label>
+                            <textarea name="observacao" id="observacao" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="solucaoFinal" class="form-label">Solução Final</label>
+                            <textarea name="solucaoFinal" id="solucaoFinal" class="form-control" rows="4"
+                                      placeholder="Descreva a solução aplicada...">@Model.SolucaoFinal</textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Modal - Feedback -->
+@if (podeAvaliar)
+{
+    <div class="modal fade" id="modalFeedback" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-action="EnviarFeedback" asp-route-id="@Model.IdChamado" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">Avaliar Atendimento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Como você avalia o atendimento recebido?</p>
+                        <div class="mb-3">
+                            <label for="nota" class="form-label">Nota (1 a 5 estrelas)</label>
+                            <select name="nota" id="nota" class="form-select" required>
+                                <option value="">Selecione...</option>
+                                <option value="1">⭐ 1 - Muito Insatisfeito</option>
+                                <option value="2">⭐⭐ 2 - Insatisfeito</option>
+                                <option value="3">⭐⭐⭐ 3 - Regular</option>
+                                <option value="4">⭐⭐⭐⭐ 4 - Satisfeito</option>
+                                <option value="5">⭐⭐⭐⭐⭐ 5 - Muito Satisfeito</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comentario" class="form-label">Comentário (opcional)</label>
+                            <textarea name="comentario" id="comentario" class="form-control" rows="4"
+                                      placeholder="Deixe seu comentário sobre o atendimento..." maxlength="500"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Enviar Avaliação</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
