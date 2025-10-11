@@ -21,23 +21,62 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         ViewData["UsuarioNome"] = HttpContext.Session.GetString("UsuarioNome");
+        var perfilAcessoId = HttpContext.Session.GetInt32("PerfilAcessoId");
+        var usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+        ViewData["PerfilAcessoId"] = perfilAcessoId;
 
         try
         {
-            // Buscar métricas do dashboard da API
-            var metricas = await _apiService.GetAsync<DashboardMetricasDto>("/api/dashboard/metricas");
-
-            // Buscar chamados recentes
-            var chamadosRecentes = await _apiService.GetAsync<List<ChamadoDto>>("/api/chamados");
-
-            if (metricas != null)
+            // Se for SOLICITANTE (perfil 3), dashboard personalizado
+            if (perfilAcessoId == 3)
             {
-                ViewData["Metricas"] = metricas;
+                // Buscar TODOS os chamados e filtrar localmente
+                var todosChamados = await _apiService.GetAsync<List<ChamadoDto>>("/api/chamados");
+
+                if (todosChamados != null && usuarioId.HasValue)
+                {
+                    _logger.LogInformation($"Total de chamados no sistema: {todosChamados.Count}");
+                    _logger.LogInformation($"Filtrando por usuário ID: {usuarioId.Value}");
+
+                    // Filtrar apenas chamados do usuário logado
+                    var meusChamados = todosChamados.Where(c => c.UsuarioCriador != null && c.UsuarioCriador.Id == usuarioId.Value).ToList();
+
+                    _logger.LogInformation($"Meus chamados encontrados: {meusChamados.Count}");
+
+                    // Calcular métricas locais (case-insensitive)
+                    var metricasLocal = new DashboardMetricasDto
+                    {
+                        TotalChamados = meusChamados.Count,
+                        ChamadosAbertos = meusChamados.Count(c => c.Status?.Nome?.Equals("Aberto", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosEmAndamento = meusChamados.Count(c => c.Status?.Nome?.Equals("Em Atendimento", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosResolvidos = meusChamados.Count(c => c.Status?.Nome?.Equals("Resolvido", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosFechados = meusChamados.Count(c => c.Status?.Nome?.Equals("Fechado", StringComparison.OrdinalIgnoreCase) == true),
+                        TecnicosAtivos = 0, // Não relevante para solicitante
+                        TempoMedioResolucaoHoras = null
+                    };
+
+                    _logger.LogInformation($"Métricas calculadas - Abertos: {metricasLocal.ChamadosAbertos}, Total: {metricasLocal.TotalChamados}");
+
+                    ViewData["Metricas"] = metricasLocal;
+                    ViewData["ChamadosRecentes"] = meusChamados.OrderByDescending(c => c.DataAbertura).Take(5).ToList();
+                }
             }
-
-            if (chamadosRecentes != null)
+            else
             {
-                ViewData["ChamadosRecentes"] = chamadosRecentes.Take(5).ToList();
+                // TÉCNICO/ADMIN: Dashboard completo com métricas gerais
+                var metricas = await _apiService.GetAsync<DashboardMetricasDto>("/api/dashboard/metricas");
+                var chamadosRecentes = await _apiService.GetAsync<List<ChamadoDto>>("/api/chamados");
+
+                if (metricas != null)
+                {
+                    ViewData["Metricas"] = metricas;
+                }
+
+                if (chamadosRecentes != null)
+                {
+                    ViewData["ChamadosRecentes"] = chamadosRecentes.OrderByDescending(c => c.DataAbertura).Take(5).ToList();
+                }
             }
 
             return View();

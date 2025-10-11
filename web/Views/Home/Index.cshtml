@@ -3,12 +3,23 @@
     ViewData["Title"] = "Dashboard";
     var metricas = ViewData["Metricas"] as DashboardMetricasDto;
     var chamadosRecentes = ViewData["ChamadosRecentes"] as List<ChamadoDto>;
+    var perfilAcessoId = ViewData["PerfilAcessoId"] as int?;
+    var isSolicitante = perfilAcessoId == 3;
 }
 
 <div class="row mb-4">
     <div class="col-12">
         <h2>Bem-vindo ao Sistema TechSolve, @ViewData["UsuarioNome"]!</h2>
-        <p class="text-muted">Central de Atendimento Acadêmico - UNIP</p>
+        <p class="text-muted">
+            @if (isSolicitante)
+            {
+                <span>Área do Solicitante - Acompanhe seus chamados</span>
+            }
+            else
+            {
+                <span>Central de Atendimento Acadêmico - UNIP</span>
+            }
+        </p>
     </div>
 </div>
 
@@ -16,7 +27,7 @@
     <div class="col-md-3">
         <div class="card text-white bg-primary mb-3">
             <div class="card-body">
-                <h5 class="card-title">Chamados Abertos</h5>
+                <h5 class="card-title">@(isSolicitante ? "Meus Chamados Abertos" : "Chamados Abertos")</h5>
                 <h2 class="display-4">@(metricas?.ChamadosAbertos ?? 0)</h2>
                 <p class="card-text">Aguardando atendimento</p>
             </div>
@@ -28,7 +39,7 @@
             <div class="card-body">
                 <h5 class="card-title">Em Atendimento</h5>
                 <h2 class="display-4">@(metricas?.ChamadosEmAndamento ?? 0)</h2>
-                <p class="card-text">Sendo resolvidos</p>
+                <p class="card-text">@(isSolicitante ? "Seus chamados em análise" : "Sendo resolvidos")</p>
             </div>
         </div>
     </div>
@@ -36,9 +47,9 @@
     <div class="col-md-3">
         <div class="card text-white bg-success mb-3">
             <div class="card-body">
-                <h5 class="card-title">Resolvidos</h5>
+                <h5 class="card-title">@(isSolicitante ? "Meus Resolvidos" : "Resolvidos")</h5>
                 <h2 class="display-4">@(metricas?.ChamadosResolvidos ?? 0)</h2>
-                <p class="card-text">Aguardando feedback</p>
+                <p class="card-text">@(isSolicitante ? "Aguardando seu feedback" : "Aguardando feedback")</p>
             </div>
         </div>
     </div>
@@ -48,13 +59,13 @@
             <div class="card-body">
                 <h5 class="card-title">Total</h5>
                 <h2 class="display-4">@(metricas?.TotalChamados ?? 0)</h2>
-                <p class="card-text">Todos os chamados</p>
+                <p class="card-text">@(isSolicitante ? "Todos os seus chamados" : "Todos os chamados")</p>
             </div>
         </div>
     </div>
 </div>
 
-@if (metricas != null)
+@if (metricas != null && !isSolicitante)
 {
     <div class="row mb-4">
         <div class="col-md-4">
@@ -97,8 +108,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Chamados Recentes</h5>
-                <a asp-controller="Chamados" asp-action="Index" class="btn btn-sm btn-primary">Ver Todos</a>
+                <h5 class="mb-0">@(isSolicitante ? "Meus Chamados Recentes" : "Chamados Recentes")</h5>
+                <a asp-controller="Chamados" asp-action="Index" class="btn btn-sm btn-primary">
+                    @(isSolicitante ? "Ver Meus Chamados" : "Ver Todos")
+                </a>
             </div>
             <div class="card-body">
                 @if (chamadosRecentes != null && chamadosRecentes.Any())
