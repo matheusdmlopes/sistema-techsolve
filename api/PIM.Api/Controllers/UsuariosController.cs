@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PIM.Api.Data;
 using PIM.Api.Entities;
 using PIM.Api.Utils;
+using System.Text.Json.Serialization;
 
 namespace PIM.Api.Controllers
 {
@@ -493,7 +494,10 @@ namespace PIM.Api.Controllers
 
     public class AlterarSenhaRequest
     {
+        [JsonPropertyName("senhaAtual")]
         public string SenhaAtual { get; set; } = string.Empty;
+
+        [JsonPropertyName("novaSenha")]
         public string NovaSenha { get; set; } = string.Empty;
     }
 }

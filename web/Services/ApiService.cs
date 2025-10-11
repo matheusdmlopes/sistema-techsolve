@@ -112,6 +112,12 @@ namespace PIM.Web.Services
                     var responseContent = await response.Content.ReadAsStringAsync();
                     return JsonSerializer.Deserialize<TResponse>(responseContent, _jsonOptions);
                 }
+                else
+                {
+                    // Log do erro da API
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Erro PUT {response.StatusCode}: {errorContent}");
+                }
 
                 return default;
             }
