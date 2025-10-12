@@ -29,13 +29,17 @@ namespace PIM.Api.Controllers
                 _logger.LogWarning("ATENÇÃO: Iniciando limpeza de todos os dados do banco!");
 
                 // Deletar na ordem correta respeitando as foreign keys
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Chamados");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Usuarios");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Feedback");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Anexo");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM SugestaoIA");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM HistoricoChamado");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Chamado");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Usuario");
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM StatusChamado");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Prioridades");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Categorias");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Setores");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM PerfisAcesso");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Prioridade");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Categoria");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Setor");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM PerfilAcesso");
 
                 _logger.LogInformation("Dados deletados com sucesso! Agora o DataSeeder pode repopular.");
 
