@@ -30,6 +30,9 @@ namespace PIM.Api.Controllers
                 _logger.LogWarning("ATENÇÃO: Iniciando limpeza de todos os dados do banco!");
 
                 // Deletar e resetar IDENTITY na ordem correta respeitando as foreign keys
+                // Tabela extra não mapeada no DbContext
+                await _context.Database.ExecuteSqlRawAsync("IF OBJECT_ID('TesteConexao', 'U') IS NOT NULL DROP TABLE TesteConexao");
+
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM Feedback");
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM Anexo");
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM SugestaoIA");
@@ -60,7 +63,8 @@ namespace PIM.Api.Controllers
                 return Ok(new
                 {
                     sucesso = true,
-                    mensagem = "Todos os dados foram deletados com sucesso! Reinicie a aplicação para o DataSeeder repopular."
+                    mensagem = "Todos os dados foram deletados e IDs resetados com sucesso!",
+                    proximoPasso = "IMPORTANTE: Reinicie a API no Azure agora para o DataSeeder popular os dados novos automaticamente."
                 });
             }
             catch (Exception ex)
