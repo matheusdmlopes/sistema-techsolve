@@ -65,44 +65,6 @@
     </div>
 </div>
 
-@if (metricas != null && !isSolicitante)
-{
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h6 class="text-muted">Técnicos Ativos</h6>
-                    <h3 class="text-primary">@metricas.TecnicosAtivos</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h6 class="text-muted">Chamados Fechados</h6>
-                    <h3 class="text-dark">@metricas.ChamadosFechados</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h6 class="text-muted">Tempo Médio de Resolução</h6>
-                    <h3 class="text-success">
-                        @if (metricas.TempoMedioResolucaoHoras.HasValue)
-                        {
-                            <span>@metricas.TempoMedioResolucaoHoras.Value.ToString("F1")h</span>
-                        }
-                        else
-                        {
-                            <span>--</span>
-                        }
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
-}
 
 <div class="row mt-4">
     <div class="col-md-12">

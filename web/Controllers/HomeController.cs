@@ -64,18 +64,29 @@ public class HomeController : Controller
             }
             else
             {
-                // TÉCNICO/ADMIN: Dashboard completo com métricas gerais
-                var metricas = await _apiService.GetAsync<DashboardMetricasDto>("/api/dashboard/metricas");
-                var chamadosRecentes = await _apiService.GetAsync<List<ChamadoDto>>("/api/chamados");
+                // TÉCNICO/ADMIN: Buscar todos os chamados e calcular métricas localmente
+                var todosChamados = await _apiService.GetAsync<List<ChamadoDto>>("/api/chamados");
 
-                if (metricas != null)
+                if (todosChamados != null)
                 {
-                    ViewData["Metricas"] = metricas;
-                }
+                    _logger.LogInformation($"Total de chamados no sistema: {todosChamados.Count}");
 
-                if (chamadosRecentes != null)
-                {
-                    ViewData["ChamadosRecentes"] = chamadosRecentes.OrderByDescending(c => c.DataAbertura).Take(5).ToList();
+                    // Calcular métricas (case-insensitive)
+                    var metricasLocal = new DashboardMetricasDto
+                    {
+                        TotalChamados = todosChamados.Count,
+                        ChamadosAbertos = todosChamados.Count(c => c.Status?.Nome?.Equals("Aberto", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosEmAndamento = todosChamados.Count(c => c.Status?.Nome?.Equals("Em Atendimento", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosResolvidos = todosChamados.Count(c => c.Status?.Nome?.Equals("Resolvido", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosFechados = todosChamados.Count(c => c.Status?.Nome?.Equals("Fechado", StringComparison.OrdinalIgnoreCase) == true),
+                        TecnicosAtivos = 0,
+                        TempoMedioResolucaoHoras = null
+                    };
+
+                    _logger.LogInformation($"Métricas calculadas - Abertos: {metricasLocal.ChamadosAbertos}, Total: {metricasLocal.TotalChamados}");
+
+                    ViewData["Metricas"] = metricasLocal;
+                    ViewData["ChamadosRecentes"] = todosChamados.OrderByDescending(c => c.DataAbertura).Take(5).ToList();
                 }
             }
 
