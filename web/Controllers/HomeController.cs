@@ -49,7 +49,11 @@ public class HomeController : Controller
                     {
                         TotalChamados = meusChamados.Count,
                         ChamadosAbertos = meusChamados.Count(c => c.Status?.Nome?.Equals("Aberto", StringComparison.OrdinalIgnoreCase) == true),
-                        ChamadosEmAndamento = meusChamados.Count(c => c.Status?.Nome?.Equals("Em Atendimento", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosEmAndamento = meusChamados.Count(c =>
+                            c.Status?.Nome?.Equals("Em Análise", StringComparison.OrdinalIgnoreCase) == true ||
+                            c.Status?.Nome?.Equals("Em Andamento", StringComparison.OrdinalIgnoreCase) == true ||
+                            c.Status?.Nome?.Equals("Aguardando Usuário", StringComparison.OrdinalIgnoreCase) == true ||
+                            c.Status?.Nome?.Equals("Aguardando Fornecedor", StringComparison.OrdinalIgnoreCase) == true),
                         ChamadosResolvidos = meusChamados.Count(c => c.Status?.Nome?.Equals("Resolvido", StringComparison.OrdinalIgnoreCase) == true),
                         ChamadosFechados = meusChamados.Count(c => c.Status?.Nome?.Equals("Fechado", StringComparison.OrdinalIgnoreCase) == true),
                         TecnicosAtivos = 0, // Não relevante para solicitante
@@ -76,7 +80,11 @@ public class HomeController : Controller
                     {
                         TotalChamados = todosChamados.Count,
                         ChamadosAbertos = todosChamados.Count(c => c.Status?.Nome?.Equals("Aberto", StringComparison.OrdinalIgnoreCase) == true),
-                        ChamadosEmAndamento = todosChamados.Count(c => c.Status?.Nome?.Equals("Em Atendimento", StringComparison.OrdinalIgnoreCase) == true),
+                        ChamadosEmAndamento = todosChamados.Count(c =>
+                            c.Status?.Nome?.Equals("Em Análise", StringComparison.OrdinalIgnoreCase) == true ||
+                            c.Status?.Nome?.Equals("Em Andamento", StringComparison.OrdinalIgnoreCase) == true ||
+                            c.Status?.Nome?.Equals("Aguardando Usuário", StringComparison.OrdinalIgnoreCase) == true ||
+                            c.Status?.Nome?.Equals("Aguardando Fornecedor", StringComparison.OrdinalIgnoreCase) == true),
                         ChamadosResolvidos = todosChamados.Count(c => c.Status?.Nome?.Equals("Resolvido", StringComparison.OrdinalIgnoreCase) == true),
                         ChamadosFechados = todosChamados.Count(c => c.Status?.Nome?.Equals("Fechado", StringComparison.OrdinalIgnoreCase) == true),
                         TecnicosAtivos = 0,

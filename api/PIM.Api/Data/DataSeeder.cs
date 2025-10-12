@@ -5,7 +5,7 @@ using PIM.Api.Utils;
 namespace PIM.Api.Data
 {
     /// <summary>
-    /// Classe para popular o banco com dados iniciais
+    /// Classe para popular o banco com dados iniciais conforme DOCsimplificado.md
     /// </summary>
     public static class DataSeeder
     {
@@ -16,9 +16,9 @@ namespace PIM.Api.Data
             {
                 var perfis = new[]
                 {
-                    new PerfilAcesso { NomePerfil = "Admin", Descricao = "Administrador do sistema" },
-                    new PerfilAcesso { NomePerfil = "Técnico", Descricao = "Técnico de suporte" },
-                    new PerfilAcesso { NomePerfil = "Usuário", Descricao = "Usuário solicitante" }
+                    new PerfilAcesso { NomePerfil = "Administrador", Descricao = "Acesso completo ao sistema, incluindo configurações e relatórios" },
+                    new PerfilAcesso { NomePerfil = "Técnico", Descricao = "Perfil para os profissionais que atendem aos chamados" },
+                    new PerfilAcesso { NomePerfil = "Usuário", Descricao = "Perfil básico para abertura e acompanhamento de chamados" }
                 };
                 context.PerfisAcesso.AddRange(perfis);
                 await context.SaveChangesAsync();
@@ -29,11 +29,11 @@ namespace PIM.Api.Data
             {
                 var setores = new[]
                 {
-                    new Setor { NomeSetor = "TI", Descricao = "Tecnologia da Informação" },
-                    new Setor { NomeSetor = "RH", Descricao = "Recursos Humanos" },
-                    new Setor { NomeSetor = "Financeiro", Descricao = "Setor Financeiro" },
-                    new Setor { NomeSetor = "Vendas", Descricao = "Setor de Vendas" },
-                    new Setor { NomeSetor = "Operações", Descricao = "Setor Operacional" }
+                    new Setor { NomeSetor = "TI", Descricao = "Setor responsável pela infraestrutura de TI e suporte técnico" },
+                    new Setor { NomeSetor = "RH", Descricao = "Setor responsável pela gestão de recursos humanos" },
+                    new Setor { NomeSetor = "Financeiro", Descricao = "Setor responsável pelas finanças e contabilidade" },
+                    new Setor { NomeSetor = "Comercial", Descricao = "Setor responsável pelas vendas e atendimento ao cliente" },
+                    new Setor { NomeSetor = "Administrativo", Descricao = "Setor responsável pela administração geral da empresa" }
                 };
                 context.Setores.AddRange(setores);
                 await context.SaveChangesAsync();
@@ -44,13 +44,13 @@ namespace PIM.Api.Data
             {
                 var categorias = new[]
                 {
-                    new Categoria { NomeCategoria = "Hardware", Descricao = "Problemas com equipamentos" },
-                    new Categoria { NomeCategoria = "Software", Descricao = "Problemas com aplicativos" },
-                    new Categoria { NomeCategoria = "Rede", Descricao = "Problemas de conectividade" },
-                    new Categoria { NomeCategoria = "Acesso", Descricao = "Problemas de login e permissões" },
-                    new Categoria { NomeCategoria = "Email", Descricao = "Problemas com email" },
-                    new Categoria { NomeCategoria = "Impressora", Descricao = "Problemas com impressoras" },
-                    new Categoria { NomeCategoria = "Outros", Descricao = "Outros tipos de problemas" }
+                    new Categoria { NomeCategoria = "Hardware", Descricao = "Problemas relacionados a equipamentos físicos" },
+                    new Categoria { NomeCategoria = "Software", Descricao = "Problemas relacionados a programas e sistemas" },
+                    new Categoria { NomeCategoria = "Rede", Descricao = "Problemas relacionados à conectividade e internet" },
+                    new Categoria { NomeCategoria = "Email", Descricao = "Problemas relacionados a contas e acesso a emails" },
+                    new Categoria { NomeCategoria = "Impressão", Descricao = "Problemas relacionados a impressoras e scanners" },
+                    new Categoria { NomeCategoria = "Segurança", Descricao = "Problemas relacionados a senhas e acessos" },
+                    new Categoria { NomeCategoria = "Outros", Descricao = "Problemas não categorizados nas opções anteriores" }
                 };
                 context.Categorias.AddRange(categorias);
                 await context.SaveChangesAsync();
@@ -61,52 +61,147 @@ namespace PIM.Api.Data
             {
                 var prioridades = new[]
                 {
-                    new Prioridade { NivelPrioridade = "Baixa", Descricao = "Sem urgência" },
-                    new Prioridade { NivelPrioridade = "Média", Descricao = "Urgência moderada" },
-                    new Prioridade { NivelPrioridade = "Alta", Descricao = "Urgente" },
-                    new Prioridade { NivelPrioridade = "Crítica", Descricao = "Extremamente urgente" }
+                    new Prioridade { NivelPrioridade = "Baixa", Descricao = "Problemas que não afetam diretamente o trabalho" },
+                    new Prioridade { NivelPrioridade = "Média", Descricao = "Problemas que dificultam, mas não impedem o trabalho" },
+                    new Prioridade { NivelPrioridade = "Alta", Descricao = "Problemas que impedem o trabalho individual" },
+                    new Prioridade { NivelPrioridade = "Crítica", Descricao = "Problemas que afetam múltiplos usuários ou sistemas críticos" }
                 };
                 context.Prioridades.AddRange(prioridades);
                 await context.SaveChangesAsync();
             }
 
-            // Seed Status
+            // Seed Status (conforme documentação - 8 status)
             if (!await context.StatusChamados.AnyAsync())
             {
                 var status = new[]
                 {
-                    new StatusChamado { NomeStatus = "Aberto", Descricao = "Chamado recém criado" },
-                    new StatusChamado { NomeStatus = "Em Atendimento", Descricao = "Chamado sendo atendido" },
-                    new StatusChamado { NomeStatus = "Aguardando Usuário", Descricao = "Aguardando resposta do usuário" },
-                    new StatusChamado { NomeStatus = "Aguardando Terceiros", Descricao = "Aguardando fornecedor externo" },
-                    new StatusChamado { NomeStatus = "Resolvido", Descricao = "Problema resolvido" },
-                    new StatusChamado { NomeStatus = "Fechado", Descricao = "Chamado encerrado" },
-                    new StatusChamado { NomeStatus = "Cancelado", Descricao = "Chamado cancelado" }
+                    new StatusChamado { NomeStatus = "Aberto", Descricao = "Chamado registrado, aguardando atribuição" },
+                    new StatusChamado { NomeStatus = "Em Análise", Descricao = "Chamado em análise pelo técnico" },
+                    new StatusChamado { NomeStatus = "Em Andamento", Descricao = "Chamado sendo atendido pelo técnico" },
+                    new StatusChamado { NomeStatus = "Aguardando Usuário", Descricao = "Aguardando retorno do usuário" },
+                    new StatusChamado { NomeStatus = "Aguardando Fornecedor", Descricao = "Aguardando resposta ou peça de fornecedor" },
+                    new StatusChamado { NomeStatus = "Resolvido", Descricao = "Solução implementada, aguardando confirmação" },
+                    new StatusChamado { NomeStatus = "Fechado", Descricao = "Chamado concluído e aprovado pelo usuário" },
+                    new StatusChamado { NomeStatus = "Cancelado", Descricao = "Chamado cancelado a pedido do usuário" }
                 };
                 context.StatusChamados.AddRange(status);
                 await context.SaveChangesAsync();
             }
 
-            // Seed Usuário Admin padrão
+            // Seed Usuários de exemplo (conforme documentação - 8 usuários)
             if (!await context.Usuarios.AnyAsync())
             {
-                var perfilAdmin = await context.PerfisAcesso.FirstAsync(p => p.NomePerfil == "Admin");
-                var setorTI = await context.Setores.FirstAsync(s => s.NomeSetor == "TI");
+                var perfilAdmin = await context.PerfisAcesso.FirstAsync(p => p.NomePerfil == "Administrador");
+                var perfilTecnico = await context.PerfisAcesso.FirstAsync(p => p.NomePerfil == "Técnico");
+                var perfilUsuario = await context.PerfisAcesso.FirstAsync(p => p.NomePerfil == "Usuário");
 
-                var admin = new Usuario
+                var setorTI = await context.Setores.FirstAsync(s => s.NomeSetor == "TI");
+                var setorRH = await context.Setores.FirstAsync(s => s.NomeSetor == "RH");
+                var setorFinanceiro = await context.Setores.FirstAsync(s => s.NomeSetor == "Financeiro");
+                var setorComercial = await context.Setores.FirstAsync(s => s.NomeSetor == "Comercial");
+                var setorAdministrativo = await context.Setores.FirstAsync(s => s.NomeSetor == "Administrativo");
+
+                var usuarios = new[]
                 {
-                    NomeCompleto = "Administrador do Sistema",
-                    Email = "admin@techsolve.com",
-                    Senha = PasswordHelper.HashPassword("admin123"), // Senha padrão
-                    Telefone = "(11) 99999-9999",
-                    IdSetor = setorTI.IdSetor,
-                    IdPerfil = perfilAdmin.IdPerfil,
-                    DataCadastro = DateTime.UtcNow,
-                    PrimeiroAcesso = false,
-                    Ativo = true
+                    new Usuario
+                    {
+                        NomeCompleto = "Admin Sistema",
+                        Email = "admin@empresa.com",
+                        Senha = PasswordHelper.HashPassword("admin123"),
+                        Telefone = "(11) 98765-4321",
+                        IdSetor = setorTI.IdSetor,
+                        IdPerfil = perfilAdmin.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = false,
+                        Ativo = true
+                    },
+                    new Usuario
+                    {
+                        NomeCompleto = "João Silva",
+                        Email = "joao.silva@empresa.com",
+                        Senha = PasswordHelper.HashPassword("senha123"),
+                        Telefone = "(11) 97654-3210",
+                        IdSetor = setorTI.IdSetor,
+                        IdPerfil = perfilTecnico.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = false,
+                        Ativo = true
+                    },
+                    new Usuario
+                    {
+                        NomeCompleto = "Maria Santos",
+                        Email = "maria.santos@empresa.com",
+                        Senha = PasswordHelper.HashPassword("senha123"),
+                        Telefone = "(11) 96543-2109",
+                        IdSetor = setorTI.IdSetor,
+                        IdPerfil = perfilTecnico.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = false,
+                        Ativo = true
+                    },
+                    new Usuario
+                    {
+                        NomeCompleto = "Carlos Oliveira",
+                        Email = "carlos.oliveira@empresa.com",
+                        Senha = PasswordHelper.HashPassword("senha123"),
+                        Telefone = "(11) 95432-1098",
+                        IdSetor = setorTI.IdSetor,
+                        IdPerfil = perfilAdmin.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = false,
+                        Ativo = true
+                    },
+                    new Usuario
+                    {
+                        NomeCompleto = "Ana Souza",
+                        Email = "ana.souza@empresa.com",
+                        Senha = PasswordHelper.HashPassword("senha123"),
+                        Telefone = "(11) 94321-0987",
+                        IdSetor = setorRH.IdSetor,
+                        IdPerfil = perfilUsuario.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = true,
+                        Ativo = true
+                    },
+                    new Usuario
+                    {
+                        NomeCompleto = "Pedro Costa",
+                        Email = "pedro.costa@empresa.com",
+                        Senha = PasswordHelper.HashPassword("senha123"),
+                        Telefone = "(11) 93210-9876",
+                        IdSetor = setorFinanceiro.IdSetor,
+                        IdPerfil = perfilUsuario.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = false,
+                        Ativo = true
+                    },
+                    new Usuario
+                    {
+                        NomeCompleto = "Lucia Ferreira",
+                        Email = "lucia.ferreira@empresa.com",
+                        Senha = PasswordHelper.HashPassword("senha123"),
+                        Telefone = "(11) 92109-8765",
+                        IdSetor = setorComercial.IdSetor,
+                        IdPerfil = perfilUsuario.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = false,
+                        Ativo = true
+                    },
+                    new Usuario
+                    {
+                        NomeCompleto = "Roberto Almeida",
+                        Email = "roberto.almeida@empresa.com",
+                        Senha = PasswordHelper.HashPassword("senha123"),
+                        Telefone = "(11) 91098-7654",
+                        IdSetor = setorAdministrativo.IdSetor,
+                        IdPerfil = perfilUsuario.IdPerfil,
+                        DataCadastro = DateTime.UtcNow,
+                        PrimeiroAcesso = false,
+                        Ativo = true
+                    }
                 };
 
-                context.Usuarios.Add(admin);
+                context.Usuarios.AddRange(usuarios);
                 await context.SaveChangesAsync();
             }
         }
