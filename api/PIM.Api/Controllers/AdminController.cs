@@ -29,20 +29,33 @@ namespace PIM.Api.Controllers
             {
                 _logger.LogWarning("ATENÇÃO: Iniciando limpeza de todos os dados do banco!");
 
-                // Deletar na ordem correta respeitando as foreign keys
+                // Deletar e resetar IDENTITY na ordem correta respeitando as foreign keys
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM Feedback");
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM Anexo");
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM SugestaoIA");
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM HistoricoChamado");
                 await _context.Database.ExecuteSqlRawAsync("DELETE FROM Chamado");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Usuario");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM StatusChamado");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Prioridade");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Categoria");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Setor");
-                await _context.Database.ExecuteSqlRawAsync("DELETE FROM PerfilAcesso");
+                await _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('Chamado', RESEED, 0)");
 
-                _logger.LogInformation("Dados deletados com sucesso! Agora o DataSeeder pode repopular.");
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Usuario");
+                await _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('Usuario', RESEED, 0)");
+
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM StatusChamado");
+                await _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('StatusChamado', RESEED, 0)");
+
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Prioridade");
+                await _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('Prioridade', RESEED, 0)");
+
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Categoria");
+                await _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('Categoria', RESEED, 0)");
+
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM Setor");
+                await _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('Setor', RESEED, 0)");
+
+                await _context.Database.ExecuteSqlRawAsync("DELETE FROM PerfilAcesso");
+                await _context.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('PerfilAcesso', RESEED, 0)");
+
+                _logger.LogInformation("Dados deletados e IDs resetados com sucesso! Agora o DataSeeder pode repopular.");
 
                 return Ok(new
                 {
