@@ -62,9 +62,13 @@ namespace PIM.Api.Controllers
                         id = usuario.IdUsuario,
                         nome = usuario.NomeCompleto,
                         email = usuario.Email,
+                        telefone = usuario.Telefone,
                         perfil = usuario.PerfilAcesso?.NomePerfil,
+                        idPerfil = usuario.IdPerfil,
+                        idSetor = usuario.IdSetor,
                         setor = usuario.Setor?.NomeSetor,
-                        primeiroAcesso = usuario.PrimeiroAcesso
+                        primeiroAcesso = usuario.PrimeiroAcesso,
+                        ativo = usuario.Ativo
                     }
                 });
             }

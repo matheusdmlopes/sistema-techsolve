@@ -66,7 +66,7 @@ namespace PIM.Web.Controllers
                     HttpContext.Session.SetString("UsuarioNome", response.Usuario.Nome);
                     HttpContext.Session.SetString("UsuarioEmail", response.Usuario.Email);
                     HttpContext.Session.SetInt32("UsuarioId", response.Usuario.Id);
-                    HttpContext.Session.SetInt32("PerfilAcessoId", response.Usuario.PerfilAcessoId);
+                    HttpContext.Session.SetInt32("PerfilAcessoId", response.Usuario.IdPerfil);
 
                     _logger.LogInformation($"Usuário {model.Email} autenticado com sucesso");
 

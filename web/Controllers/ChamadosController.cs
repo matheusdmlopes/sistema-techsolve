@@ -31,6 +31,8 @@ namespace PIM.Web.Controllers
                 var usuarioId = HttpContext.Session.GetInt32("UsuarioId");
                 var perfilAcessoId = HttpContext.Session.GetInt32("PerfilAcessoId");
 
+                _logger.LogInformation($"[ChamadosController.Index] UsuarioId: {usuarioId}, PerfilAcessoId: {perfilAcessoId}");
+
                 // Buscar chamados da API
                 var chamados = await _apiService.GetAsync<List<ChamadoDto>>("/api/chamados");
 
@@ -40,10 +42,22 @@ namespace PIM.Web.Controllers
                     return View(new List<ChamadoDto>());
                 }
 
+                _logger.LogInformation($"[ChamadosController.Index] Total de chamados recebidos da API: {chamados.Count}");
+
                 // Se for solicitante (perfil 3), mostrar apenas seus chamados
                 if (perfilAcessoId == 3)
                 {
-                    chamados = chamados.Where(c => c.UsuarioCriador.Id == usuarioId).ToList();
+                    _logger.LogInformation($"[ChamadosController.Index] Filtrando chamados para solicitante ID: {usuarioId}");
+
+                    // Debug: mostrar IDs dos criadores
+                    foreach (var c in chamados.Take(5))
+                    {
+                        _logger.LogInformation($"  Chamado #{c.Id} - Criador ID: {c.UsuarioCriador?.Id}, Nome: {c.UsuarioCriador?.Nome}");
+                    }
+
+                    chamados = chamados.Where(c => c.UsuarioCriador != null && c.UsuarioCriador.Id == usuarioId).ToList();
+
+                    _logger.LogInformation($"[ChamadosController.Index] Chamados após filtro: {chamados.Count}");
                 }
 
                 ViewData["PerfilAcessoId"] = perfilAcessoId;
