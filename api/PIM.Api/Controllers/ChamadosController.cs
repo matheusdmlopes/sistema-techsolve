@@ -35,34 +35,34 @@ namespace PIM.Api.Controllers
                     .Take(100)
                     .Select(c => new
                     {
-                        id = c.IdChamado,
+                        idChamado = c.IdChamado,
                         titulo = c.Titulo,
                         descricao = c.Descricao,
                         dataAbertura = c.DataAbertura,
                         dataFechamento = c.DataFechamento,
                         categoria = new
                         {
-                            id = c.Categoria.IdCategoria,
+                            idCategoria = c.Categoria.IdCategoria,
                             nome = c.Categoria.NomeCategoria
                         },
                         prioridade = new
                         {
-                            id = c.Prioridade.IdPrioridade,
+                            idPrioridade = c.Prioridade.IdPrioridade,
                             nivel = c.Prioridade.NivelPrioridade
                         },
                         status = new
                         {
-                            id = c.Status.IdStatus,
+                            idStatus = c.Status.IdStatus,
                             nome = c.Status.NomeStatus
                         },
                         usuarioCriador = new
                         {
-                            id = c.UsuarioCriador.IdUsuario,
+                            idUsuario = c.UsuarioCriador.IdUsuario,
                             nome = c.UsuarioCriador.NomeCompleto
                         },
                         usuarioTecnico = c.UsuarioTecnico != null ? new
                         {
-                            id = c.UsuarioTecnico.IdUsuario,
+                            idUsuario = c.UsuarioTecnico.IdUsuario,
                             nome = c.UsuarioTecnico.NomeCompleto
                         } : null
                     })
@@ -106,7 +106,7 @@ namespace PIM.Api.Controllers
 
                 return Ok(new
                 {
-                    id = chamado.IdChamado,
+                    idChamado = chamado.IdChamado,
                     titulo = chamado.Titulo,
                     descricao = chamado.Descricao,
                     dataAbertura = chamado.DataAbertura,
@@ -114,35 +114,36 @@ namespace PIM.Api.Controllers
                     solucaoFinal = chamado.SolucaoFinal,
                     categoria = new
                     {
-                        id = chamado.Categoria.IdCategoria,
+                        idCategoria = chamado.Categoria.IdCategoria,
                         nome = chamado.Categoria.NomeCategoria
                     },
                     prioridade = new
                     {
-                        id = chamado.Prioridade.IdPrioridade,
+                        idPrioridade = chamado.Prioridade.IdPrioridade,
                         nivel = chamado.Prioridade.NivelPrioridade
                     },
                     status = new
                     {
-                        id = chamado.Status.IdStatus,
+                        idStatus = chamado.Status.IdStatus,
                         nome = chamado.Status.NomeStatus
                     },
                     usuarioCriador = new
                     {
-                        id = chamado.UsuarioCriador.IdUsuario,
+                        idUsuario = chamado.UsuarioCriador.IdUsuario,
                         nome = chamado.UsuarioCriador.NomeCompleto,
                         email = chamado.UsuarioCriador.Email,
-                        setor = chamado.UsuarioCriador.Setor.NomeSetor
+                        setor = chamado.UsuarioCriador.Setor.NomeSetor,
+                        idSetor = chamado.UsuarioCriador.IdSetor
                     },
                     usuarioTecnico = chamado.UsuarioTecnico != null ? new
                     {
-                        id = chamado.UsuarioTecnico.IdUsuario,
+                        idUsuario = chamado.UsuarioTecnico.IdUsuario,
                         nome = chamado.UsuarioTecnico.NomeCompleto,
                         email = chamado.UsuarioTecnico.Email
                     } : null,
                     historico = chamado.Historicos.Select(h => new
                     {
-                        id = h.IdHistorico,
+                        idHistorico = h.IdHistorico,
                         statusAnterior = h.StatusAnterior,
                         statusAtual = h.StatusAtual,
                         dataHora = h.DataHoraAlteracao,
@@ -151,19 +152,20 @@ namespace PIM.Api.Controllers
                     }).OrderByDescending(h => h.dataHora),
                     anexos = chamado.Anexos.Select(a => new
                     {
-                        id = a.IdAnexo,
+                        idAnexo = a.IdAnexo,
                         nomeArquivo = a.NomeArquivo,
                         dataUpload = a.DataUpload
                     }),
                     sugestoesIA = chamado.Sugestoes.Select(s => new
                     {
-                        id = s.IdSugestao,
+                        idSugestao = s.IdSugestao,
                         texto = s.TextoSugestao,
                         dataGeracao = s.DataHoraGeracao,
                         foiAceita = s.FoiAceita
                     }),
                     feedback = chamado.Feedback != null ? new
                     {
+                        idFeedback = chamado.Feedback.IdFeedback,
                         nota = chamado.Feedback.Nota,
                         comentario = chamado.Feedback.Comentario,
                         dataHora = chamado.Feedback.DataHoraFeedback
@@ -241,7 +243,7 @@ namespace PIM.Api.Controllers
 
                 return CreatedAtAction(nameof(GetChamado), new { id = chamado.IdChamado }, new
                 {
-                    id = chamado.IdChamado,
+                    idChamado = chamado.IdChamado,
                     titulo = chamado.Titulo,
                     mensagem = "Chamado criado com sucesso"
                 });
@@ -347,14 +349,14 @@ namespace PIM.Api.Controllers
                     .OrderByDescending(h => h.DataHoraAlteracao)
                     .Select(h => new
                     {
-                        id = h.IdHistorico,
+                        idHistorico = h.IdHistorico,
                         statusAnterior = h.StatusAnterior,
                         statusAtual = h.StatusAtual,
                         dataHora = h.DataHoraAlteracao,
                         observacao = h.Observacao,
                         tecnico = h.Tecnico != null ? new
                         {
-                            id = h.Tecnico.IdUsuario,
+                            idUsuario = h.Tecnico.IdUsuario,
                             nome = h.Tecnico.NomeCompleto
                         } : null
                     })

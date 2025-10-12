@@ -52,10 +52,10 @@ namespace PIM.Web.Controllers
                     // Debug: mostrar IDs dos criadores
                     foreach (var c in chamados.Take(5))
                     {
-                        _logger.LogInformation($"  Chamado #{c.Id} - Criador ID: {c.UsuarioCriador?.Id}, Nome: {c.UsuarioCriador?.Nome}");
+                        _logger.LogInformation($"  Chamado #{c.IdChamado} - Criador ID: {c.UsuarioCriador?.IdUsuario}, Nome: {c.UsuarioCriador?.Nome}");
                     }
 
-                    chamados = chamados.Where(c => c.UsuarioCriador != null && c.UsuarioCriador.Id == usuarioId).ToList();
+                    chamados = chamados.Where(c => c.UsuarioCriador != null && c.UsuarioCriador.IdUsuario == usuarioId).ToList();
 
                     _logger.LogInformation($"[ChamadosController.Index] Chamados após filtro: {chamados.Count}");
                 }
@@ -130,7 +130,7 @@ namespace PIM.Web.Controllers
                 if (resultado != null)
                 {
                     TempData["Sucesso"] = "Chamado criado com sucesso!";
-                    return RedirectToAction("Detalhes", new { id = resultado.Id });
+                    return RedirectToAction("Detalhes", new { id = resultado.IdChamado });
                 }
                 else
                 {
@@ -170,7 +170,7 @@ namespace PIM.Web.Controllers
                 var perfilAcessoId = HttpContext.Session.GetInt32("PerfilAcessoId");
 
                 // Verificar se o usuário tem permissão para ver este chamado
-                if (perfilAcessoId == 3 && chamado.UsuarioCriador.Id != usuarioId)
+                if (perfilAcessoId == 3 && chamado.UsuarioCriador.IdUsuario != usuarioId)
                 {
                     TempData["Erro"] = "Você não tem permissão para visualizar este chamado";
                     return RedirectToAction("Index");

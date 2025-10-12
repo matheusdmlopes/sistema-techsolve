@@ -40,7 +40,7 @@ public class HomeController : Controller
                     _logger.LogInformation($"Filtrando por usuário ID: {usuarioId.Value}");
 
                     // Filtrar apenas chamados do usuário logado
-                    var meusChamados = todosChamados.Where(c => c.UsuarioCriador != null && c.UsuarioCriador.Id == usuarioId.Value).ToList();
+                    var meusChamados = todosChamados.Where(c => c.UsuarioCriador != null && c.UsuarioCriador.IdUsuario == usuarioId.Value).ToList();
 
                     _logger.LogInformation($"Meus chamados encontrados: {meusChamados.Count}");
 

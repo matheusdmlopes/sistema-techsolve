@@ -28,7 +28,7 @@ namespace PIM.Api.Controllers
                 var status = await _context.StatusChamados
                     .Select(s => new
                     {
-                        id = s.IdStatus,
+                        idStatus = s.IdStatus,
                         nome = s.NomeStatus,
                         descricao = s.Descricao
                     })
@@ -54,7 +54,7 @@ namespace PIM.Api.Controllers
                     .Where(s => s.IdStatus == id)
                     .Select(s => new
                     {
-                        id = s.IdStatus,
+                        idStatus = s.IdStatus,
                         nome = s.NomeStatus,
                         descricao = s.Descricao
                     })

@@ -5,7 +5,7 @@ namespace PIM.Web.Models
     /// </summary>
     public class ChamadoDto
     {
-        public int Id { get; set; }
+        public int IdChamado { get; set; }
         public string Titulo { get; set; } = string.Empty;
         public string Descricao { get; set; } = string.Empty;
         public DateTime DataAbertura { get; set; }
@@ -45,34 +45,34 @@ namespace PIM.Web.Models
 
     public class CategoriaDto
     {
-        public int Id { get; set; }
+        public int IdCategoria { get; set; }
         public string Nome { get; set; } = string.Empty;
         public string? Descricao { get; set; }
     }
 
     public class PrioridadeDto
     {
-        public int Id { get; set; }
+        public int IdPrioridade { get; set; }
         public string Nivel { get; set; } = string.Empty;
         public string? Descricao { get; set; }
     }
 
     public class StatusDto
     {
-        public int Id { get; set; }
+        public int IdStatus { get; set; }
         public string Nome { get; set; } = string.Empty;
         public string? Descricao { get; set; }
     }
 
     public class UsuarioSimplificadoDto
     {
-        public int Id { get; set; }
+        public int IdUsuario { get; set; }
         public string Nome { get; set; } = string.Empty;
     }
 
     public class UsuarioComSetorDto
     {
-        public int Id { get; set; }
+        public int IdUsuario { get; set; }
         public string Nome { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public SetorDto? Setor { get; set; }
@@ -80,13 +80,13 @@ namespace PIM.Web.Models
 
     public class SetorDto
     {
-        public int Id { get; set; }
+        public int IdSetor { get; set; }
         public string Nome { get; set; } = string.Empty;
     }
 
     public class HistoricoChamadoDto
     {
-        public int Id { get; set; }
+        public int IdHistorico { get; set; }
         public DateTime DataMudanca { get; set; }
         public string StatusAnterior { get; set; } = string.Empty;
         public string StatusNovo { get; set; } = string.Empty;
@@ -96,7 +96,7 @@ namespace PIM.Web.Models
 
     public class AnexoDto
     {
-        public int Id { get; set; }
+        public int IdAnexo { get; set; }
         public string NomeArquivo { get; set; } = string.Empty;
         public string CaminhoArquivo { get; set; } = string.Empty;
         public DateTime DataUpload { get; set; }
@@ -104,14 +104,14 @@ namespace PIM.Web.Models
 
     public class SugestaoIADto
     {
-        public int Id { get; set; }
+        public int IdSugestao { get; set; }
         public string TextoSugestao { get; set; } = string.Empty;
         public DateTime DataSugestao { get; set; }
     }
 
     public class FeedbackDto
     {
-        public int Id { get; set; }
+        public int IdFeedback { get; set; }
         public int Nota { get; set; }
         public string? Comentario { get; set; }
         public DateTime DataFeedback { get; set; }

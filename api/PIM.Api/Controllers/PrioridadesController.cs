@@ -28,7 +28,7 @@ namespace PIM.Api.Controllers
                 var prioridades = await _context.Prioridades
                     .Select(p => new
                     {
-                        id = p.IdPrioridade,
+                        idPrioridade = p.IdPrioridade,
                         nivel = p.NivelPrioridade,
                         descricao = p.Descricao
                     })
@@ -54,7 +54,7 @@ namespace PIM.Api.Controllers
                     .Where(p => p.IdPrioridade == id)
                     .Select(p => new
                     {
-                        id = p.IdPrioridade,
+                        idPrioridade = p.IdPrioridade,
                         nivel = p.NivelPrioridade,
                         descricao = p.Descricao
                     })

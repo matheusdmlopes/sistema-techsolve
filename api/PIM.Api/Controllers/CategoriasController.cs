@@ -28,7 +28,7 @@ namespace PIM.Api.Controllers
                 var categorias = await _context.Categorias
                     .Select(c => new
                     {
-                        id = c.IdCategoria,
+                        idCategoria = c.IdCategoria,
                         nome = c.NomeCategoria,
                         descricao = c.Descricao
                     })
@@ -54,7 +54,7 @@ namespace PIM.Api.Controllers
                     .Where(c => c.IdCategoria == id)
                     .Select(c => new
                     {
-                        id = c.IdCategoria,
+                        idCategoria = c.IdCategoria,
                         nome = c.NomeCategoria,
                         descricao = c.Descricao
                     })

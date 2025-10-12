@@ -59,7 +59,7 @@ namespace PIM.Api.Controllers
                     token = token,
                     usuario = new
                     {
-                        id = usuario.IdUsuario,
+                        idUsuario = usuario.IdUsuario,
                         nome = usuario.NomeCompleto,
                         email = usuario.Email,
                         telefone = usuario.Telefone,
@@ -128,12 +128,14 @@ namespace PIM.Api.Controllers
 
                 return Ok(new
                 {
-                    id = usuario.IdUsuario,
+                    idUsuario = usuario.IdUsuario,
                     nome = usuario.NomeCompleto,
                     email = usuario.Email,
                     telefone = usuario.Telefone,
                     perfil = usuario.PerfilAcesso?.NomePerfil,
+                    idPerfil = usuario.IdPerfil,
                     setor = usuario.Setor?.NomeSetor,
+                    idSetor = usuario.IdSetor,
                     primeiroAcesso = usuario.PrimeiroAcesso,
                     dataCadastro = usuario.DataCadastro,
                     ultimoLogin = usuario.UltimoLogin

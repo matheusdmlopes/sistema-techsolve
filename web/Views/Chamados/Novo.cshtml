@@ -45,7 +45,7 @@
                                 <option value="">Selecione uma categoria</option>
                                 @foreach (var categoria in Model.Categorias)
                                 {
-                                    <option value="@categoria.Id">@categoria.Nome</option>
+                                    <option value="@categoria.IdCategoria">@categoria.Nome</option>
                                 }
                             </select>
                             <span asp-validation-for="IdCategoria" class="text-danger"></span>
@@ -59,7 +59,7 @@
                                 <option value="">Selecione a prioridade</option>
                                 @foreach (var prioridade in Model.Prioridades)
                                 {
-                                    <option value="@prioridade.Id">@prioridade.Nivel</option>
+                                    <option value="@prioridade.IdPrioridade">@prioridade.Nivel</option>
                                 }
                             </select>
                             <span asp-validation-for="IdPrioridade" class="text-danger"></span>

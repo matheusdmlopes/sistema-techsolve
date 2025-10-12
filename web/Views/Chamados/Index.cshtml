@@ -73,7 +73,7 @@ else
                         @foreach (var chamado in Model)
                         {
                             <tr>
-                                <td><strong>#@chamado.Id</strong></td>
+                                <td><strong>#@chamado.IdChamado</strong></td>
                                 <td>@chamado.Titulo</td>
                                 <td>
                                     <span class="badge bg-secondary">@chamado.Categoria.Nome</span>
@@ -119,7 +119,7 @@ else
                                 }
                                 <td>@chamado.DataAbertura.ToString("dd/MM/yyyy HH:mm")</td>
                                 <td>
-                                    <a asp-action="Detalhes" asp-route-id="@chamado.Id" class="btn btn-sm btn-outline-primary">
+                                    <a asp-action="Detalhes" asp-route-id="@chamado.IdChamado" class="btn btn-sm btn-outline-primary">
                                         Ver Detalhes
                                     </a>
                                 </td>
