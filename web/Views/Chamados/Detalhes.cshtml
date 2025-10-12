@@ -4,7 +4,7 @@
     var perfilAcessoId = ViewData["PerfilAcessoId"] as int?;
     var usuarioId = ViewData["UsuarioId"] as int?;
     var isTecnico = perfilAcessoId != 3;
-    var isCriador = Model.UsuarioCriador.Id == usuarioId;
+    var isCriador = Model.UsuarioCriador.IdUsuario == usuarioId;
     var podeAvaliar = isCriador && Model.Status.Nome.ToLower() == "resolvido" && Model.Feedback == null;
 }
 
@@ -195,7 +195,7 @@
                     <h6 class="mb-0">Ações do Técnico</h6>
                 </div>
                 <div class="card-body">
-                    @if (Model.UsuarioTecnico == null || Model.UsuarioTecnico.Id != usuarioId)
+                    @if (Model.UsuarioTecnico == null || Model.UsuarioTecnico.IdUsuario != usuarioId)
                     {
                         <form asp-action="Assumir" asp-route-id="@Model.IdChamado" method="post">
                             @Html.AntiForgeryToken()
@@ -205,7 +205,7 @@
                         </form>
                     }
 
-                    @if (Model.UsuarioTecnico?.Id == usuarioId || perfilAcessoId == 1)
+                    @if (Model.UsuarioTecnico?.IdUsuario == usuarioId || perfilAcessoId == 1)
                     {
                         <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAlterarStatus">
                             <i class="bi bi-arrow-repeat"></i> Alterar Status
@@ -300,10 +300,10 @@
                         <div class="mb-3">
                             <label for="idStatus" class="form-label">Novo Status</label>
                             <select name="idStatus" id="idStatus" class="form-select" required>
-                                <option value="1" selected="@(Model.Status.Id == 1)">Aberto</option>
-                                <option value="2" selected="@(Model.Status.Id == 2)">Em Atendimento</option>
-                                <option value="3" selected="@(Model.Status.Id == 3)">Resolvido</option>
-                                <option value="4" selected="@(Model.Status.Id == 4)">Fechado</option>
+                                <option value="1" selected="@(Model.Status.IdStatus == 1)">Aberto</option>
+                                <option value="2" selected="@(Model.Status.IdStatus == 2)">Em Atendimento</option>
+                                <option value="3" selected="@(Model.Status.IdStatus == 3)">Resolvido</option>
+                                <option value="4" selected="@(Model.Status.IdStatus == 4)">Fechado</option>
                             </select>
                         </div>
                         <div class="mb-3">

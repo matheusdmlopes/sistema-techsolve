@@ -132,7 +132,7 @@
                                 @foreach (var chamado in chamadosRecentes)
                                 {
                                     <tr>
-                                        <td><strong>#@chamado.Id</strong></td>
+                                        <td><strong>#@chamado.IdChamado</strong></td>
                                         <td>@chamado.Titulo</td>
                                         <td>
                                             @{
@@ -161,7 +161,7 @@
                                         </td>
                                         <td>@chamado.DataAbertura.ToString("dd/MM/yyyy")</td>
                                         <td>
-                                            <a asp-controller="Chamados" asp-action="Detalhes" asp-route-id="@chamado.Id" class="btn btn-sm btn-outline-primary">
+                                            <a asp-controller="Chamados" asp-action="Detalhes" asp-route-id="@chamado.IdChamado" class="btn btn-sm btn-outline-primary">
                                                 Ver
                                             </a>
                                         </td>
