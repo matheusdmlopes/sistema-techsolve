@@ -19,7 +19,8 @@ namespace PIM.Api.Controllers
 
         /// <summary>
         /// ENDPOINT TEMPORÁRIO - Limpa todos os dados do banco para repopular com DataSeeder
-        /// REMOVER APÓS USO EM PRODUÇÃO!
+        /// SEM AUTENTICAÇÃO - Use e REMOVA imediatamente após uso!
+        /// Após chamar este endpoint, reinicie a API para o DataSeeder popular novamente.
         /// </summary>
         [HttpPost("reset-data")]
         public async Task<IActionResult> ResetData()
