@@ -1,0 +1,241 @@
+@model PIM.Web.Models.UsuarioDetalhadoDto
+@{
+    ViewData["Title"] = "Meu Perfil";
+    var perfilAcessoId = ViewData["PerfilAcessoId"] as int?;
+    var isSolicitante = perfilAcessoId == 3;
+}
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <h2><i class="bi bi-person-circle"></i> Meu Perfil</h2>
+        <p class="text-muted">Gerencie suas informações pessoais e configurações de conta</p>
+    </div>
+</div>
+
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle"></i> @TempData["Sucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> @TempData["Erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row">
+    <!-- Coluna Principal - Dados do Perfil -->
+    <div class="col-md-8">
+        <!-- Card de Informações Pessoais -->
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-person-badge"></i> Informações Pessoais</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Atualizar" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="nomeCompleto" class="form-label">Nome Completo</label>
+                        <input type="text" class="form-control" id="nomeCompleto" name="NomeCompleto"
+                               value="@Model.NomeCompleto" required maxlength="100">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="email" value="@Model.Email" disabled>
+                        <small class="form-text text-muted">O e-mail não pode ser alterado</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="tel" class="form-control" id="telefone" name="Telefone"
+                               value="@Model.Telefone" placeholder="(11) 99999-9999" maxlength="15">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Setor</label>
+                            <input type="text" class="form-control" value="@Model.Setor.Nome" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Perfil de Acesso</label>
+                            <input type="text" class="form-control" value="@Model.Perfil.Nome" disabled>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Card de Alterar Senha -->
+        <div class="card mb-3">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0"><i class="bi bi-key"></i> Alterar Senha</h5>
+            </div>
+            <div class="card-body">
+                @if (TempData["ErroSenha"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle"></i> @TempData["ErroSenha"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <form asp-action="AlterarSenha" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="senhaAtual" class="form-label">Senha Atual</label>
+                        <input type="password" class="form-control" id="senhaAtual" name="SenhaAtual" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="novaSenha" class="form-label">Nova Senha</label>
+                        <input type="password" class="form-control" id="novaSenha" name="NovaSenha"
+                               required minlength="6" maxlength="100">
+                        <small class="form-text text-muted">Mínimo 6 caracteres</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirmarSenha" class="form-label">Confirmar Nova Senha</label>
+                        <input type="password" class="form-control" id="confirmarSenha" name="ConfirmarSenha" required>
+                    </div>
+
+                    <hr />
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-shield-lock"></i> Alterar Senha
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coluna Lateral - Estatísticas e Informações -->
+    <div class="col-md-4">
+        <!-- Card de Estatísticas -->
+        <div class="card mb-3">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-graph-up"></i> Estatísticas</h5>
+            </div>
+            <div class="card-body">
+                @if (isSolicitante)
+                {
+                    <div class="mb-3">
+                        <h6 class="text-muted">Meus Chamados</h6>
+                        <h3 class="mb-0">@ViewData["TotalChamados"]</h3>
+                        <small class="text-muted">Total de chamados abertos</small>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>@ViewData["ChamadosAbertos"]</h6>
+                            <small class="text-muted">Abertos</small>
+                        </div>
+                        <div class="col-6">
+                            <h6>@ViewData["ChamadosResolvidos"]</h6>
+                            <small class="text-muted">Resolvidos</small>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="mb-3">
+                        <h6 class="text-muted">Chamados Atendidos</h6>
+                        <h3 class="mb-0">@ViewData["TotalChamadosAtendidos"]</h3>
+                        <small class="text-muted">Total de atendimentos</small>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>@ViewData["ChamadosEmAndamento"]</h6>
+                            <small class="text-muted">Em andamento</small>
+                        </div>
+                        <div class="col-6">
+                            <h6>@ViewData["ChamadosResolvidos"]</h6>
+                            <small class="text-muted">Concluídos</small>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Card de Informações da Conta -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-info-circle"></i> Informações da Conta</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-2">
+                    <strong>Cadastro:</strong><br />
+                    <small>@Model.DataCadastro.ToString("dd/MM/yyyy HH:mm")</small>
+                </p>
+                @if (Model.UltimoLogin.HasValue)
+                {
+                    <p class="mb-2">
+                        <strong>Último Login:</strong><br />
+                        <small>@Model.UltimoLogin.Value.ToString("dd/MM/yyyy HH:mm")</small>
+                    </p>
+                }
+                <p class="mb-0">
+                    <strong>Status:</strong><br />
+                    @if (Model.Ativo)
+                    {
+                        <span class="badge bg-success">Ativo</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Inativo</span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Validação client-side para confirmar senha
+        document.querySelector('form[action="/Perfil/AlterarSenha"]')?.addEventListener('submit', function(e) {
+            const novaSenha = document.getElementById('novaSenha').value;
+            const confirmarSenha = document.getElementById('confirmarSenha').value;
+
+            if (novaSenha !== confirmarSenha) {
+                e.preventDefault();
+                alert('As senhas não coincidem');
+            }
+        });
+
+        // Máscara para telefone (opcional)
+        const telefoneInput = document.getElementById('telefone');
+        telefoneInput?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length >= 11) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (value.length >= 7) {
+                value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+            } else if (value.length >= 3) {
+                value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+            }
+
+            e.target.value = value;
+        });
+    </script>
+}

@@ -429,6 +429,51 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
+        /// Atualiza dados pessoais do próprio usuário (nome e telefone)
+        /// </summary>
+        [HttpPut("{id}/perfil")]
+        public async Task<IActionResult> AtualizarPerfil(int id, [FromBody] AtualizarPerfilRequest request)
+        {
+            try
+            {
+                // Validar se o usuário está atualizando o próprio perfil
+                var userId = User.FindFirst("id")?.Value;
+                var userRole = User.FindFirst("role")?.Value;
+
+                if (userRole != "Admin" && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
+                {
+                    return StatusCode(403, new { erro = "Você só pode atualizar seu próprio perfil" });
+                }
+
+                var usuario = await _context.Usuarios.FindAsync(id);
+
+                if (usuario == null)
+                {
+                    return NotFound(new { erro = "Usuário não encontrado" });
+                }
+
+                // Atualizar apenas nome e telefone
+                if (!string.IsNullOrWhiteSpace(request.NomeCompleto))
+                {
+                    usuario.NomeCompleto = request.NomeCompleto;
+                }
+
+                if (request.Telefone != null) // permite limpar telefone
+                {
+                    usuario.Telefone = request.Telefone;
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new { mensagem = "Perfil atualizado com sucesso" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao atualizar perfil", detalhes = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Altera a senha do usuário (para primeiro acesso ou troca de senha)
         /// </summary>
         [HttpPut("{id}/alterar-senha")]
@@ -490,6 +535,15 @@ namespace PIM.Api.Controllers
         public int? IdSetor { get; set; }
         public int? IdPerfil { get; set; }
         public bool? PrimeiroAcesso { get; set; }
+    }
+
+    public class AtualizarPerfilRequest
+    {
+        [JsonPropertyName("nomeCompleto")]
+        public string? NomeCompleto { get; set; }
+
+        [JsonPropertyName("telefone")]
+        public string? Telefone { get; set; }
     }
 
     public class AlterarSenhaRequest
