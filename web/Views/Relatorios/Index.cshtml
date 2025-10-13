@@ -1,0 +1,328 @@
+@{
+    ViewData["Title"] = "Relatórios";
+}
+
+<div class="row mb-3">
+    <div class="col-md-8">
+        <h2><i class="bi bi-graph-up"></i> Relatórios e Métricas</h2>
+        <p class="text-muted">Análise de desempenho e estatísticas do sistema</p>
+    </div>
+    <div class="col-md-4">
+        <!-- Filtro de Período -->
+        <form method="get" asp-action="Index" class="row g-2">
+            <div class="col-5">
+                <input type="date" name="dataInicio" class="form-control form-control-sm"
+                       value="@ViewData["DataInicio"]" required>
+            </div>
+            <div class="col-5">
+                <input type="date" name="dataFim" class="form-control form-control-sm"
+                       value="@ViewData["DataFim"]" required>
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary btn-sm w-100">
+                    <i class="bi bi-filter"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> @TempData["Erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Cards de Métricas Gerais -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card border-primary">
+            <div class="card-body text-center">
+                <h3 class="text-primary mb-0">@ViewData["TotalChamados"]</h3>
+                <p class="text-muted small mb-0">Total de Chamados</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-warning">
+            <div class="card-body text-center">
+                <h3 class="text-warning mb-0">@ViewData["ChamadosAbertos"]</h3>
+                <p class="text-muted small mb-0">Chamados Abertos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-success">
+            <div class="card-body text-center">
+                <h3 class="text-success mb-0">@ViewData["ChamadosResolvidos"]</h3>
+                <p class="text-muted small mb-0">Chamados Resolvidos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-info">
+            <div class="card-body text-center">
+                <h3 class="text-info mb-0">@ViewData["TaxaResolucaoGeral"]%</h3>
+                <p class="text-muted small mb-0">Taxa de Resolução</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráficos -->
+<div class="row mb-4">
+    <!-- Gráfico: Chamados por Status -->
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-pie-chart"></i> Chamados por Status</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="chartStatus" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico: Chamados por Categoria -->
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Chamados por Categoria</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="chartCategoria" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <!-- Gráfico: Evolução Temporal -->
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-graph-up-arrow"></i> Evolução Temporal</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="chartEvolucao" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico: Chamados por Prioridade -->
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Chamados por Prioridade</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="chartPrioridade" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabela: Performance de Técnicos -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-people"></i> Performance de Técnicos</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Técnico</th>
+                                <th class="text-center">Total Atendidos</th>
+                                <th class="text-center">Resolvidos</th>
+                                <th class="text-center">Em Andamento</th>
+                                <th class="text-center">Taxa de Resolução</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var performanceTecnicos = ViewData["PerformanceTecnicos"] as IEnumerable<dynamic>;
+                                if (performanceTecnicos != null && performanceTecnicos.Any())
+                                {
+                                    foreach (var tecnico in performanceTecnicos)
+                                    {
+                                        <tr>
+                                            <td><strong>@tecnico.Tecnico</strong></td>
+                                            <td class="text-center">@tecnico.TotalAtendidos</td>
+                                            <td class="text-center">
+                                                <span class="badge bg-success">@tecnico.Resolvidos</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge bg-warning text-dark">@tecnico.EmAndamento</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <strong>@tecnico.TaxaResolucao%</strong>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">
+                                            Nenhum técnico com chamados no período selecionado
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script>
+        // Dados dos gráficos
+        const dadosStatus = @Html.Raw(ViewData["ChamadosPorStatus"]);
+        const dadosCategoria = @Html.Raw(ViewData["ChamadosPorCategoria"]);
+        const dadosPrioridade = @Html.Raw(ViewData["ChamadosPorPrioridade"]);
+        const dadosEvolucao = @Html.Raw(ViewData["EvolucaoTemporal"]);
+
+        // Configuração padrão
+        Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+
+        // Gráfico: Chamados por Status (Pizza)
+        new Chart(document.getElementById('chartStatus'), {
+            type: 'doughnut',
+            data: {
+                labels: dadosStatus.map(d => d.Status),
+                datasets: [{
+                    data: dadosStatus.map(d => d.Total),
+                    backgroundColor: [
+                        '#0d6efd', // Aberto (azul)
+                        '#0dcaf0', // Em Análise (azul claro)
+                        '#ffc107', // Em Andamento (amarelo)
+                        '#6c757d', // Aguardando (cinza)
+                        '#6c757d', // Aguardando Fornecedor (cinza)
+                        '#198754', // Resolvido (verde)
+                        '#212529', // Fechado (preto)
+                        '#dc3545'  // Cancelado (vermelho)
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Gráfico: Chamados por Categoria (Barras)
+        new Chart(document.getElementById('chartCategoria'), {
+            type: 'bar',
+            data: {
+                labels: dadosCategoria.map(d => d.Categoria),
+                datasets: [{
+                    label: 'Chamados',
+                    data: dadosCategoria.map(d => d.Total),
+                    backgroundColor: '#0d6efd'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico: Evolução Temporal (Linha)
+        new Chart(document.getElementById('chartEvolucao'), {
+            type: 'line',
+            data: {
+                labels: dadosEvolucao.map(d => d.Data),
+                datasets: [{
+                    label: 'Chamados Abertos',
+                    data: dadosEvolucao.map(d => d.Total),
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico: Chamados por Prioridade (Barras Horizontais)
+        new Chart(document.getElementById('chartPrioridade'), {
+            type: 'bar',
+            data: {
+                labels: dadosPrioridade.map(d => d.Prioridade),
+                datasets: [{
+                    label: 'Chamados',
+                    data: dadosPrioridade.map(d => d.Total),
+                    backgroundColor: [
+                        '#198754', // Baixa (verde)
+                        '#ffc107', // Média (amarelo)
+                        '#dc3545', // Alta (vermelho)
+                        '#dc3545'  // Crítica (vermelho)
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}
