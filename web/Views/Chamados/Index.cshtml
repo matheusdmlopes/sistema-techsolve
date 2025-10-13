@@ -95,9 +95,13 @@ else
                                         var statusBadge = chamado.Status.Nome.ToLower() switch
                                         {
                                             "aberto" => "bg-primary",
-                                            "em atendimento" => "bg-warning text-dark",
+                                            "em análise" => "bg-info text-dark",
+                                            "em andamento" => "bg-warning text-dark",
+                                            "aguardando usuário" => "bg-secondary",
+                                            "aguardando fornecedor" => "bg-secondary",
                                             "resolvido" => "bg-success",
                                             "fechado" => "bg-dark",
+                                            "cancelado" => "bg-danger",
                                             _ => "bg-secondary"
                                         };
                                     }

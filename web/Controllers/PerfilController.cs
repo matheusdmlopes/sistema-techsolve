@@ -69,7 +69,10 @@ namespace PIM.Web.Controllers
 
                             ViewData["TotalChamadosAtendidos"] = chamadosAtribuidos.Count;
                             ViewData["ChamadosEmAndamento"] = chamadosAtribuidos.Count(c =>
-                                c.Status?.Nome == "Em Atendimento" || c.Status?.Nome == "Em Análise");
+                                c.Status?.Nome == "Em Andamento" ||
+                                c.Status?.Nome == "Em Análise" ||
+                                c.Status?.Nome == "Aguardando Usuário" ||
+                                c.Status?.Nome == "Aguardando Fornecedor");
                             ViewData["ChamadosResolvidos"] = chamadosAtribuidos.Count(c =>
                                 c.Status?.Nome == "Resolvido" || c.Status?.Nome == "Fechado");
                         }

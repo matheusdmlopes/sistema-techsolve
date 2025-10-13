@@ -1,0 +1,270 @@
+@model List<PIM.Web.Models.ChamadoDto>
+@{
+    ViewData["Title"] = "Gerenciar Chamados";
+    var categorias = ViewData["Categorias"] as List<PIM.Web.Models.CategoriaDto> ?? new();
+    var prioridades = ViewData["Prioridades"] as List<PIM.Web.Models.PrioridadeDto> ?? new();
+    var statusList = ViewData["StatusList"] as List<PIM.Web.Models.StatusDto> ?? new();
+    var usuarioId = ViewData["UsuarioId"] as int?;
+}
+
+<div class="row mb-3">
+    <div class="col-md-8">
+        <h2><i class="bi bi-kanban"></i> Gerenciar Chamados</h2>
+        <p class="text-muted">Central de gerenciamento para técnicos</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-list-ul"></i> Visão Simples
+        </a>
+    </div>
+</div>
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> @TempData["Erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle"></i> @TempData["Sucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Estatísticas Rápidas -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card border-primary">
+            <div class="card-body text-center">
+                <h3 class="text-primary">@ViewData["TotalChamados"]</h3>
+                <p class="mb-0 text-muted">Total de Chamados</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-warning">
+            <div class="card-body text-center">
+                <h3 class="text-warning">@ViewData["ChamadosNaoAtribuidos"]</h3>
+                <p class="mb-0 text-muted">Não Atribuídos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-info">
+            <div class="card-body text-center">
+                <h3 class="text-info">@ViewData["MeusChamados"]</h3>
+                <p class="mb-0 text-muted">Meus Chamados</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-danger">
+            <div class="card-body text-center">
+                <h3 class="text-danger">@ViewData["ChamadosCriticos"]</h3>
+                <p class="mb-0 text-muted">Críticos/Urgentes</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0"><i class="bi bi-funnel"></i> Filtros</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" asp-action="Gerenciar" id="formFiltros">
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select form-select-sm" onchange="document.getElementById('formFiltros').submit()">
+                        <option value="">Todos</option>
+                        @foreach (var s in statusList)
+                        {
+                            <option value="@s.IdStatus" selected="@(ViewData["FiltroStatus"]?.ToString() == s.IdStatus.ToString())">
+                                @s.Nome
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Categoria</label>
+                    <select name="categoria" class="form-select form-select-sm" onchange="document.getElementById('formFiltros').submit()">
+                        <option value="">Todas</option>
+                        @foreach (var c in categorias)
+                        {
+                            <option value="@c.IdCategoria" selected="@(ViewData["FiltroCategoria"]?.ToString() == c.IdCategoria.ToString())">
+                                @c.Nome
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Prioridade</label>
+                    <select name="prioridade" class="form-select form-select-sm" onchange="document.getElementById('formFiltros').submit()">
+                        <option value="">Todas</option>
+                        @foreach (var p in prioridades)
+                        {
+                            <option value="@p.IdPrioridade" selected="@(ViewData["FiltroPrioridade"]?.ToString() == p.IdPrioridade.ToString())">
+                                @p.Nivel
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Técnico</label>
+                    <select name="tecnico" class="form-select form-select-sm" onchange="document.getElementById('formFiltros').submit()">
+                        <option value="">Todos</option>
+                        <option value="-1" selected="@(ViewData["FiltroTecnico"]?.ToString() == "-1")">Não atribuídos</option>
+                        <option value="@usuarioId" selected="@(ViewData["FiltroTecnico"]?.ToString() == usuarioId.ToString())">Meus chamados</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Buscar</label>
+                    <input type="text" name="busca" class="form-control form-control-sm"
+                           placeholder="Título, descrição ou ID..."
+                           value="@ViewData["FiltroBusca"]">
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <a asp-action="Gerenciar" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-x-circle"></i> Limpar Filtros
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Lista de Chamados em Cards -->
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Nenhum chamado encontrado com os filtros aplicados.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var chamado in Model)
+        {
+            var statusBadge = chamado.Status.Nome.ToLower() switch
+            {
+                "aberto" => "bg-primary",
+                "em análise" => "bg-info text-dark",
+                "em andamento" => "bg-warning text-dark",
+                "aguardando usuário" => "bg-secondary",
+                "aguardando fornecedor" => "bg-secondary",
+                "resolvido" => "bg-success",
+                "fechado" => "bg-dark",
+                "cancelado" => "bg-danger",
+                _ => "bg-secondary"
+            };
+
+            var prioridadeBadge = chamado.Prioridade.Nivel.ToLower() switch
+            {
+                "baixa" => "bg-success",
+                "média" => "bg-warning",
+                "alta" => "bg-danger",
+                "crítica" => "bg-danger",
+                _ => "bg-secondary"
+            };
+
+            var prioridadeBorder = chamado.Prioridade.Nivel.ToLower() switch
+            {
+                "alta" => "border-danger",
+                "crítica" => "border-danger",
+                _ => ""
+            };
+
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card h-100 @prioridadeBorder">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <strong>#@chamado.IdChamado</strong>
+                        <span class="badge @statusBadge">@chamado.Status.Nome</span>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">@chamado.Titulo</h6>
+                        <p class="card-text text-muted small">
+                            @(chamado.Descricao.Length > 80 ? chamado.Descricao.Substring(0, 80) + "..." : chamado.Descricao)
+                        </p>
+
+                        <div class="mb-2">
+                            <span class="badge bg-secondary me-1">@chamado.Categoria.Nome</span>
+                            <span class="badge @prioridadeBadge">@chamado.Prioridade.Nivel</span>
+                        </div>
+
+                        <hr class="my-2" />
+
+                        <div class="small">
+                            <p class="mb-1">
+                                <i class="bi bi-person"></i> <strong>Solicitante:</strong><br />
+                                @chamado.UsuarioCriador.Nome
+                            </p>
+                            <p class="mb-1">
+                                <i class="bi bi-wrench"></i> <strong>Técnico:</strong><br />
+                                @if (chamado.UsuarioTecnico != null)
+                                {
+                                    <span>@chamado.UsuarioTecnico.Nome</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Não atribuído</span>
+                                }
+                            </p>
+                            <p class="mb-0">
+                                <i class="bi bi-calendar"></i> @chamado.DataAbertura.ToString("dd/MM/yyyy HH:mm")
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="d-grid gap-2">
+                            <a asp-action="Detalhes" asp-route-id="@chamado.IdChamado" class="btn btn-sm btn-primary">
+                                <i class="bi bi-eye"></i> Ver Detalhes
+                            </a>
+                            @if (chamado.UsuarioTecnico == null)
+                            {
+                                <form asp-action="Assumir" asp-route-id="@chamado.IdChamado" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-success w-100">
+                                        <i class="bi bi-hand-thumbs-up"></i> Assumir
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-3">
+        <p class="text-muted">
+            Mostrando <strong>@Model.Count</strong> chamado(s)
+        </p>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        // Auto-submit ao mudar filtros (já implementado inline nos selects)
+        // Adicionar feedback visual ao assumir chamado
+        document.querySelectorAll('form[action*="Assumir"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const btn = this.querySelector('button[type="submit"]');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Assumindo...';
+            });
+        });
+    </script>
+}

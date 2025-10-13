@@ -21,6 +21,107 @@ namespace PIM.Web.Controllers
         }
 
         /// <summary>
+        /// Página de gerenciamento de chamados (Técnicos/Admin)
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Gerenciar(int? status, int? categoria, int? prioridade, int? tecnico, string? busca)
+        {
+            try
+            {
+                var perfilAcessoId = HttpContext.Session.GetInt32("PerfilAcessoId");
+                var usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+                // Apenas técnicos e admins podem acessar
+                if (perfilAcessoId == 3)
+                {
+                    TempData["Erro"] = "Acesso negado. Área restrita para técnicos.";
+                    return RedirectToAction("Index");
+                }
+
+                // Buscar todos os chamados
+                var chamados = await _apiService.GetAsync<List<ChamadoDto>>("/api/chamados");
+
+                if (chamados == null)
+                {
+                    chamados = new List<ChamadoDto>();
+                }
+
+                // Aplicar filtros
+                if (status.HasValue && status.Value > 0)
+                {
+                    chamados = chamados.Where(c => c.Status?.IdStatus == status.Value).ToList();
+                }
+
+                if (categoria.HasValue && categoria.Value > 0)
+                {
+                    chamados = chamados.Where(c => c.Categoria?.IdCategoria == categoria.Value).ToList();
+                }
+
+                if (prioridade.HasValue && prioridade.Value > 0)
+                {
+                    chamados = chamados.Where(c => c.Prioridade?.IdPrioridade == prioridade.Value).ToList();
+                }
+
+                if (tecnico.HasValue && tecnico.Value > 0)
+                {
+                    if (tecnico.Value == -1) // Não atribuídos
+                    {
+                        chamados = chamados.Where(c => c.UsuarioTecnico == null).ToList();
+                    }
+                    else
+                    {
+                        chamados = chamados.Where(c => c.UsuarioTecnico?.IdUsuario == tecnico.Value).ToList();
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(busca))
+                {
+                    busca = busca.ToLower();
+                    chamados = chamados.Where(c =>
+                        c.Titulo.ToLower().Contains(busca) ||
+                        c.Descricao.ToLower().Contains(busca) ||
+                        c.IdChamado.ToString().Contains(busca)
+                    ).ToList();
+                }
+
+                // Buscar listas para os filtros
+                var categorias = await _apiService.GetAsync<List<CategoriaDto>>("/api/categorias") ?? new();
+                var prioridades = await _apiService.GetAsync<List<PrioridadeDto>>("/api/prioridades") ?? new();
+                var statusList = await _apiService.GetAsync<List<StatusDto>>("/api/status") ?? new();
+
+                // Estatísticas rápidas
+                ViewData["TotalChamados"] = chamados.Count;
+                ViewData["ChamadosNaoAtribuidos"] = chamados.Count(c => c.UsuarioTecnico == null);
+                ViewData["MeusChamados"] = chamados.Count(c => c.UsuarioTecnico?.IdUsuario == usuarioId);
+                ViewData["ChamadosCriticos"] = chamados.Count(c =>
+                    c.Prioridade?.Nivel?.ToLower() == "alta" ||
+                    c.Prioridade?.Nivel?.ToLower() == "crítica");
+
+                // Passar dados para a view
+                ViewData["Categorias"] = categorias;
+                ViewData["Prioridades"] = prioridades;
+                ViewData["StatusList"] = statusList;
+                ViewData["PerfilAcessoId"] = perfilAcessoId;
+                ViewData["UsuarioId"] = usuarioId;
+
+                // Filtros atuais
+                ViewData["FiltroStatus"] = status;
+                ViewData["FiltroCategoria"] = categoria;
+                ViewData["FiltroPrioridade"] = prioridade;
+                ViewData["FiltroTecnico"] = tecnico;
+                ViewData["FiltroBusca"] = busca;
+
+                return View(chamados.OrderByDescending(c => c.DataAbertura).ToList());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao carregar página de gerenciamento: {ex.Message}");
+                TempData["Erro"] = "Erro ao carregar chamados";
+                return RedirectToAction("Index");
+            }
+        }
+
+        /// <summary>
         /// Lista chamados do usuário logado ou todos (se técnico)
         /// </summary>
         [HttpGet]
