@@ -88,7 +88,7 @@ namespace PIM.Web.Models
     {
         public int IdHistorico { get; set; }
         public DateTime DataMudanca { get; set; }
-        public string StatusAnterior { get; set; } = string.Empty;
+        public string? StatusAnterior { get; set; }
         public string StatusNovo { get; set; } = string.Empty;
         public string? Observacao { get; set; }
         public UsuarioSimplificadoDto Tecnico { get; set; } = new();
@@ -107,6 +107,7 @@ namespace PIM.Web.Models
         public int IdSugestao { get; set; }
         public string TextoSugestao { get; set; } = string.Empty;
         public DateTime DataSugestao { get; set; }
+        public bool FoiAceita { get; set; }
     }
 
     public class FeedbackDto

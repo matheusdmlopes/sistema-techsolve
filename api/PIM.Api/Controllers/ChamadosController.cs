@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using PIM.Api.Data;
 using PIM.Api.Entities;
+using PIM.Api.DTOs.Requests;
+using PIM.Api.DTOs.Responses;
 
 namespace PIM.Api.Controllers
 {
@@ -12,17 +14,19 @@ namespace PIM.Api.Controllers
     public class ChamadosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<ChamadosController> _logger;
 
-        public ChamadosController(ApplicationDbContext context)
+        public ChamadosController(ApplicationDbContext context, ILogger<ChamadosController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         /// <summary>
         /// Lista todos os chamados (máximo 100)
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> GetChamados()
+        public async Task<ActionResult<List<ChamadoDto>>> GetChamados()
         {
             try
             {
@@ -33,46 +37,52 @@ namespace PIM.Api.Controllers
                     .Include(c => c.Prioridade)
                     .Include(c => c.Status)
                     .Take(100)
-                    .Select(c => new
-                    {
-                        idChamado = c.IdChamado,
-                        titulo = c.Titulo,
-                        descricao = c.Descricao,
-                        dataAbertura = c.DataAbertura,
-                        dataFechamento = c.DataFechamento,
-                        categoria = new
-                        {
-                            idCategoria = c.Categoria.IdCategoria,
-                            nome = c.Categoria.NomeCategoria
-                        },
-                        prioridade = new
-                        {
-                            idPrioridade = c.Prioridade.IdPrioridade,
-                            nivel = c.Prioridade.NivelPrioridade
-                        },
-                        status = new
-                        {
-                            idStatus = c.Status.IdStatus,
-                            nome = c.Status.NomeStatus
-                        },
-                        usuarioCriador = new
-                        {
-                            idUsuario = c.UsuarioCriador.IdUsuario,
-                            nome = c.UsuarioCriador.NomeCompleto
-                        },
-                        usuarioTecnico = c.UsuarioTecnico != null ? new
-                        {
-                            idUsuario = c.UsuarioTecnico.IdUsuario,
-                            nome = c.UsuarioTecnico.NomeCompleto
-                        } : null
-                    })
-                    .OrderByDescending(c => c.dataAbertura)
+                    .OrderByDescending(c => c.DataAbertura)
                     .ToListAsync();
 
-                return Ok(chamados);
+                var chamadosDto = chamados.Select(c => new ChamadoDto
+                {
+                    IdChamado = c.IdChamado,
+                    Titulo = c.Titulo,
+                    Descricao = c.Descricao,
+                    DataAbertura = c.DataAbertura,
+                    DataFechamento = c.DataFechamento,
+                    SolucaoFinal = c.SolucaoFinal,
+                    Categoria = new CategoriaDto
+                    {
+                        IdCategoria = c.Categoria.IdCategoria,
+                        Nome = c.Categoria.NomeCategoria,
+                        Descricao = c.Categoria.Descricao
+                    },
+                    Prioridade = new PrioridadeDto
+                    {
+                        IdPrioridade = c.Prioridade.IdPrioridade,
+                        Nivel = c.Prioridade.NivelPrioridade,
+                        Descricao = c.Prioridade.Descricao
+                    },
+                    Status = new StatusDto
+                    {
+                        IdStatus = c.Status.IdStatus,
+                        Nome = c.Status.NomeStatus,
+                        Descricao = c.Status.Descricao
+                    },
+                    UsuarioCriador = new UsuarioSimplificadoDto
+                    {
+                        IdUsuario = c.UsuarioCriador.IdUsuario,
+                        Nome = c.UsuarioCriador.NomeCompleto
+                    },
+                    UsuarioTecnico = c.UsuarioTecnico != null ? new UsuarioSimplificadoDto
+                    {
+                        IdUsuario = c.UsuarioTecnico.IdUsuario,
+                        Nome = c.UsuarioTecnico.NomeCompleto
+                    } : null
+                }).ToList();
+
+                return Ok(chamadosDto);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao buscar chamados");
                 return StatusCode(500, new { erro = "Erro ao buscar chamados", detalhes = ex.Message });
             }
         }
@@ -81,7 +91,7 @@ namespace PIM.Api.Controllers
         /// Obtém um chamado por ID com todos os relacionamentos
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetChamado(int id)
+        public async Task<ActionResult<ChamadoDetalhadoDto>> GetChamado(int id)
         {
             try
             {
@@ -104,76 +114,89 @@ namespace PIM.Api.Controllers
                     return NotFound(new { erro = "Chamado não encontrado" });
                 }
 
-                return Ok(new
+                var chamadoDto = new ChamadoDetalhadoDto
                 {
-                    idChamado = chamado.IdChamado,
-                    titulo = chamado.Titulo,
-                    descricao = chamado.Descricao,
-                    dataAbertura = chamado.DataAbertura,
-                    dataFechamento = chamado.DataFechamento,
-                    solucaoFinal = chamado.SolucaoFinal,
-                    categoria = new
+                    IdChamado = chamado.IdChamado,
+                    Titulo = chamado.Titulo,
+                    Descricao = chamado.Descricao,
+                    DataAbertura = chamado.DataAbertura,
+                    DataFechamento = chamado.DataFechamento,
+                    SolucaoFinal = chamado.SolucaoFinal,
+                    Categoria = new CategoriaDto
                     {
-                        idCategoria = chamado.Categoria.IdCategoria,
-                        nome = chamado.Categoria.NomeCategoria
+                        IdCategoria = chamado.Categoria.IdCategoria,
+                        Nome = chamado.Categoria.NomeCategoria,
+                        Descricao = chamado.Categoria.Descricao
                     },
-                    prioridade = new
+                    Prioridade = new PrioridadeDto
                     {
-                        idPrioridade = chamado.Prioridade.IdPrioridade,
-                        nivel = chamado.Prioridade.NivelPrioridade
+                        IdPrioridade = chamado.Prioridade.IdPrioridade,
+                        Nivel = chamado.Prioridade.NivelPrioridade,
+                        Descricao = chamado.Prioridade.Descricao
                     },
-                    status = new
+                    Status = new StatusDto
                     {
-                        idStatus = chamado.Status.IdStatus,
-                        nome = chamado.Status.NomeStatus
+                        IdStatus = chamado.Status.IdStatus,
+                        Nome = chamado.Status.NomeStatus,
+                        Descricao = chamado.Status.Descricao
                     },
-                    usuarioCriador = new
+                    UsuarioCriador = new UsuarioComSetorDto
                     {
-                        idUsuario = chamado.UsuarioCriador.IdUsuario,
-                        nome = chamado.UsuarioCriador.NomeCompleto,
-                        email = chamado.UsuarioCriador.Email,
-                        setor = chamado.UsuarioCriador.Setor.NomeSetor,
-                        idSetor = chamado.UsuarioCriador.IdSetor
+                        IdUsuario = chamado.UsuarioCriador.IdUsuario,
+                        Nome = chamado.UsuarioCriador.NomeCompleto,
+                        Email = chamado.UsuarioCriador.Email,
+                        Setor = chamado.UsuarioCriador.Setor != null ? new SetorDto
+                        {
+                            IdSetor = chamado.UsuarioCriador.Setor.IdSetor,
+                            Nome = chamado.UsuarioCriador.Setor.NomeSetor
+                        } : null
                     },
-                    usuarioTecnico = chamado.UsuarioTecnico != null ? new
+                    UsuarioTecnico = chamado.UsuarioTecnico != null ? new UsuarioSimplificadoDto
                     {
-                        idUsuario = chamado.UsuarioTecnico.IdUsuario,
-                        nome = chamado.UsuarioTecnico.NomeCompleto,
-                        email = chamado.UsuarioTecnico.Email
+                        IdUsuario = chamado.UsuarioTecnico.IdUsuario,
+                        Nome = chamado.UsuarioTecnico.NomeCompleto
                     } : null,
-                    historico = chamado.Historicos.Select(h => new
+                    Historicos = chamado.Historicos.Select(h => new HistoricoChamadoDto
                     {
-                        idHistorico = h.IdHistorico,
-                        statusAnterior = h.StatusAnterior,
-                        statusAtual = h.StatusAtual,
-                        dataHora = h.DataHoraAlteracao,
-                        observacao = h.Observacao,
-                        tecnico = h.Tecnico != null ? h.Tecnico.NomeCompleto : null
-                    }).OrderByDescending(h => h.dataHora),
-                    anexos = chamado.Anexos.Select(a => new
+                        IdHistorico = h.IdHistorico,
+                        DataMudanca = h.DataHoraAlteracao,
+                        StatusAnterior = h.StatusAnterior,
+                        StatusNovo = h.StatusAtual,
+                        Observacao = h.Observacao,
+                        Tecnico = h.Tecnico != null ? new UsuarioSimplificadoDto
+                        {
+                            IdUsuario = h.Tecnico.IdUsuario,
+                            Nome = h.Tecnico.NomeCompleto
+                        } : new UsuarioSimplificadoDto { IdUsuario = 0, Nome = "Sistema" }
+                    }).OrderByDescending(h => h.DataMudanca).ToList(),
+                    Anexos = chamado.Anexos.Select(a => new AnexoDto
                     {
-                        idAnexo = a.IdAnexo,
-                        nomeArquivo = a.NomeArquivo,
-                        dataUpload = a.DataUpload
-                    }),
-                    sugestoesIA = chamado.Sugestoes.Select(s => new
+                        IdAnexo = a.IdAnexo,
+                        NomeArquivo = a.NomeArquivo,
+                        CaminhoArquivo = $"/api/anexos/{a.IdAnexo}/download",
+                        DataUpload = a.DataUpload
+                    }).ToList(),
+                    Sugestoes = chamado.Sugestoes.Select(s => new SugestaoIADto
                     {
-                        idSugestao = s.IdSugestao,
-                        texto = s.TextoSugestao,
-                        dataGeracao = s.DataHoraGeracao,
-                        foiAceita = s.FoiAceita
-                    }),
-                    feedback = chamado.Feedback != null ? new
+                        IdSugestao = s.IdSugestao,
+                        TextoSugestao = s.TextoSugestao,
+                        DataSugestao = s.DataHoraGeracao,
+                        FoiAceita = s.FoiAceita
+                    }).OrderByDescending(s => s.DataSugestao).ToList(),
+                    Feedback = chamado.Feedback != null ? new FeedbackDto
                     {
-                        idFeedback = chamado.Feedback.IdFeedback,
-                        nota = chamado.Feedback.Nota,
-                        comentario = chamado.Feedback.Comentario,
-                        dataHora = chamado.Feedback.DataHoraFeedback
+                        IdFeedback = chamado.Feedback.IdFeedback,
+                        Nota = chamado.Feedback.Nota,
+                        Comentario = chamado.Feedback.Comentario,
+                        DataFeedback = chamado.Feedback.DataHoraFeedback
                     } : null
-                });
+                };
+
+                return Ok(chamadoDto);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao buscar chamado {ChamadoId}", id);
                 return StatusCode(500, new { erro = "Erro ao buscar chamado", detalhes = ex.Message });
             }
         }
@@ -182,13 +205,23 @@ namespace PIM.Api.Controllers
         /// Cria um novo chamado
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> CreateChamado([FromBody] CriarChamadoRequest request)
+        public async Task<ActionResult<ChamadoCriadoDto>> CreateChamado([FromBody] CriarChamadoRequest request)
         {
             try
             {
-                // Obter ID do usuário do token JWT
+                // Obter ID do usuário do token JWT ou do request
                 var userId = User.FindFirst("id")?.Value;
-                if (string.IsNullOrEmpty(userId))
+                int idUsuarioCriador;
+
+                if (request.IdUsuarioCriador.HasValue)
+                {
+                    idUsuarioCriador = request.IdUsuarioCriador.Value;
+                }
+                else if (!string.IsNullOrEmpty(userId))
+                {
+                    idUsuarioCriador = int.Parse(userId);
+                }
+                else
                 {
                     return Unauthorized(new { erro = "Usuário não autenticado" });
                 }
@@ -207,7 +240,7 @@ namespace PIM.Api.Controllers
                     return BadRequest(new { erro = "Prioridade não encontrada" });
                 }
 
-                // Buscar status "Aberto" (assumindo IdStatus = 1)
+                // Buscar status "Aberto"
                 var statusAberto = await _context.StatusChamados.FirstOrDefaultAsync(s => s.NomeStatus == "Aberto");
                 if (statusAberto == null)
                 {
@@ -221,7 +254,7 @@ namespace PIM.Api.Controllers
                     IdCategoria = request.IdCategoria,
                     IdPrioridade = request.IdPrioridade,
                     IdStatus = statusAberto.IdStatus,
-                    IdUsuarioCriador = int.Parse(userId),
+                    IdUsuarioCriador = idUsuarioCriador,
                     DataAbertura = DateTime.UtcNow
                 };
 
@@ -241,15 +274,47 @@ namespace PIM.Api.Controllers
                 _context.HistoricosChamados.Add(historicoInicial);
                 await _context.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(GetChamado), new { id = chamado.IdChamado }, new
+                // Buscar chamado com relacionamentos para retornar
+                var chamadoCriado = await _context.Chamados
+                    .Include(c => c.Categoria)
+                    .Include(c => c.Prioridade)
+                    .Include(c => c.Status)
+                    .Include(c => c.UsuarioCriador)
+                    .FirstOrDefaultAsync(c => c.IdChamado == chamado.IdChamado);
+
+                var responseDto = new ChamadoDto
                 {
-                    idChamado = chamado.IdChamado,
-                    titulo = chamado.Titulo,
-                    mensagem = "Chamado criado com sucesso"
-                });
+                    IdChamado = chamadoCriado!.IdChamado,
+                    Titulo = chamadoCriado.Titulo,
+                    Descricao = chamadoCriado.Descricao,
+                    DataAbertura = chamadoCriado.DataAbertura,
+                    Categoria = new CategoriaDto
+                    {
+                        IdCategoria = chamadoCriado.Categoria.IdCategoria,
+                        Nome = chamadoCriado.Categoria.NomeCategoria
+                    },
+                    Prioridade = new PrioridadeDto
+                    {
+                        IdPrioridade = chamadoCriado.Prioridade.IdPrioridade,
+                        Nivel = chamadoCriado.Prioridade.NivelPrioridade
+                    },
+                    Status = new StatusDto
+                    {
+                        IdStatus = chamadoCriado.Status.IdStatus,
+                        Nome = chamadoCriado.Status.NomeStatus
+                    },
+                    UsuarioCriador = new UsuarioSimplificadoDto
+                    {
+                        IdUsuario = chamadoCriado.UsuarioCriador.IdUsuario,
+                        Nome = chamadoCriado.UsuarioCriador.NomeCompleto
+                    }
+                };
+
+                return CreatedAtAction(nameof(GetChamado), new { id = chamado.IdChamado }, responseDto);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao criar chamado");
                 return StatusCode(500, new { erro = "Erro ao criar chamado", detalhes = ex.Message });
             }
         }
@@ -286,7 +351,7 @@ namespace PIM.Api.Controllers
                 // Atualizar status
                 chamado.IdStatus = request.IdStatus;
 
-                // Se status for "Fechado", registrar data de fechamento
+                // Se status for "Fechado" ou "Resolvido", registrar data de fechamento
                 if (novoStatus.NomeStatus == "Fechado" || novoStatus.NomeStatus == "Resolvido")
                 {
                     chamado.DataFechamento = DateTime.UtcNow;
@@ -325,6 +390,7 @@ namespace PIM.Api.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao atualizar status do chamado {ChamadoId}", id);
                 return StatusCode(500, new { erro = "Erro ao atualizar status", detalhes = ex.Message });
             }
         }
@@ -333,7 +399,7 @@ namespace PIM.Api.Controllers
         /// Obtém o histórico de um chamado
         /// </summary>
         [HttpGet("{id}/historico")]
-        public async Task<IActionResult> GetHistorico(int id)
+        public async Task<ActionResult<List<HistoricoChamadoDto>>> GetHistorico(int id)
         {
             try
             {
@@ -347,18 +413,18 @@ namespace PIM.Api.Controllers
                     .Include(h => h.Tecnico)
                     .Where(h => h.IdChamado == id)
                     .OrderByDescending(h => h.DataHoraAlteracao)
-                    .Select(h => new
+                    .Select(h => new HistoricoChamadoDto
                     {
-                        idHistorico = h.IdHistorico,
-                        statusAnterior = h.StatusAnterior,
-                        statusAtual = h.StatusAtual,
-                        dataHora = h.DataHoraAlteracao,
-                        observacao = h.Observacao,
-                        tecnico = h.Tecnico != null ? new
+                        IdHistorico = h.IdHistorico,
+                        DataMudanca = h.DataHoraAlteracao,
+                        StatusAnterior = h.StatusAnterior,
+                        StatusNovo = h.StatusAtual,
+                        Observacao = h.Observacao,
+                        Tecnico = h.Tecnico != null ? new UsuarioSimplificadoDto
                         {
-                            idUsuario = h.Tecnico.IdUsuario,
-                            nome = h.Tecnico.NomeCompleto
-                        } : null
+                            IdUsuario = h.Tecnico.IdUsuario,
+                            Nome = h.Tecnico.NomeCompleto
+                        } : new UsuarioSimplificadoDto { IdUsuario = 0, Nome = "Sistema" }
                     })
                     .ToListAsync();
 
@@ -366,6 +432,7 @@ namespace PIM.Api.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao buscar histórico do chamado {ChamadoId}", id);
                 return StatusCode(500, new { erro = "Erro ao buscar histórico", detalhes = ex.Message });
             }
         }
@@ -379,7 +446,10 @@ namespace PIM.Api.Controllers
         {
             try
             {
-                var chamado = await _context.Chamados.FindAsync(id);
+                var chamado = await _context.Chamados
+                    .Include(c => c.Status)
+                    .FirstOrDefaultAsync(c => c.IdChamado == id);
+
                 if (chamado == null)
                 {
                     return NotFound(new { erro = "Chamado não encontrado" });
@@ -391,37 +461,42 @@ namespace PIM.Api.Controllers
                     return BadRequest(new { erro = "Técnico não encontrado" });
                 }
 
+                var statusAnterior = chamado.Status.NomeStatus;
                 chamado.IdUsuarioTecnico = request.IdUsuarioTecnico;
+
+                // Alterar status para "Em Atendimento" se ainda estiver "Aberto"
+                if (chamado.Status.NomeStatus == "Aberto")
+                {
+                    var statusEmAtendimento = await _context.StatusChamados
+                        .FirstOrDefaultAsync(s => s.NomeStatus == "Em Atendimento");
+
+                    if (statusEmAtendimento != null)
+                    {
+                        chamado.IdStatus = statusEmAtendimento.IdStatus;
+
+                        // Registrar mudança de status no histórico
+                        var historico = new HistoricoChamado
+                        {
+                            IdChamado = id,
+                            StatusAnterior = statusAnterior,
+                            StatusAtual = "Em Atendimento",
+                            DataHoraAlteracao = DateTime.UtcNow,
+                            Observacao = "Técnico assumiu o chamado",
+                            IdTecnico = request.IdUsuarioTecnico
+                        };
+                        _context.HistoricosChamados.Add(historico);
+                    }
+                }
+
                 await _context.SaveChangesAsync();
 
                 return Ok(new { mensagem = "Técnico atribuído com sucesso" });
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao atribuir técnico ao chamado {ChamadoId}", id);
                 return StatusCode(500, new { erro = "Erro ao atribuir técnico", detalhes = ex.Message });
             }
         }
-    }
-
-    // DTOs para requests
-    public class CriarChamadoRequest
-    {
-        public string Titulo { get; set; } = string.Empty;
-        public string Descricao { get; set; } = string.Empty;
-        public int IdCategoria { get; set; }
-        public int IdPrioridade { get; set; }
-    }
-
-    public class AtualizarStatusRequest
-    {
-        public int IdStatus { get; set; }
-        public string? Observacao { get; set; }
-        public string? SolucaoFinal { get; set; }
-        public int? IdUsuarioTecnico { get; set; }
-    }
-
-    public class AtribuirTecnicoRequest
-    {
-        public int IdUsuarioTecnico { get; set; }
     }
 }
