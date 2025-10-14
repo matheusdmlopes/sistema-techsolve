@@ -1,0 +1,123 @@
+@model PIM.Web.Models.CriarUsuarioViewModel
+@{
+    ViewData["Title"] = "Novo Usuário";
+}
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <h2><i class="bi bi-person-plus"></i> Novo Usuário</h2>
+        <p class="text-muted">Cadastrar novo usuário no sistema</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Dados do Usuário</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Criar" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="NomeCompleto" class="form-label">Nome Completo *</label>
+                        <input asp-for="NomeCompleto" class="form-control" placeholder="Ex: João da Silva" />
+                        <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email *</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="usuario@empresa.com" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <small class="form-text text-muted">Será usado como login no sistema</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Senha" class="form-label">Senha *</label>
+                        <input asp-for="Senha" type="password" class="form-control" placeholder="Mínimo 6 caracteres" />
+                        <span asp-validation-for="Senha" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Telefone" class="form-label">Telefone</label>
+                        <input asp-for="Telefone" type="tel" class="form-control" placeholder="(11) 99999-9999" />
+                        <span asp-validation-for="Telefone" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="IdSetor" class="form-label">Setor *</label>
+                            <select asp-for="IdSetor" class="form-select" required>
+                                <option value="0">Selecione...</option>
+                                @foreach (var setor in Model.Setores)
+                                {
+                                    <option value="@setor.IdSetor">@setor.Nome</option>
+                                }
+                            </select>
+                            <span asp-validation-for="IdSetor" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="IdPerfil" class="form-label">Perfil de Acesso *</label>
+                            <select asp-for="IdPerfil" class="form-select" required>
+                                <option value="0">Selecione...</option>
+                                @foreach (var perfil in Model.Perfis)
+                                {
+                                    <option value="@perfil.IdPerfil">@perfil.Nome</option>
+                                }
+                            </select>
+                            <span asp-validation-for="IdPerfil" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Voltar
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-save"></i> Criar Usuário
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="bi bi-info-circle"></i> Informações</h6>
+            </div>
+            <div class="card-body">
+                <p class="small mb-2">
+                    <strong>Perfis de Acesso:</strong>
+                </p>
+                <ul class="small">
+                    <li><strong>Administrador:</strong> Acesso completo ao sistema</li>
+                    <li><strong>Técnico:</strong> Atende e gerencia chamados</li>
+                    <li><strong>Usuário:</strong> Abre e acompanha chamados</li>
+                </ul>
+
+                <hr />
+
+                <p class="small mb-2">
+                    <strong>Observações:</strong>
+                </p>
+                <ul class="small mb-0">
+                    <li>O email não poderá ser alterado depois</li>
+                    <li>Senha pode ser resetada pelo admin</li>
+                    <li>Usuário será criado como "Ativo"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
