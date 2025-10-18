@@ -4,78 +4,179 @@
 }
 
 <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="card">
+    <div class="col-md-10 offset-md-1">
+        <!-- Progresso do Wizard -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="wizard-steps">
+                    <div class="wizard-step active" id="wizard-step-1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Descreva o Problema</div>
+                    </div>
+                    <div class="wizard-line"></div>
+                    <div class="wizard-step" id="wizard-step-2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Sugestão da IA</div>
+                    </div>
+                    <div class="wizard-line"></div>
+                    <div class="wizard-step" id="wizard-step-3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Confirmar Chamado</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Descrever o Problema -->
+        <div class="card wizard-content" id="step-1">
             <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Abrir Novo Chamado</h4>
+                <h4 class="mb-0"><i class="bi bi-pencil-square"></i> Descreva Seu Problema</h4>
             </div>
             <div class="card-body">
-                <form asp-action="Novo" asp-controller="Chamados" method="post">
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">
+                        Título do Problema <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="titulo" name="titulo"
+                           placeholder="Resumo breve do problema" maxlength="200" required />
+                    <div class="invalid-feedback">O título é obrigatório (mínimo 5 caracteres)</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descricao" class="form-label">
+                        Descrição Detalhada <span class="text-danger">*</span>
+                    </label>
+                    <textarea class="form-control" id="descricao" name="descricao" rows="8"
+                              placeholder="Descreva o problema com o máximo de detalhes possível...
+
+Exemplo:
+- O que aconteceu?
+- Quando começou?
+- Que mensagens de erro aparecem?
+- Você já tentou alguma solução?"
+                              maxlength="2000" required></textarea>
+                    <small class="form-text text-muted">Mínimo 10 caracteres. Quanto mais detalhes, melhor será a sugestão da IA!</small>
+                    <div class="invalid-feedback">A descrição é obrigatória (mínimo 10 caracteres)</div>
+                </div>
+
+                <div class="alert alert-info">
+                    <i class="bi bi-robot"></i> <strong>Nossa IA vai analisar seu problema!</strong>
+                    <p class="mb-0 mt-2">
+                        Ao clicar em "Analisar com IA", nossa inteligência artificial irá:
+                    </p>
+                    <ul class="mb-0 mt-2">
+                        <li>Sugerir uma solução que pode resolver seu problema imediatamente</li>
+                        <li>Classificar automaticamente a categoria e prioridade</li>
+                        <li>Verificar se você consegue resolver sozinho</li>
+                    </ul>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Cancelar
+                    </a>
+                    <button type="button" class="btn btn-primary btn-lg" id="btn-analisar">
+                        <i class="bi bi-robot"></i> Analisar com IA
+                        <span class="spinner-border spinner-border-sm d-none" id="spinner-analisar"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Sugestão da IA -->
+        <div class="card wizard-content d-none" id="step-2">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0"><i class="bi bi-robot"></i> Sugestão da Inteligência Artificial</h4>
+            </div>
+            <div class="card-body">
+                <div id="sugestao-container">
+                    <!-- Conteúdo dinâmico da sugestão será inserido aqui via JavaScript -->
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="alert alert-warning">
+                    <strong><i class="bi bi-question-circle"></i> A sugestão resolveu seu problema?</strong>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-secondary" id="btn-voltar-step1">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </button>
+                    <div>
+                        <button type="button" class="btn btn-success btn-lg me-2" id="btn-resolvido">
+                            <i class="bi bi-check-circle"></i> Sim, Resolveu!
+                        </button>
+                        <button type="button" class="btn btn-danger btn-lg" id="btn-nao-resolvido">
+                            <i class="bi bi-x-circle"></i> Não, Preciso de Ajuda
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Confirmar e Criar Chamado -->
+        <div class="card wizard-content d-none" id="step-3">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="bi bi-check-circle"></i> Confirmar Abertura do Chamado</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Novo" asp-controller="Chamados" method="post" id="form-criar-chamado">
                     @Html.AntiForgeryToken()
 
-                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-
-                    <div class="mb-3">
-                        <label asp-for="Titulo" class="form-label">
-                            Título do Chamado <span class="text-danger">*</span>
-                        </label>
-                        <input asp-for="Titulo" class="form-control" placeholder="Resumo breve do problema" maxlength="100" />
-                        <span asp-validation-for="Titulo" class="text-danger"></span>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> <strong>Informações do Chamado</strong>
+                        <p class="mb-0 mt-2">A IA classificou automaticamente seu problema. Você pode ajustar se necessário.</p>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Descricao" class="form-label">
-                            Descrição Detalhada <span class="text-danger">*</span>
-                        </label>
-                        <textarea asp-for="Descricao" class="form-control" rows="6"
-                                  placeholder="Descreva o problema com o máximo de detalhes possível..."
-                                  maxlength="2000"></textarea>
-                        <span asp-validation-for="Descricao" class="text-danger"></span>
-                        <small class="form-text text-muted">
-                            Mínimo 10 caracteres. Quanto mais detalhes, melhor!
-                        </small>
+                        <label class="form-label"><strong>Título:</strong></label>
+                        <p class="form-control-plaintext" id="display-titulo"></p>
+                        <input type="hidden" name="Titulo" id="hidden-titulo" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Descrição:</strong></label>
+                        <p class="form-control-plaintext white-space-pre-line" id="display-descricao"></p>
+                        <input type="hidden" name="Descricao" id="hidden-descricao" />
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="IdCategoria" class="form-label">
-                                Categoria <span class="text-danger">*</span>
+                                Categoria <span class="badge bg-info">Sugerida pela IA</span>
                             </label>
-                            <select asp-for="IdCategoria" class="form-select">
-                                <option value="">Selecione uma categoria</option>
+                            <select asp-for="IdCategoria" class="form-select" id="select-categoria">
                                 @foreach (var categoria in Model.Categorias)
                                 {
                                     <option value="@categoria.IdCategoria">@categoria.Nome</option>
                                 }
                             </select>
-                            <span asp-validation-for="IdCategoria" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label asp-for="IdPrioridade" class="form-label">
-                                Prioridade <span class="text-danger">*</span>
+                                Prioridade <span class="badge bg-info">Sugerida pela IA</span>
                             </label>
-                            <select asp-for="IdPrioridade" class="form-select">
-                                <option value="">Selecione a prioridade</option>
+                            <select asp-for="IdPrioridade" class="form-select" id="select-prioridade">
                                 @foreach (var prioridade in Model.Prioridades)
                                 {
                                     <option value="@prioridade.IdPrioridade">@prioridade.Nivel</option>
                                 }
                             </select>
-                            <span asp-validation-for="IdPrioridade" class="text-danger"></span>
                         </div>
                     </div>
 
-                    <div class="alert alert-info mt-3">
-                        <strong>Dica:</strong> Seja o mais específico possível na descrição do problema.
-                        Isso ajudará nossa equipe técnica a resolver seu chamado mais rapidamente.
+                    <div class="alert alert-secondary" id="display-sugestao-resumo">
+                        <strong><i class="bi bi-lightbulb"></i> Sugestão da IA:</strong>
+                        <p class="mb-0 mt-2" id="resumo-sugestao"></p>
                     </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a asp-action="Index" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" id="btn-voltar-step2">
                             <i class="bi bi-arrow-left"></i> Voltar
-                        </a>
-                        <button type="submit" class="btn btn-primary">
+                        </button>
+                        <button type="submit" class="btn btn-success btn-lg">
                             <i class="bi bi-send"></i> Abrir Chamado
                         </button>
                     </div>
@@ -87,4 +188,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/chamado-wizard.js"></script>
 }

@@ -198,6 +198,36 @@ namespace PIM.Web.Controllers
         }
 
         /// <summary>
+        /// Analisa o problema com IA antes de criar o chamado
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> AnalisarProblema([FromBody] AnalisePreliminarRequest request)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(new { erro = "Dados inválidos", erros = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
+                }
+
+                // Chamar endpoint de IA da API
+                var analise = await _apiService.PostAsync<AnalisePreliminarRequest, AnalisePreliminarResponse>("/api/ia/analisar-preliminar", request);
+
+                if (analise == null)
+                {
+                    return StatusCode(500, new { erro = "Erro ao analisar problema com IA" });
+                }
+
+                return Ok(analise);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao analisar problema: {ex.Message}");
+                return StatusCode(500, new { erro = "Erro ao processar análise", detalhes = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Cria um novo chamado
         /// </summary>
         [HttpPost]
