@@ -54,8 +54,19 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// CORS simples - permite tudo (projeto acadêmico)
-builder.Services.AddCors();
+// SignalR para chat em tempo real
+builder.Services.AddSignalR();
+
+// CORS configurado para SignalR
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 // Configuração JWT simples
 var jwtKey = "ChaveSecretaSuperSegura123456789012345678901234567890";
@@ -109,13 +120,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// CORS simples
-app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+// CORS
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// SignalR Hub
+app.MapHub<PIM.Api.Hubs.ChatHub>("/chatHub");
 
 app.MapGet("/health", () =>
 {

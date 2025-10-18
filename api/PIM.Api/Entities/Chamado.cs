@@ -47,5 +47,6 @@ public class Chamado
     public ICollection<HistoricoChamado> Historicos { get; set; } = [];
     public ICollection<SugestaoIA> Sugestoes { get; set; } = [];
     public ICollection<Anexo> Anexos { get; set; } = [];
+    public ICollection<ComentarioChamado> Comentarios { get; set; } = [];
     public Feedback? Feedback { get; set; }
 }

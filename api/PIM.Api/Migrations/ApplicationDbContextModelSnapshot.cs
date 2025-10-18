@@ -136,6 +136,49 @@ namespace PIM.Api.Migrations
                     b.ToTable("Chamado", (string)null);
                 });
 
+            modelBuilder.Entity("PIM.Api.Entities.ComentarioChamado", b =>
+                {
+                    b.Property<int>("IdComentario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComentario"));
+
+                    b.Property<DateTime>("DataHoraEnvio")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("IdChamado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Lido")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Mensagem")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.HasKey("IdComentario");
+
+                    b.HasIndex("IdChamado")
+                        .HasDatabaseName("IX_ComentarioChamado_IdChamado");
+
+                    b.HasIndex("IdChamado", "DataHoraEnvio")
+                        .HasDatabaseName("IX_ComentarioChamado_Chamado_Data");
+
+                    b.HasIndex("IdUsuario", "Lido")
+                        .HasDatabaseName("IX_ComentarioChamado_Usuario_Lido");
+
+                    b.ToTable("ComentarioChamado", (string)null);
+                });
+
             modelBuilder.Entity("PIM.Api.Entities.Feedback", b =>
                 {
                     b.Property<int>("IdFeedback")
@@ -461,6 +504,27 @@ namespace PIM.Api.Migrations
                     b.Navigation("UsuarioTecnico");
                 });
 
+            modelBuilder.Entity("PIM.Api.Entities.ComentarioChamado", b =>
+                {
+                    b.HasOne("PIM.Api.Entities.Chamado", "Chamado")
+                        .WithMany("Comentarios")
+                        .HasForeignKey("IdChamado")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_ComentarioChamado_Chamado");
+
+                    b.HasOne("PIM.Api.Entities.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_ComentarioChamado_Usuario");
+
+                    b.Navigation("Chamado");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("PIM.Api.Entities.Feedback", b =>
                 {
                     b.HasOne("PIM.Api.Entities.Chamado", "Chamado")
@@ -507,7 +571,7 @@ namespace PIM.Api.Migrations
 
             modelBuilder.Entity("PIM.Api.Entities.Usuario", b =>
                 {
-                    b.HasOne("PIM.Api.Entities.PerfilAcesso", "Perfil")
+                    b.HasOne("PIM.Api.Entities.PerfilAcesso", "PerfilAcesso")
                         .WithMany()
                         .HasForeignKey("IdPerfil")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -525,7 +589,7 @@ namespace PIM.Api.Migrations
                         .WithMany("Usuarios")
                         .HasForeignKey("PerfilAcessoIdPerfil");
 
-                    b.Navigation("Perfil");
+                    b.Navigation("PerfilAcesso");
 
                     b.Navigation("Setor");
                 });
@@ -538,6 +602,8 @@ namespace PIM.Api.Migrations
             modelBuilder.Entity("PIM.Api.Entities.Chamado", b =>
                 {
                     b.Navigation("Anexos");
+
+                    b.Navigation("Comentarios");
 
                     b.Navigation("Feedback");
 

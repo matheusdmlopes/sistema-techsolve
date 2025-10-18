@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<SugestaoIA> SugestoesIA { get; set; }
     public DbSet<Feedback> Feedbacks { get; set; }
     public DbSet<Anexo> Anexos { get; set; }
+    public DbSet<ComentarioChamado> ComentariosChamados { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,6 +39,7 @@ public class ApplicationDbContext : DbContext
         ConfigureSugestaoIA(modelBuilder);
         ConfigureFeedback(modelBuilder);
         ConfigureAnexo(modelBuilder);
+        ConfigureComentarioChamado(modelBuilder);
     }
 
     private static void ConfigureUsuario(ModelBuilder modelBuilder)
@@ -355,6 +357,52 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.DataUpload)
                 .IsRequired()
                 .HasDefaultValueSql("GETDATE()");
+        });
+    }
+
+    private static void ConfigureComentarioChamado(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ComentarioChamado>(entity =>
+        {
+            entity.ToTable("ComentarioChamado");
+            entity.HasKey(e => e.IdComentario);
+            entity.Property(e => e.IdComentario).ValueGeneratedOnAdd();
+
+            entity.Property(e => e.Mensagem)
+                .IsRequired()
+                .HasMaxLength(2000);
+
+            entity.Property(e => e.DataHoraEnvio)
+                .IsRequired()
+                .HasDefaultValueSql("GETDATE()");
+
+            entity.Property(e => e.Lido)
+                .IsRequired()
+                .HasDefaultValue(false);
+
+            // Relacionamento com Chamado (cascade delete - deletar comentários quando chamado for deletado)
+            entity.HasOne(e => e.Chamado)
+                .WithMany(c => c.Comentarios)
+                .HasForeignKey(e => e.IdChamado)
+                .HasConstraintName("FK_ComentarioChamado_Chamado")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relacionamento com Usuario (restrict - não permitir deletar usuário com comentários)
+            entity.HasOne(e => e.Usuario)
+                .WithMany()
+                .HasForeignKey(e => e.IdUsuario)
+                .HasConstraintName("FK_ComentarioChamado_Usuario")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Índices para performance
+            entity.HasIndex(e => e.IdChamado)
+                .HasDatabaseName("IX_ComentarioChamado_IdChamado");
+
+            entity.HasIndex(e => new { e.IdChamado, e.DataHoraEnvio })
+                .HasDatabaseName("IX_ComentarioChamado_Chamado_Data");
+
+            entity.HasIndex(e => new { e.IdUsuario, e.Lido })
+                .HasDatabaseName("IX_ComentarioChamado_Usuario_Lido");
         });
     }
 }
