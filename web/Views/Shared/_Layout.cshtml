@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Chamados" asp-action="Index"><i class="bi bi-ticket"></i> Chamados</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Artigos" asp-action="Index"><i class="bi bi-book"></i> Artigos</a>
+                        </li>
                         @if (Context.Session.GetInt32("PerfilAcessoId") != 3)
                         {
                             <li class="nav-item">

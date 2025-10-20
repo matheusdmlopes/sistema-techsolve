@@ -1,0 +1,58 @@
+@model PIM.Web.Models.ArtigoViewModel
+
+@{
+    ViewData["Title"] = Model.Titulo;
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">Base de Conhecimento</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Titulo</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex align-items-center">
+                    <i class="@Model.IconeCategoria fs-2 me-3"></i>
+                    <div>
+                        <h4 class="mb-0">@Model.Titulo</h4>
+                        <small><i class="bi bi-tag"></i> @Model.Categoria</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5 class="text-primary"><i class="bi bi-exclamation-triangle"></i> Problema</h5>
+                    <p class="ms-3">@Model.Problema</p>
+                </div>
+
+                <div class="alert alert-success">
+                    <h5 class="alert-heading"><i class="bi bi-check-circle"></i> Solução</h5>
+                    <p class="mb-0">@Model.Solucao</p>
+                </div>
+
+                <div class="mt-4 p-3 bg-light rounded">
+                    <p class="mb-2"><strong><i class="bi bi-info-circle"></i> Não resolveu?</strong></p>
+                    <p class="mb-0 text-muted">
+                        Abra um chamado para que nossa equipe técnica possa ajudar você diretamente.
+                    </p>
+                    <a asp-controller="Chamados" asp-action="Novo" class="btn btn-primary btn-sm mt-2">
+                        <i class="bi bi-plus-circle"></i> Abrir Chamado
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
