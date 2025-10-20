@@ -59,8 +59,13 @@ namespace PIM.Web.Models
 
     public class StatusDto
     {
+        [System.Text.Json.Serialization.JsonPropertyName("idStatus")]
         public int IdStatus { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("nome")]
         public string Nome { get; set; } = string.Empty;
+
+        [System.Text.Json.Serialization.JsonPropertyName("descricao")]
         public string? Descricao { get; set; }
     }
 

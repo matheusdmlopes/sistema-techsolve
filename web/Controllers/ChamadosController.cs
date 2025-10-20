@@ -308,7 +308,7 @@ namespace PIM.Web.Controllers
                 }
 
                 // Buscar lista de status para o dropdown
-                var todosStatus = await _apiService.GetAsync<List<StatusDto>>("/api/chamados/status");
+                var todosStatus = await _apiService.GetAsync<List<StatusDto>>("/api/status");
                 ViewBag.TodosStatus = todosStatus ?? new List<StatusDto>();
 
                 ViewData["PerfilAcessoId"] = perfilAcessoId;
