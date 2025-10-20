@@ -1,0 +1,304 @@
+@{
+    ViewData["Title"] = "Manual do Usuário";
+}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="mb-4">Manual do Usuário - Sistema TechSolve</h1>
+            <p class="lead text-muted">Guia completo para utilização do sistema de chamados técnicos</p>
+
+            <hr class="my-4">
+
+            <!-- Índice -->
+            <div class="card mb-4 bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Índice</h5>
+                    <ol class="mb-0">
+                        <li><a href="#introducao">Introdução</a></li>
+                        <li><a href="#primeiro-acesso">Primeiro Acesso</a></li>
+                        <li><a href="#abrir-chamado">Como Abrir um Chamado</a></li>
+                        <li><a href="#acompanhar">Acompanhar Chamados</a></li>
+                        <li><a href="#chat">Utilizar o Chat</a></li>
+                        <li><a href="#avaliar">Avaliar Atendimento</a></li>
+                        <li><a href="#artigos">Consultar Artigos</a></li>
+                        <li><a href="#tecnico">Área do Técnico</a></li>
+                        <li><a href="#dicas">Dicas e Boas Práticas</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 1. Introdução -->
+            <section id="introducao" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">1</span> Introdução
+                </h2>
+                <p>
+                    O <strong>Sistema TechSolve</strong> é uma plataforma de gestão de chamados técnicos desenvolvida para
+                    facilitar a comunicação entre usuários e a equipe de suporte técnico da instituição.
+                </p>
+                <p>O sistema oferece:</p>
+                <ul>
+                    <li>Abertura de chamados com assistência de IA</li>
+                    <li>Chat em tempo real entre usuário e técnico</li>
+                    <li>Base de conhecimento com artigos de problemas comuns</li>
+                    <li>Acompanhamento do status dos chamados</li>
+                    <li>Avaliação do atendimento recebido</li>
+                </ul>
+            </section>
+
+            <!-- 2. Primeiro Acesso -->
+            <section id="primeiro-acesso" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">2</span> Primeiro Acesso
+                </h2>
+                <div class="alert alert-info">
+                    <strong>Credenciais padrão:</strong> Seu login é o e-mail institucional e a senha inicial será fornecida pela equipe de TI.
+                </div>
+                <ol>
+                    <li>Acesse o sistema através do endereço fornecido</li>
+                    <li>Digite seu <strong>e-mail institucional</strong> e a <strong>senha temporária</strong></li>
+                    <li>No primeiro acesso, você será solicitado a criar uma <strong>nova senha</strong></li>
+                    <li>A nova senha deve ter no mínimo 6 caracteres</li>
+                    <li>Após alterar a senha, você será redirecionado ao Dashboard</li>
+                </ol>
+            </section>
+
+            <!-- 3. Abrir Chamado -->
+            <section id="abrir-chamado" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">3</span> Como Abrir um Chamado
+                </h2>
+                <p>O sistema possui um assistente inteligente (IA) que tenta resolver seu problema antes de criar o chamado:</p>
+
+                <h4 class="h5 mt-4">Passo a Passo:</h4>
+                <ol>
+                    <li>
+                        <strong>Clique em "Chamados"</strong> no menu superior
+                    </li>
+                    <li>
+                        <strong>Clique em "Novo Chamado"</strong>
+                    </li>
+                    <li>
+                        <strong>Etapa 1 - Descreva o Problema:</strong>
+                        <ul>
+                            <li>Digite um título claro (ex: "Impressora não funciona")</li>
+                            <li>Descreva o problema detalhadamente</li>
+                            <li>Clique em "Analisar com IA"</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Etapa 2 - Sugestão da IA:</strong>
+                        <ul>
+                            <li>A IA analisará seu problema e sugerirá uma solução</li>
+                            <li>Se a solução resolver: clique em "Sim, resolveu!"</li>
+                            <li>Se não resolver: clique em "Não resolveu, abrir chamado"</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Etapa 3 - Confirmar Abertura:</strong>
+                        <ul>
+                            <li>A categoria e prioridade serão definidas automaticamente pela IA</li>
+                            <li>Revise as informações</li>
+                            <li>Clique em "Abrir Chamado"</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="alert alert-success mt-3">
+                    <strong>Dica:</strong> Seja específico na descrição! Quanto mais detalhes, melhor a IA poderá ajudar.
+                </div>
+            </section>
+
+            <!-- 4. Acompanhar Chamados -->
+            <section id="acompanhar" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">4</span> Acompanhar Chamados
+                </h2>
+                <p>Para visualizar seus chamados:</p>
+                <ol>
+                    <li>Acesse <strong>"Chamados"</strong> no menu</li>
+                    <li>Você verá uma lista com todos os seus chamados</li>
+                    <li>Clique em um chamado para ver os detalhes completos</li>
+                </ol>
+
+                <h4 class="h5 mt-4">Status dos Chamados:</h4>
+                <ul class="list-unstyled">
+                    <li>
+                        <span class="badge bg-light text-dark">Aberto</span> - Aguardando atribuição de técnico
+                    </li>
+                    <li>
+                        <span class="badge bg-info">Em Análise</span> - Técnico está analisando
+                    </li>
+                    <li>
+                        <span class="badge bg-warning text-dark">Em Andamento</span> - Sendo resolvido
+                    </li>
+                    <li>
+                        <span class="badge bg-secondary">Aguardando Usuário</span> - Aguardando resposta sua
+                    </li>
+                    <li>
+                        <span class="badge bg-success">Resolvido</span> - Problema solucionado
+                    </li>
+                    <li>
+                        <span class="badge bg-dark">Fechado</span> - Chamado finalizado
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 5. Chat -->
+            <section id="chat" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">5</span> Utilizar o Chat
+                </h2>
+                <p>
+                    Cada chamado possui um chat em tempo real para comunicação com o técnico responsável.
+                </p>
+                <ol>
+                    <li>Abra os detalhes de um chamado</li>
+                    <li>Role até a seção <strong>"Chat do Chamado"</strong></li>
+                    <li>Digite sua mensagem e clique em <strong>"Enviar"</strong></li>
+                    <li>As mensagens aparecem em tempo real (não precisa recarregar a página)</li>
+                </ol>
+
+                <div class="alert alert-info mt-3">
+                    <strong>Nota:</strong> O chat funciona via WebSocket. Se estiver offline, as mensagens serão enviadas quando você se reconectar.
+                </div>
+            </section>
+
+            <!-- 6. Avaliar -->
+            <section id="avaliar" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">6</span> Avaliar Atendimento
+                </h2>
+                <p>Quando um chamado for marcado como <span class="badge bg-success">Resolvido</span>, você poderá avaliar o atendimento:</p>
+                <ol>
+                    <li>Abra o chamado resolvido</li>
+                    <li>Clique no botão <strong>"Avaliar Atendimento"</strong></li>
+                    <li>Selecione uma nota de 1 a 5 estrelas</li>
+                    <li>Deixe um comentário (opcional)</li>
+                    <li>Clique em <strong>"Enviar Avaliação"</strong></li>
+                </ol>
+                <p class="text-muted">Sua avaliação ajuda a melhorar nossos serviços!</p>
+            </section>
+
+            <!-- 7. Artigos -->
+            <section id="artigos" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">7</span> Consultar Artigos
+                </h2>
+                <p>A seção de <strong>Artigos</strong> contém soluções para problemas comuns:</p>
+                <ol>
+                    <li>Clique em <strong>"Artigos"</strong> no menu</li>
+                    <li>Navegue pelas categorias: Hardware, Software, Rede, Impressoras, etc.</li>
+                    <li>Clique em um artigo para ler a solução completa</li>
+                </ol>
+                <div class="alert alert-success">
+                    <strong>Dica:</strong> Consulte os artigos antes de abrir um chamado - talvez você consiga resolver sozinho!
+                </div>
+            </section>
+
+            <!-- 8. Área do Técnico -->
+            <section id="tecnico" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">8</span> Área do Técnico
+                </h2>
+                <p>Se você é um <strong>Técnico</strong> ou <strong>Administrador</strong>, terá acesso a recursos adicionais:</p>
+
+                <h4 class="h5 mt-4">Gerenciar Chamados:</h4>
+                <ul>
+                    <li>Visualizar todos os chamados da instituição</li>
+                    <li>Assumir chamados pendentes</li>
+                    <li>Alterar status dos chamados</li>
+                    <li>Adicionar observações e soluções</li>
+                </ul>
+
+                <h4 class="h5 mt-4">Relatórios:</h4>
+                <ul>
+                    <li>Dashboard com gráficos e métricas</li>
+                    <li>Chamados por status, categoria e prioridade</li>
+                    <li>Performance de técnicos</li>
+                    <li>Taxa de resolução</li>
+                </ul>
+
+                <h4 class="h5 mt-4">Administração (apenas Admin):</h4>
+                <ul>
+                    <li>Gerenciar usuários do sistema</li>
+                    <li>Criar/editar/desativar contas</li>
+                    <li>Definir perfis de acesso</li>
+                </ul>
+            </section>
+
+            <!-- 9. Dicas -->
+            <section id="dicas" class="mb-5">
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-primary">9</span> Dicas e Boas Práticas
+                </h2>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3 border-success">
+                            <div class="card-header bg-success text-white">
+                                <strong>✅ Faça</strong>
+                            </div>
+                            <div class="card-body">
+                                <ul class="mb-0">
+                                    <li>Descreva o problema com detalhes</li>
+                                    <li>Inclua mensagens de erro exatas</li>
+                                    <li>Informe o que já tentou fazer</li>
+                                    <li>Responda rapidamente no chat</li>
+                                    <li>Avalie o atendimento recebido</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-3 border-danger">
+                            <div class="card-header bg-danger text-white">
+                                <strong>❌ Evite</strong>
+                            </div>
+                            <div class="card-body">
+                                <ul class="mb-0">
+                                    <li>Abrir chamados duplicados</li>
+                                    <li>Descrições vagas ("não funciona")</li>
+                                    <li>Marcar tudo como urgente</li>
+                                    <li>Ignorar mensagens do técnico</li>
+                                    <li>Compartilhar sua senha</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rodapé -->
+            <div class="alert alert-primary mt-5">
+                <h5 class="alert-heading">
+                    <i class="bi bi-question-circle"></i> Precisa de Ajuda?
+                </h5>
+                <p class="mb-0">
+                    Se tiver dúvidas sobre o uso do sistema, entre em contato com a equipe de TI
+                    através do e-mail: <strong>suporte@techsolve.edu.br</strong>
+                </p>
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                    <i class="bi bi-arrow-left"></i> Voltar para o Início
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Scroll suave para âncoras */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Espaço para header fixo */
+    section {
+        scroll-margin-top: 80px;
+    }
+</style>
