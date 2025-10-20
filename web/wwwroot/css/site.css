@@ -1,3 +1,21 @@
+/* ========================================
+   TEMA CINZA ESCURO - TechSolve
+   ======================================== */
+
+:root {
+  /* Paleta Cinza Escuro */
+  --primary-dark: #2d3748;
+  --primary-darker: #1a202c;
+  --primary-light: #4a5568;
+  --secondary-dark: #718096;
+  --accent-color: #fbbf24;
+  --danger-color: #f56565;
+  --warning-color: #ed8936;
+  --info-color: #4299e1;
+  --text-light: #e2e8f0;
+  --bg-light: #f7fafc;
+}
+
 html {
   font-size: 14px;
 }
@@ -9,7 +27,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--primary-dark);
 }
 
 html {
@@ -19,6 +37,191 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: var(--bg-light);
+}
+
+/* ========================================
+   NAVBAR - Cinza Escuro
+   ======================================== */
+
+.navbar-dark.bg-primary {
+  background-color: var(--primary-dark) !important;
+  border-bottom: 3px solid var(--accent-color) !important;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.nav-link:hover {
+  background-color: var(--primary-light);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   CARDS E COMPONENTES
+   ======================================== */
+
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  border-radius: 8px 8px 0 0 !important;
+  font-weight: 600;
+}
+
+.card-header.bg-primary {
+  background-color: var(--primary-dark) !important;
+}
+
+/* ========================================
+   BOTÕES - Tema Cinza
+   ======================================== */
+
+.btn-primary {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--primary-darker);
+  border-color: var(--primary-darker);
+}
+
+.btn-success {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* ========================================
+   BADGES - Cores Ajustadas
+   ======================================== */
+
+.badge.bg-primary {
+  background-color: var(--primary-dark) !important;
+}
+
+.badge.bg-success {
+  background-color: var(--accent-color) !important;
+}
+
+.badge.bg-danger {
+  background-color: var(--danger-color) !important;
+}
+
+.badge.bg-warning {
+  background-color: var(--warning-color) !important;
+  color: #1a202c !important;
+}
+
+.badge.bg-info {
+  background-color: var(--info-color) !important;
+}
+
+/* ========================================
+   RESPONSIVIDADE MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Navbar mobile */
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .navbar-nav {
+    padding: 1rem 0;
+  }
+
+  .nav-link {
+    padding: 0.75rem 1rem;
+  }
+
+  /* Cards responsivos */
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  /* Tabelas responsivas */
+  .table-responsive {
+    border: none;
+  }
+
+  /* Botões full-width em mobile */
+  .btn-group-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn-group-mobile .btn {
+    width: 100%;
+  }
+
+  /* Formulários */
+  .form-control,
+  .form-select {
+    font-size: 16px; /* Previne zoom no iOS */
+  }
+
+  /* Container padding */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Modals */
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Extra small devices */
+  html {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  /* Ocultar textos longos em badges */
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* Ajustar espaçamento */
+  .mb-3 {
+    margin-bottom: 1rem !important;
+  }
+
+  .mt-3 {
+    margin-top: 1rem !important;
+  }
 }
 
 /* ========================================
@@ -211,9 +414,9 @@ body {
   }
 }
 
-/* Mensagem do usuário atual (direita, azul) */
+/* Mensagem do usuário atual (direita, cinza escuro) */
 .chat-balao.minha-mensagem {
-  background-color: #0d6efd;
+  background-color: var(--primary-dark);
   color: white;
   border-bottom-right-radius: 4px;
 }

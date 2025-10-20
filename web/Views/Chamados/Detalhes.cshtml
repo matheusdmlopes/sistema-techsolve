@@ -7,7 +7,7 @@
     var isCriador = Model.UsuarioCriador.IdUsuario == usuarioId;
     var podeAvaliar = isCriador && Model.Status.Nome.ToLower() == "resolvido" && Model.Feedback == null;
 
-    // Funções auxiliares para status
+    // Função auxiliar para cor dos status
     string ObterCorStatus(string nomeStatus)
     {
         return nomeStatus.ToLower() switch
@@ -21,22 +21,6 @@
             "fechado" => "dark",
             "cancelado" => "danger",
             _ => "secondary"
-        };
-    }
-
-    string ObterIconeStatus(string nomeStatus)
-    {
-        return nomeStatus.ToLower() switch
-        {
-            "aberto" => "📋",
-            "em análise" => "🔍",
-            "em andamento" => "⚙️",
-            "aguardando usuário" => "⏳",
-            "aguardando fornecedor" => "📦",
-            "resolvido" => "✅",
-            "fechado" => "🔒",
-            "cancelado" => "❌",
-            _ => "📌"
         };
     }
 }
@@ -348,12 +332,8 @@
                                 @foreach (var status in ViewBag.TodosStatus)
                                 {
                                     var isAtual = status.IdStatus == Model.Status.IdStatus;
-                                    var cor = ObterCorStatus(status.Nome);
-                                    var icone = ObterIconeStatus(status.Nome);
-                                    <option value="@status.IdStatus" selected="@isAtual"
-                                            data-cor="@cor"
-                                            style="padding: 10px;">
-                                        @icone @status.Nome - @status.Descricao
+                                    <option value="@status.IdStatus" selected="@isAtual">
+                                        @status.Nome - @status.Descricao
                                     </option>
                                 }
                             </select>
