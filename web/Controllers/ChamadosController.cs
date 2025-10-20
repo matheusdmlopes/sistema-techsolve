@@ -445,5 +445,59 @@ namespace PIM.Web.Controllers
                 return RedirectToAction("Detalhes", new { id });
             }
         }
+
+        /// <summary>
+        /// Obtém comentários de um chamado (para o chat)
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> ObterComentarios(int idChamado)
+        {
+            try
+            {
+                var comentarios = await _apiService.GetAsync<List<ComentarioDto>>($"/api/chamados/{idChamado}/comentarios");
+                return Ok(comentarios ?? new List<ComentarioDto>());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao obter comentários: {ex.Message}");
+                return StatusCode(500, new { erro = "Erro ao obter comentários" });
+            }
+        }
+
+        /// <summary>
+        /// Envia um comentário (fallback REST se SignalR falhar)
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> EnviarComentario(int idChamado, [FromBody] object request)
+        {
+            try
+            {
+                var comentario = await _apiService.PostAsync<object, ComentarioDto>($"/api/chamados/{idChamado}/comentarios", request);
+                return Ok(comentario);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao enviar comentário: {ex.Message}");
+                return StatusCode(500, new { erro = "Erro ao enviar comentário" });
+            }
+        }
+
+        /// <summary>
+        /// Marca comentários como lidos
+        /// </summary>
+        [HttpPut]
+        public async Task<IActionResult> MarcarComentariosLidos(int idChamado)
+        {
+            try
+            {
+                await _apiService.PutAsync<object, object>($"/api/chamados/{idChamado}/comentarios/marcar-lidos", new { });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao marcar comentários como lidos: {ex.Message}");
+                return StatusCode(500);
+            }
+        }
     }
 }

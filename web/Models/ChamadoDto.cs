@@ -117,4 +117,16 @@ namespace PIM.Web.Models
         public string? Comentario { get; set; }
         public DateTime DataFeedback { get; set; }
     }
+
+    public class ComentarioDto
+    {
+        public int IdComentario { get; set; }
+        public int IdChamado { get; set; }
+        public int IdUsuario { get; set; }
+        public string NomeUsuario { get; set; } = string.Empty;
+        public string Mensagem { get; set; } = string.Empty;
+        public DateTime DataHoraEnvio { get; set; }
+        public bool Lido { get; set; }
+        public bool EhTecnico { get; set; }
+    }
 }
