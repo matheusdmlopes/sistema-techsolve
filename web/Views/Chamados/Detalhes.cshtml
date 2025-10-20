@@ -6,6 +6,39 @@
     var isTecnico = perfilAcessoId != 3;
     var isCriador = Model.UsuarioCriador.IdUsuario == usuarioId;
     var podeAvaliar = isCriador && Model.Status.Nome.ToLower() == "resolvido" && Model.Feedback == null;
+
+    // Funções auxiliares para status
+    string ObterCorStatus(string nomeStatus)
+    {
+        return nomeStatus.ToLower() switch
+        {
+            "aberto" => "light text-dark",
+            "em análise" => "info",
+            "em andamento" => "warning text-dark",
+            "aguardando usuário" => "secondary",
+            "aguardando fornecedor" => "secondary",
+            "resolvido" => "success",
+            "fechado" => "dark",
+            "cancelado" => "danger",
+            _ => "secondary"
+        };
+    }
+
+    string ObterIconeStatus(string nomeStatus)
+    {
+        return nomeStatus.ToLower() switch
+        {
+            "aberto" => "📋",
+            "em análise" => "🔍",
+            "em andamento" => "⚙️",
+            "aguardando usuário" => "⏳",
+            "aguardando fornecedor" => "📦",
+            "resolvido" => "✅",
+            "fechado" => "🔒",
+            "cancelado" => "❌",
+            _ => "📌"
+        };
+    }
 }
 
 <div class="row mb-3">
@@ -306,14 +339,25 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="alert alert-info">
+                            <strong>Status Atual:</strong> <span class="badge bg-@ObterCorStatus(Model.Status.Nome)">@Model.Status.Nome</span>
+                        </div>
                         <div class="mb-3">
-                            <label for="idStatus" class="form-label">Novo Status</label>
-                            <select name="idStatus" id="idStatus" class="form-select" required>
-                                <option value="1" selected="@(Model.Status.IdStatus == 1)">Aberto</option>
-                                <option value="2" selected="@(Model.Status.IdStatus == 2)">Em Atendimento</option>
-                                <option value="3" selected="@(Model.Status.IdStatus == 3)">Resolvido</option>
-                                <option value="4" selected="@(Model.Status.IdStatus == 4)">Fechado</option>
+                            <label for="idStatus" class="form-label fw-bold">Novo Status</label>
+                            <select name="idStatus" id="idStatus" class="form-select form-select-lg" required>
+                                @foreach (var status in ViewBag.TodosStatus)
+                                {
+                                    var isAtual = status.IdStatus == Model.Status.IdStatus;
+                                    var cor = ObterCorStatus(status.Nome);
+                                    var icone = ObterIconeStatus(status.Nome);
+                                    <option value="@status.IdStatus" selected="@isAtual"
+                                            data-cor="@cor"
+                                            style="padding: 10px;">
+                                        @icone @status.Nome - @status.Descricao
+                                    </option>
+                                }
                             </select>
+                            <small class="text-muted">Selecione o novo status do chamado</small>
                         </div>
                         <div class="mb-3">
                             <label for="observacao" class="form-label">Observação</label>
