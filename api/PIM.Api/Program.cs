@@ -57,19 +57,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // SignalR para chat em tempo real
 builder.Services.AddSignalR();
 
-// CORS configurado para SignalR
+// CORS configurado para SignalR e aplicações Desktop/Mobile
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
         policy.WithOrigins(
+                  // Web App Azure (Produção)
                   "https://web-pimads-bchmhxe0azgratct.brazilsouth-01.azurewebsites.net",
+                  // Localhost Web (Dev)
                   "http://localhost:5000",
-                  "https://localhost:7000"
+                  "https://localhost:5001",
+                  "https://localhost:7000",
+                  "http://localhost:7000",
+                  // Localhost API (Dev)
+                  "http://localhost:5220",
+                  "https://localhost:7220",
+                  "https://localhost:5038",
+                  "http://localhost:5038
               )
               .AllowAnyMethod()
               .AllowAnyHeader()
-              .AllowCredentials(); // Necessário para SignalR
+              .AllowCredentials() // Necessário para SignalR
+              .SetIsOriginAllowedToAllowWildcardSubdomains(); // Permite subdomínios
     });
 });
 
