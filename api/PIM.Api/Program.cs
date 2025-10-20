@@ -62,9 +62,14 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins(
+                  "https://web-pimads-bchmhxe0azgratct.brazilsouth-01.azurewebsites.net",
+                  "http://localhost:5000",
+                  "https://localhost:7000"
+              )
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials(); // Necessário para SignalR
     });
 });
 
