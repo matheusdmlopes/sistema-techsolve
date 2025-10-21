@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Usuario | Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Usuario | Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica ">
+      
+      <meta name="description" content="Representa um usu&#225;rio do sistema (pode ser Solicitante, T&#233;cnico ou Administrador)">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/matheusdmlopes/sistema-techsolve/new/main/apiSpec/new?filename=PIM_Api_Entities_Usuario.md&amp;value=---%0Auid%3A%20PIM.Api.Entities.Usuario%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Sistema TechSolve">
+            Sistema TechSolve
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="PIM.Api.Entities.Usuario">
+
+
+
+  <h1 id="PIM_Api_Entities_Usuario" data-uid="PIM.Api.Entities.Usuario" class="text-break">
+Class Usuario  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="PIM.html">PIM</a>.<a class="xref" href="PIM.Api.html">Api</a>.<a class="xref" href="PIM.Api.Entities.html">Entities</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>PIM.Api.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Representa um usuário do sistema (pode ser Solicitante, Técnico ou Administrador)</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Usuario</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Usuario</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="PIM_Api_Entities_Usuario_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Esta entidade armazena informações de autenticação e perfil dos usuários.
+Senha é armazenada com hash BCrypt para segurança.
+Usuários podem ter diferentes perfis de acesso que determinam suas permissões.</p>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="PIM_Api_Entities_Usuario_Ativo_" data-uid="PIM.Api.Entities.Usuario.Ativo*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_Ativo" data-uid="PIM.Api.Entities.Usuario.Ativo">
+  Ativo
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indica se o usuário está ativo no sistema (usuários inativos não podem fazer login)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Ativo { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_ChamadosAtendidos_" data-uid="PIM.Api.Entities.Usuario.ChamadosAtendidos*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_ChamadosAtendidos" data-uid="PIM.Api.Entities.Usuario.ChamadosAtendidos">
+  ChamadosAtendidos
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Chamados atribuídos a este usuário (quando atua como técnico)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Chamado&gt; ChamadosAtendidos { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="PIM.Api.Entities.Chamado.html">Chamado</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_ChamadosCriados_" data-uid="PIM.Api.Entities.Usuario.ChamadosCriados*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_ChamadosCriados" data-uid="PIM.Api.Entities.Usuario.ChamadosCriados">
+  ChamadosCriados
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Chamados criados por este usuário (quando atua como solicitante)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Chamado&gt; ChamadosCriados { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="PIM.Api.Entities.Chamado.html">Chamado</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_DataCadastro_" data-uid="PIM.Api.Entities.Usuario.DataCadastro*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_DataCadastro" data-uid="PIM.Api.Entities.Usuario.DataCadastro">
+  DataCadastro
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Data e hora de cadastro do usuário no sistema (UTC)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime DataCadastro { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_Email_" data-uid="PIM.Api.Entities.Usuario.Email*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_Email" data-uid="PIM.Api.Entities.Usuario.Email">
+  Email
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Email do usuário, usado para login (deve ser único)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Email &#233; obrigat&#243;rio&quot;)]
+[EmailAddress(ErrorMessage = &quot;Email deve ter formato v&#225;lido&quot;)]
+[StringLength(100, ErrorMessage = &quot;Email deve ter no m&#225;ximo 100 caracteres&quot;)]
+public string Email { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_HistoricosChamado_" data-uid="PIM.Api.Entities.Usuario.HistoricosChamado*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_HistoricosChamado" data-uid="PIM.Api.Entities.Usuario.HistoricosChamado">
+  HistoricosChamado
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L110"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Histórico de alterações de status realizadas por este usuário</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;HistoricoChamado&gt; HistoricosChamado { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="PIM.Api.Entities.HistoricoChamado.html">HistoricoChamado</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_IdPerfil_" data-uid="PIM.Api.Entities.Usuario.IdPerfil*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_IdPerfil" data-uid="PIM.Api.Entities.Usuario.IdPerfil">
+  IdPerfil
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID do perfil de acesso do usuário (1=Admin, 2=Técnico, 3=Solicitante)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Perfil de acesso &#233; obrigat&#243;rio&quot;)]
+[Range(1, 2147483647, ErrorMessage = &quot;IdPerfil deve ser um valor v&#225;lido&quot;)]
+public int IdPerfil { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_IdSetor_" data-uid="PIM.Api.Entities.Usuario.IdSetor*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_IdSetor" data-uid="PIM.Api.Entities.Usuario.IdSetor">
+  IdSetor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID do setor ao qual o usuário pertence (TI, RH, Financeiro, etc.)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Setor &#233; obrigat&#243;rio&quot;)]
+[Range(1, 2147483647, ErrorMessage = &quot;IdSetor deve ser um valor v&#225;lido&quot;)]
+public int IdSetor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_IdUsuario_" data-uid="PIM.Api.Entities.Usuario.IdUsuario*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_IdUsuario" data-uid="PIM.Api.Entities.Usuario.IdUsuario">
+  IdUsuario
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Identificador único do usuário</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IdUsuario { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_NomeCompleto_" data-uid="PIM.Api.Entities.Usuario.NomeCompleto*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_NomeCompleto" data-uid="PIM.Api.Entities.Usuario.NomeCompleto">
+  NomeCompleto
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Nome completo do usuário (máximo 100 caracteres)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Nome completo &#233; obrigat&#243;rio&quot;)]
+[StringLength(100, ErrorMessage = &quot;Nome completo deve ter no m&#225;ximo 100 caracteres&quot;)]
+public string NomeCompleto { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_PerfilAcesso_" data-uid="PIM.Api.Entities.Usuario.PerfilAcesso*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_PerfilAcesso" data-uid="PIM.Api.Entities.Usuario.PerfilAcesso">
+  PerfilAcesso
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L95"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Perfil de acesso que define as permissões do usuário</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PerfilAcesso PerfilAcesso { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.PerfilAcesso.html">PerfilAcesso</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_PrimeiroAcesso_" data-uid="PIM.Api.Entities.Usuario.PrimeiroAcesso*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_PrimeiroAcesso" data-uid="PIM.Api.Entities.Usuario.PrimeiroAcesso">
+  PrimeiroAcesso
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indica se é o primeiro acesso do usuário (usado para forçar troca de senha)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PrimeiroAcesso { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_Senha_" data-uid="PIM.Api.Entities.Usuario.Senha*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_Senha" data-uid="PIM.Api.Entities.Usuario.Senha">
+  Senha
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Senha do usuário (armazenada com hash BCrypt)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Senha &#233; obrigat&#243;ria&quot;)]
+[StringLength(255, MinimumLength = 6, ErrorMessage = &quot;Senha deve ter entre 6 e 255 caracteres&quot;)]
+public string Senha { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_Setor_" data-uid="PIM.Api.Entities.Usuario.Setor*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_Setor" data-uid="PIM.Api.Entities.Usuario.Setor">
+  Setor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Setor ao qual o usuário está vinculado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Setor Setor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.Setor.html">Setor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_Telefone_" data-uid="PIM.Api.Entities.Usuario.Telefone*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_Telefone" data-uid="PIM.Api.Entities.Usuario.Telefone">
+  Telefone
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Telefone de contato do usuário (opcional)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Phone(ErrorMessage = &quot;Telefone deve ter formato v&#225;lido&quot;)]
+[StringLength(15, ErrorMessage = &quot;Telefone deve ter no m&#225;ximo 15 caracteres&quot;)]
+public string? Telefone { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Usuario_UltimoLogin_" data-uid="PIM.Api.Entities.Usuario.UltimoLogin*"></a>
+
+  <h3 id="PIM_Api_Entities_Usuario_UltimoLogin" data-uid="PIM.Api.Entities.Usuario.UltimoLogin">
+  UltimoLogin
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Data e hora do último login do usuário (null se nunca fez login)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime? UltimoLogin { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Usuario.cs/#L13" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Sistema desenvolvido para UNIP - PIM IV
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

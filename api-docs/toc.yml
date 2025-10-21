@@ -1,0 +1,225 @@
+### YamlMime:TableOfContent
+items:
+- uid: PIM.Api.Controllers
+  name: PIM.Api.Controllers
+  type: Namespace
+  items:
+  - uid: PIM.Api.Controllers.AceitarSugestaoRequest
+    name: AceitarSugestaoRequest
+    type: Class
+  - uid: PIM.Api.Controllers.AdminController
+    name: AdminController
+    type: Class
+  - uid: PIM.Api.Controllers.AlterarSenhaRequest
+    name: AlterarSenhaRequest
+    type: Class
+  - uid: PIM.Api.Controllers.AnexosController
+    name: AnexosController
+    type: Class
+  - uid: PIM.Api.Controllers.AtualizarPerfilRequest
+    name: AtualizarPerfilRequest
+    type: Class
+  - uid: PIM.Api.Controllers.AtualizarUsuarioRequest
+    name: AtualizarUsuarioRequest
+    type: Class
+  - uid: PIM.Api.Controllers.AuthController
+    name: AuthController
+    type: Class
+  - uid: PIM.Api.Controllers.CategoriasController
+    name: CategoriasController
+    type: Class
+  - uid: PIM.Api.Controllers.ChamadosController
+    name: ChamadosController
+    type: Class
+  - uid: PIM.Api.Controllers.ComentariosController
+    name: ComentariosController
+    type: Class
+  - uid: PIM.Api.Controllers.CriarFeedbackRequest
+    name: CriarFeedbackRequest
+    type: Class
+  - uid: PIM.Api.Controllers.CriarUsuarioRequest
+    name: CriarUsuarioRequest
+    type: Class
+  - uid: PIM.Api.Controllers.DashboardController
+    name: DashboardController
+    type: Class
+  - uid: PIM.Api.Controllers.FeedbackController
+    name: FeedbackController
+    type: Class
+  - uid: PIM.Api.Controllers.IAController
+    name: IAController
+    type: Class
+  - uid: PIM.Api.Controllers.IAPreliminarController
+    name: IAPreliminarController
+    type: Class
+  - uid: PIM.Api.Controllers.LoginRequest
+    name: LoginRequest
+    type: Class
+  - uid: PIM.Api.Controllers.PerfisController
+    name: PerfisController
+    type: Class
+  - uid: PIM.Api.Controllers.PrioridadesController
+    name: PrioridadesController
+    type: Class
+  - uid: PIM.Api.Controllers.RelatoriosController
+    name: RelatoriosController
+    type: Class
+  - uid: PIM.Api.Controllers.SetoresController
+    name: SetoresController
+    type: Class
+  - uid: PIM.Api.Controllers.StatusController
+    name: StatusController
+    type: Class
+  - uid: PIM.Api.Controllers.UsuariosController
+    name: UsuariosController
+    type: Class
+- uid: PIM.Api.DTOs.Requests
+  name: PIM.Api.DTOs.Requests
+  type: Namespace
+  items:
+  - uid: PIM.Api.DTOs.Requests.AnalisePreliminarRequest
+    name: AnalisePreliminarRequest
+    type: Class
+  - uid: PIM.Api.DTOs.Requests.AtribuirTecnicoRequest
+    name: AtribuirTecnicoRequest
+    type: Class
+  - uid: PIM.Api.DTOs.Requests.AtualizarStatusRequest
+    name: AtualizarStatusRequest
+    type: Class
+  - uid: PIM.Api.DTOs.Requests.CriarChamadoRequest
+    name: CriarChamadoRequest
+    type: Class
+  - uid: PIM.Api.DTOs.Requests.EnviarComentarioRequest
+    name: EnviarComentarioRequest
+    type: Class
+- uid: PIM.Api.DTOs.Responses
+  name: PIM.Api.DTOs.Responses
+  type: Namespace
+  items:
+  - uid: PIM.Api.DTOs.Responses.AnalisePreliminarDto
+    name: AnalisePreliminarDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.AnexoDto
+    name: AnexoDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.CategoriaDto
+    name: CategoriaDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.ChamadoCriadoDto
+    name: ChamadoCriadoDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.ChamadoDetalhadoDto
+    name: ChamadoDetalhadoDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.ChamadoDto
+    name: ChamadoDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.ComentarioDto
+    name: ComentarioDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.FeedbackDto
+    name: FeedbackDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.HistoricoChamadoDto
+    name: HistoricoChamadoDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.PrioridadeDto
+    name: PrioridadeDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.SetorDto
+    name: SetorDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.StatusDto
+    name: StatusDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.SugestaoIADto
+    name: SugestaoIADto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.UsuarioComSetorDto
+    name: UsuarioComSetorDto
+    type: Class
+  - uid: PIM.Api.DTOs.Responses.UsuarioSimplificadoDto
+    name: UsuarioSimplificadoDto
+    type: Class
+- uid: PIM.Api.Data
+  name: PIM.Api.Data
+  type: Namespace
+  items:
+  - uid: PIM.Api.Data.ApplicationDbContext
+    name: ApplicationDbContext
+    type: Class
+  - uid: PIM.Api.Data.DataSeeder
+    name: DataSeeder
+    type: Class
+- uid: PIM.Api.Data.Validations
+  name: PIM.Api.Data.Validations
+  type: Namespace
+  items:
+  - uid: PIM.Api.Data.Validations.NotaValidationAttribute
+    name: NotaValidationAttribute
+    type: Class
+- uid: PIM.Api.Entities
+  name: PIM.Api.Entities
+  type: Namespace
+  items:
+  - uid: PIM.Api.Entities.Anexo
+    name: Anexo
+    type: Class
+  - uid: PIM.Api.Entities.Categoria
+    name: Categoria
+    type: Class
+  - uid: PIM.Api.Entities.Chamado
+    name: Chamado
+    type: Class
+  - uid: PIM.Api.Entities.ComentarioChamado
+    name: ComentarioChamado
+    type: Class
+  - uid: PIM.Api.Entities.Feedback
+    name: Feedback
+    type: Class
+  - uid: PIM.Api.Entities.HistoricoChamado
+    name: HistoricoChamado
+    type: Class
+  - uid: PIM.Api.Entities.PerfilAcesso
+    name: PerfilAcesso
+    type: Class
+  - uid: PIM.Api.Entities.Prioridade
+    name: Prioridade
+    type: Class
+  - uid: PIM.Api.Entities.Setor
+    name: Setor
+    type: Class
+  - uid: PIM.Api.Entities.StatusChamado
+    name: StatusChamado
+    type: Class
+  - uid: PIM.Api.Entities.SugestaoIA
+    name: SugestaoIA
+    type: Class
+  - uid: PIM.Api.Entities.Usuario
+    name: Usuario
+    type: Class
+- uid: PIM.Api.Hubs
+  name: PIM.Api.Hubs
+  type: Namespace
+  items:
+  - uid: PIM.Api.Hubs.ChatHub
+    name: ChatHub
+    type: Class
+- uid: PIM.Api.Migrations
+  name: PIM.Api.Migrations
+  type: Namespace
+  items:
+  - uid: PIM.Api.Migrations.AddComentariosChamado
+    name: AddComentariosChamado
+    type: Class
+  - uid: PIM.Api.Migrations.InitialCreate
+    name: InitialCreate
+    type: Class
+- uid: PIM.Api.Utils
+  name: PIM.Api.Utils
+  type: Namespace
+  items:
+  - uid: PIM.Api.Utils.PasswordHelper
+    name: PasswordHelper
+    type: Class
+memberLayout: SamePage

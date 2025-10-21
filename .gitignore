@@ -323,7 +323,5 @@ FodyWeavers.xsd
 
 # DocFX documentation generated files
 _site/
-api-docs/
-web-docs/
 *.yml
 !toc.yml

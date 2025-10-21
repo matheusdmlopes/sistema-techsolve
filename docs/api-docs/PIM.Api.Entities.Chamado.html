@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Chamado | Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Chamado | Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica ">
+      
+      <meta name="description" content="Representa um chamado t&#233;cnico (ticket) aberto por um usu&#225;rio">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/matheusdmlopes/sistema-techsolve/new/main/apiSpec/new?filename=PIM_Api_Entities_Chamado.md&amp;value=---%0Auid%3A%20PIM.Api.Entities.Chamado%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Sistema TechSolve">
+            Sistema TechSolve
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="PIM.Api.Entities.Chamado">
+
+
+
+  <h1 id="PIM_Api_Entities_Chamado" data-uid="PIM.Api.Entities.Chamado" class="text-break">
+Class Chamado  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="PIM.html">PIM</a>.<a class="xref" href="PIM.Api.html">Api</a>.<a class="xref" href="PIM.Api.Entities.html">Entities</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>PIM.Api.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Representa um chamado técnico (ticket) aberto por um usuário</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Chamado</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Chamado</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="PIM_Api_Entities_Chamado_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Esta entidade é central no sistema de suporte.
+Contém todas as informações sobre um problema reportado, incluindo:</p>
+<ul>
+<li>Dados básicos (título, descrição, datas)</li>
+<li>Classificação (categoria, prioridade, status)</li>
+<li>Relacionamentos (usuário criador, técnico responsável)</li>
+<li>Histórico de alterações</li>
+<li>Anexos, sugestões da IA, comentários e feedback</li>
+</ul>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="PIM_Api_Entities_Chamado_Anexos_" data-uid="PIM.Api.Entities.Chamado.Anexos*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Anexos" data-uid="PIM.Api.Entities.Chamado.Anexos">
+  Anexos
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Arquivos anexados ao chamado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Anexo&gt; Anexos { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="PIM.Api.Entities.Anexo.html">Anexo</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Categoria_" data-uid="PIM.Api.Entities.Chamado.Categoria*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Categoria" data-uid="PIM.Api.Entities.Chamado.Categoria">
+  Categoria
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Categoria do problema</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Categoria Categoria { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.Categoria.html">Categoria</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Comentarios_" data-uid="PIM.Api.Entities.Chamado.Comentarios*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Comentarios" data-uid="PIM.Api.Entities.Chamado.Comentarios">
+  Comentarios
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L134"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Comentários/mensagens trocadas entre usuário e técnico</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;ComentarioChamado&gt; Comentarios { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="PIM.Api.Entities.ComentarioChamado.html">ComentarioChamado</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_DataAbertura_" data-uid="PIM.Api.Entities.Chamado.DataAbertura*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_DataAbertura" data-uid="PIM.Api.Entities.Chamado.DataAbertura">
+  DataAbertura
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Data e hora em que o chamado foi aberto (UTC)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime DataAbertura { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_DataFechamento_" data-uid="PIM.Api.Entities.Chamado.DataFechamento*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_DataFechamento" data-uid="PIM.Api.Entities.Chamado.DataFechamento">
+  DataFechamento
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Data e hora em que o chamado foi fechado/resolvido (UTC), null se ainda aberto</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime? DataFechamento { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Descricao_" data-uid="PIM.Api.Entities.Chamado.Descricao*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Descricao" data-uid="PIM.Api.Entities.Chamado.Descricao">
+  Descricao
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Descrição detalhada do problema (mínimo 10 caracteres)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Descri&#231;&#227;o &#233; obrigat&#243;ria&quot;)]
+[StringLength(2147483647, MinimumLength = 10, ErrorMessage = &quot;Descri&#231;&#227;o deve ter pelo menos 10 caracteres&quot;)]
+public string Descricao { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Feedback_" data-uid="PIM.Api.Entities.Chamado.Feedback*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Feedback" data-uid="PIM.Api.Entities.Chamado.Feedback">
+  Feedback
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Feedback do usuário sobre a resolução (nota e comentário)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Feedback? Feedback { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.Feedback.html">Feedback</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Historicos_" data-uid="PIM.Api.Entities.Chamado.Historicos*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Historicos" data-uid="PIM.Api.Entities.Chamado.Historicos">
+  Historicos
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Histórico de alterações de status do chamado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;HistoricoChamado&gt; Historicos { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="PIM.Api.Entities.HistoricoChamado.html">HistoricoChamado</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_IdCategoria_" data-uid="PIM.Api.Entities.Chamado.IdCategoria*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_IdCategoria" data-uid="PIM.Api.Entities.Chamado.IdCategoria">
+  IdCategoria
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID da categoria do problema (Hardware, Software, Rede, etc.)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Categoria &#233; obrigat&#243;ria&quot;)]
+[Range(1, 2147483647, ErrorMessage = &quot;IdCategoria deve ser um valor v&#225;lido&quot;)]
+public int IdCategoria { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_IdChamado_" data-uid="PIM.Api.Entities.Chamado.IdChamado*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_IdChamado" data-uid="PIM.Api.Entities.Chamado.IdChamado">
+  IdChamado
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Identificador único do chamado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IdChamado { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_IdPrioridade_" data-uid="PIM.Api.Entities.Chamado.IdPrioridade*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_IdPrioridade" data-uid="PIM.Api.Entities.Chamado.IdPrioridade">
+  IdPrioridade
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID da prioridade do chamado (Baixa, Média, Alta, Crítica)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Prioridade &#233; obrigat&#243;ria&quot;)]
+[Range(1, 2147483647, ErrorMessage = &quot;IdPrioridade deve ser um valor v&#225;lido&quot;)]
+public int IdPrioridade { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_IdStatus_" data-uid="PIM.Api.Entities.Chamado.IdStatus*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_IdStatus" data-uid="PIM.Api.Entities.Chamado.IdStatus">
+  IdStatus
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID do status atual do chamado (Aberto, Em Andamento, Resolvido, etc.)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Status &#233; obrigat&#243;rio&quot;)]
+[Range(1, 2147483647, ErrorMessage = &quot;IdStatus deve ser um valor v&#225;lido&quot;)]
+public int IdStatus { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_IdUsuarioCriador_" data-uid="PIM.Api.Entities.Chamado.IdUsuarioCriador*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_IdUsuarioCriador" data-uid="PIM.Api.Entities.Chamado.IdUsuarioCriador">
+  IdUsuarioCriador
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID do usuário que criou o chamado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;Usu&#225;rio criador &#233; obrigat&#243;rio&quot;)]
+[Range(1, 2147483647, ErrorMessage = &quot;IdUsuarioCriador deve ser um valor v&#225;lido&quot;)]
+public int IdUsuarioCriador { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_IdUsuarioTecnico_" data-uid="PIM.Api.Entities.Chamado.IdUsuarioTecnico*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_IdUsuarioTecnico" data-uid="PIM.Api.Entities.Chamado.IdUsuarioTecnico">
+  IdUsuarioTecnico
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ID do técnico responsável por resolver o chamado (null se não atribuído)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Range(1, 2147483647, ErrorMessage = &quot;IdUsuarioTecnico deve ser um valor v&#225;lido&quot;)]
+public int? IdUsuarioTecnico { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Prioridade_" data-uid="PIM.Api.Entities.Chamado.Prioridade*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Prioridade" data-uid="PIM.Api.Entities.Chamado.Prioridade">
+  Prioridade
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Prioridade do chamado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Prioridade Prioridade { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.Prioridade.html">Prioridade</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_SolucaoFinal_" data-uid="PIM.Api.Entities.Chamado.SolucaoFinal*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_SolucaoFinal" data-uid="PIM.Api.Entities.Chamado.SolucaoFinal">
+  SolucaoFinal
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Descrição da solução final aplicada ao problema</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? SolucaoFinal { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Status_" data-uid="PIM.Api.Entities.Chamado.Status*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Status" data-uid="PIM.Api.Entities.Chamado.Status">
+  Status
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Status atual do chamado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StatusChamado Status { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.StatusChamado.html">StatusChamado</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Sugestoes_" data-uid="PIM.Api.Entities.Chamado.Sugestoes*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Sugestoes" data-uid="PIM.Api.Entities.Chamado.Sugestoes">
+  Sugestoes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sugestões geradas pela IA para resolução do problema</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;SugestaoIA&gt; Sugestoes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="PIM.Api.Entities.SugestaoIA.html">SugestaoIA</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_Titulo_" data-uid="PIM.Api.Entities.Chamado.Titulo*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_Titulo" data-uid="PIM.Api.Entities.Chamado.Titulo">
+  Titulo
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Título resumido do problema (máximo 100 caracteres)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Required(ErrorMessage = &quot;T&#237;tulo &#233; obrigat&#243;rio&quot;)]
+[StringLength(100, ErrorMessage = &quot;T&#237;tulo deve ter no m&#225;ximo 100 caracteres&quot;)]
+public string Titulo { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_UsuarioCriador_" data-uid="PIM.Api.Entities.Chamado.UsuarioCriador*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_UsuarioCriador" data-uid="PIM.Api.Entities.Chamado.UsuarioCriador">
+  UsuarioCriador
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Usuário que criou o chamado</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Usuario UsuarioCriador { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.Usuario.html">Usuario</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="PIM_Api_Entities_Chamado_UsuarioTecnico_" data-uid="PIM.Api.Entities.Chamado.UsuarioTecnico*"></a>
+
+  <h3 id="PIM_Api_Entities_Chamado_UsuarioTecnico" data-uid="PIM.Api.Entities.Chamado.UsuarioTecnico">
+  UsuarioTecnico
+  <a class="header-action link-secondary" title="View source" href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Técnico responsável pelo atendimento (null se não atribuído)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Usuario? UsuarioTecnico { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="PIM.Api.Entities.Usuario.html">Usuario</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/api/PIM.Api/Entities/Chamado.cs/#L17" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Sistema desenvolvido para UNIP - PIM IV
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
