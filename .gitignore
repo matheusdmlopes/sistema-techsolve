@@ -325,3 +325,5 @@ FodyWeavers.xsd
 _site/
 *.yml
 !toc.yml
+
+docs-projeto/

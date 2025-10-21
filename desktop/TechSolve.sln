@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TechSolve", "TechSolve\TechSolve.vbproj", "{15751C14-8F4B-4C0C-8BE0-6B39AF239800}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Login", "Login\Login.vbproj", "{D78DD9FE-4249-4692-9DAB-AB2523E5645E}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HOME", "HOME\HOME.vbproj", "{BDB5BFF3-B440-4D3C-A0F2-420884BBA915}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15751C14-8F4B-4C0C-8BE0-6B39AF239800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15751C14-8F4B-4C0C-8BE0-6B39AF239800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15751C14-8F4B-4C0C-8BE0-6B39AF239800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15751C14-8F4B-4C0C-8BE0-6B39AF239800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D78DD9FE-4249-4692-9DAB-AB2523E5645E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78DD9FE-4249-4692-9DAB-AB2523E5645E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D78DD9FE-4249-4692-9DAB-AB2523E5645E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D78DD9FE-4249-4692-9DAB-AB2523E5645E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDB5BFF3-B440-4D3C-A0F2-420884BBA915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB5BFF3-B440-4D3C-A0F2-420884BBA915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB5BFF3-B440-4D3C-A0F2-420884BBA915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB5BFF3-B440-4D3C-A0F2-420884BBA915}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {706BA3A6-DD88-4DCD-BCBF-93FCB109F57C}
+	EndGlobalSection
+EndGlobal
