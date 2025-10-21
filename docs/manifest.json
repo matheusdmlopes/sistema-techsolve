@@ -1,0 +1,1796 @@
+{
+  "source_base_path": "/home/matheusdml/Desktop/projetos/sistema-techsolve",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "GEMINI.md",
+      "output": {
+        ".html": {
+          "relative_path": "GEMINI.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.AceitarSugestaoRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.AceitarSugestaoRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.AceitarSugestaoRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.AdminController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.AdminController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.AdminController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.AlterarSenhaRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.AlterarSenhaRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.AlterarSenhaRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.AnexosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.AnexosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.AnexosController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.AtualizarPerfilRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.AtualizarPerfilRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.AtualizarPerfilRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.AtualizarUsuarioRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.AtualizarUsuarioRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.AtualizarUsuarioRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.AuthController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.AuthController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.AuthController",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Controllers.AuthController.yml\" sourcestartlinenumber=\"1\">Controller responsável pela autenticação de usuários</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.CategoriasController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.CategoriasController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.CategoriasController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.ChamadosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.ChamadosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.ChamadosController",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Controllers.ChamadosController.yml\" sourcestartlinenumber=\"1\">Controller responsável pelo gerenciamento de chamados técnicos (tickets)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.ComentariosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.ComentariosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.ComentariosController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.CriarFeedbackRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.CriarFeedbackRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.CriarFeedbackRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.CriarUsuarioRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.CriarUsuarioRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.CriarUsuarioRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.DashboardController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.DashboardController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.DashboardController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.FeedbackController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.FeedbackController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.FeedbackController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.IAController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.IAController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.IAController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.IAPreliminarController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.IAPreliminarController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.IAPreliminarController",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Controllers.IAPreliminarController.yml\" sourcestartlinenumber=\"1\">Controller para análise preliminar de problemas utilizando Inteligência Artificial</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.LoginRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.LoginRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.LoginRequest",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Controllers.LoginRequest.yml\" sourcestartlinenumber=\"1\">DTO para requisição de login</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.PerfisController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.PerfisController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.PerfisController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.PrioridadesController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.PrioridadesController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.PrioridadesController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.RelatoriosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.RelatoriosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.RelatoriosController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.SetoresController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.SetoresController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.SetoresController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.StatusController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.StatusController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.StatusController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.UsuariosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.UsuariosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers.UsuariosController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Controllers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Controllers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Controllers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Requests.AnalisePreliminarRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Requests.AnalisePreliminarRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Requests.AnalisePreliminarRequest",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Requests.AnalisePreliminarRequest.yml\" sourcestartlinenumber=\"1\">Request para análise preliminar de problema pela IA (antes de criar chamado)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Requests.AtribuirTecnicoRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Requests.AtribuirTecnicoRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Requests.AtribuirTecnicoRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Requests.AtualizarStatusRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Requests.AtualizarStatusRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Requests.AtualizarStatusRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Requests.CriarChamadoRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Requests.CriarChamadoRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Requests.CriarChamadoRequest",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Requests.CriarChamadoRequest.yml\" sourcestartlinenumber=\"1\">DTO para requisição de criação de novo chamado técnico</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Requests.EnviarComentarioRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Requests.EnviarComentarioRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Requests.EnviarComentarioRequest",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Requests.EnviarComentarioRequest.yml\" sourcestartlinenumber=\"1\">Request para enviar um comentário/mensagem em um chamado</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Requests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Requests.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Requests",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.AnalisePreliminarDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.AnalisePreliminarDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.AnalisePreliminarDto",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Responses.AnalisePreliminarDto.yml\" sourcestartlinenumber=\"1\">DTO de resposta contendo análise preliminar de problema realizada pela IA</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.AnexoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.AnexoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.AnexoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.CategoriaDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.CategoriaDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.CategoriaDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.ChamadoCriadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.ChamadoCriadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.ChamadoCriadoDto",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Responses.ChamadoCriadoDto.yml\" sourcestartlinenumber=\"1\">DTO retornado após criação de um chamado</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.ChamadoDetalhadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.ChamadoDetalhadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.ChamadoDetalhadoDto",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Responses.ChamadoDetalhadoDto.yml\" sourcestartlinenumber=\"1\">DTO completo com todos os relacionamentos do chamado</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.ChamadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.ChamadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.ChamadoDto",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Responses.ChamadoDto.yml\" sourcestartlinenumber=\"1\">DTO simplificado para listagem de chamados</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.ComentarioDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.ComentarioDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.ComentarioDto",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.DTOs.Responses.ComentarioDto.yml\" sourcestartlinenumber=\"1\">DTO com informações de um comentário/mensagem de um chamado</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.FeedbackDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.FeedbackDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.FeedbackDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.HistoricoChamadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.HistoricoChamadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.HistoricoChamadoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.PrioridadeDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.PrioridadeDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.PrioridadeDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.SetorDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.SetorDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.SetorDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.StatusDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.StatusDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.StatusDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.SugestaoIADto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.SugestaoIADto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.SugestaoIADto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.UsuarioComSetorDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.UsuarioComSetorDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.UsuarioComSetorDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.UsuarioSimplificadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.UsuarioSimplificadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses.UsuarioSimplificadoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.DTOs.Responses.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.DTOs.Responses.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.DTOs.Responses",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Data.ApplicationDbContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Data.ApplicationDbContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Data.ApplicationDbContext",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Data.DataSeeder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Data.DataSeeder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Data.DataSeeder",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Data.DataSeeder.yml\" sourcestartlinenumber=\"1\">Classe para popular o banco com dados iniciais conforme DOCsimplificado.md</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Data.Validations.NotaValidationAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Data.Validations.NotaValidationAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Data.Validations.NotaValidationAttribute",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Data.Validations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Data.Validations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Data.Validations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Data.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Data.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Data",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.Anexo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.Anexo.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.Anexo",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.Categoria.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.Categoria.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.Categoria",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.Chamado.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.Chamado.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.Chamado",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Entities.Chamado.yml\" sourcestartlinenumber=\"1\">Representa um chamado técnico (ticket) aberto por um usuário</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.ComentarioChamado.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.ComentarioChamado.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.ComentarioChamado",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Entities.ComentarioChamado.yml\" sourcestartlinenumber=\"1\">Representa um comentário/mensagem em um chamado (chat entre técnico e usuário)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.Feedback.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.Feedback.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.Feedback",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.HistoricoChamado.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.HistoricoChamado.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.HistoricoChamado",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.PerfilAcesso.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.PerfilAcesso.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.PerfilAcesso",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.Prioridade.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.Prioridade.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.Prioridade",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.Setor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.Setor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.Setor",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.StatusChamado.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.StatusChamado.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.StatusChamado",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Entities.StatusChamado.yml\" sourcestartlinenumber=\"1\">Representa um possível status de um chamado técnico</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.SugestaoIA.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.SugestaoIA.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.SugestaoIA",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.Usuario.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.Usuario.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities.Usuario",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Entities.Usuario.yml\" sourcestartlinenumber=\"1\">Representa um usuário do sistema (pode ser Solicitante, Técnico ou Administrador)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Entities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Entities",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Hubs.ChatHub.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Hubs.ChatHub.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Hubs.ChatHub",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Hubs.ChatHub.yml\" sourcestartlinenumber=\"1\">Hub SignalR para chat em tempo real entre técnicos e usuários nos chamados</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Hubs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Hubs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Hubs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Migrations.AddComentariosChamado.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Migrations.AddComentariosChamado.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Migrations.AddComentariosChamado",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Migrations.AddComentariosChamado.yml\" sourcestartlinenumber=\"1\">A base class inherited by each EF Core migration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Migrations.InitialCreate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Migrations.InitialCreate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Migrations.InitialCreate",
+      "Summary": "<p sourcefile=\"api-docs/PIM.Api.Migrations.InitialCreate.yml\" sourcestartlinenumber=\"1\">A base class inherited by each EF Core migration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Migrations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Migrations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Migrations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Utils.PasswordHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Utils.PasswordHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Utils.PasswordHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-docs/PIM.Api.Utils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/PIM.Api.Utils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Api.Utils",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api-docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "api-docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.ArtigosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.ArtigosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.ArtigosController",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Controllers.ArtigosController.yml\" sourcestartlinenumber=\"1\">Controller para exibir artigos de problemas comuns</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.AuthController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.AuthController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.AuthController",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Controllers.AuthController.yml\" sourcestartlinenumber=\"1\">Controller responsável pela autenticação de usuários</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.ChamadosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.ChamadosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.ChamadosController",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Controllers.ChamadosController.yml\" sourcestartlinenumber=\"1\">Controller para gerenciamento de chamados</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.HomeController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.HomeController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.HomeController",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.InstitucionalController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.InstitucionalController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.InstitucionalController",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Controllers.InstitucionalController.yml\" sourcestartlinenumber=\"1\">Controller para páginas institucionais (Privacidade, Manual, etc.)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.PerfilController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.PerfilController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.PerfilController",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Controllers.PerfilController.yml\" sourcestartlinenumber=\"1\">Controller para gerenciamento do perfil do usuário</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.RelatoriosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.RelatoriosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.RelatoriosController",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Controllers.RelatoriosController.yml\" sourcestartlinenumber=\"1\">Controller para relatórios e dashboards gerenciais</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.UsuariosController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.UsuariosController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers.UsuariosController",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Controllers.UsuariosController.yml\" sourcestartlinenumber=\"1\">Controller para gerenciamento de usuários (apenas Admin)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Controllers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Controllers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Controllers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Filters.AuthorizeSessionAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Filters.AuthorizeSessionAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Filters.AuthorizeSessionAttribute",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Filters.AuthorizeSessionAttribute.yml\" sourcestartlinenumber=\"1\">Atributo para verificar se o usuário está autenticado via sessão</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Filters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Filters.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Filters",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.AlterarSenhaViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.AlterarSenhaViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.AlterarSenhaViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.AlterarSenhaViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para alteração de senha</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.AlterarStatusViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.AlterarStatusViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.AlterarStatusViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.AlterarStatusViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para alterar status do chamado (Técnico)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.AnalisePreliminarRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.AnalisePreliminarRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.AnalisePreliminarRequest",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.AnalisePreliminarRequest.yml\" sourcestartlinenumber=\"1\">ViewModel para análise preliminar de problema pela IA</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.AnalisePreliminarResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.AnalisePreliminarResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.AnalisePreliminarResponse",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.AnalisePreliminarResponse.yml\" sourcestartlinenumber=\"1\">ViewModel com resultado da análise preliminar da IA</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.AnexoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.AnexoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.AnexoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.ArtigoViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.ArtigoViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.ArtigoViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.ArtigoViewModel.yml\" sourcestartlinenumber=\"1\">Model para artigos de problemas comuns</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.AssumirChamadoRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.AssumirChamadoRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.AssumirChamadoRequest",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.AssumirChamadoRequest.yml\" sourcestartlinenumber=\"1\">ViewModel para assumir um chamado (Técnico)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.AtualizarPerfilViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.AtualizarPerfilViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.AtualizarPerfilViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.AtualizarPerfilViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para atualizar dados do perfil</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.CategoriaDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.CategoriaDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.CategoriaDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.ChamadoDetalhadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.ChamadoDetalhadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.ChamadoDetalhadoDto",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.ChamadoDetalhadoDto.yml\" sourcestartlinenumber=\"1\">DTO detalhado com relacionamentos completos</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.ChamadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.ChamadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.ChamadoDto",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.ChamadoDto.yml\" sourcestartlinenumber=\"1\">DTO para representar um chamado recebido da API</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.ChamadoRecenteDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.ChamadoRecenteDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.ChamadoRecenteDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.ComentarioDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.ComentarioDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.ComentarioDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.CriarUsuarioViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.CriarUsuarioViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.CriarUsuarioViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.CriarUsuarioViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para criar novo usuário</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.DashboardMetricasDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.DashboardMetricasDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.DashboardMetricasDto",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.DashboardMetricasDto.yml\" sourcestartlinenumber=\"1\">DTO para métricas do dashboard</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.EditarUsuarioViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.EditarUsuarioViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.EditarUsuarioViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.EditarUsuarioViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para editar usuário existente</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.ErrorViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.ErrorViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.ErrorViewModel",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.FeedbackDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.FeedbackDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.FeedbackDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.FeedbackViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.FeedbackViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.FeedbackViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.FeedbackViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para dar feedback no chamado</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.FiltrosChamadosViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.FiltrosChamadosViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.FiltrosChamadosViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.FiltrosChamadosViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para filtros de chamados</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.HistoricoChamadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.HistoricoChamadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.HistoricoChamadoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.LoginResponseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.LoginResponseDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.LoginResponseDto",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.LoginResponseDto.yml\" sourcestartlinenumber=\"1\">DTO de resposta da API de autenticação</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.LoginViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.LoginViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.LoginViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.LoginViewModel.yml\" sourcestartlinenumber=\"1\">View Model para a tela de login</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.NovoChamadoViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.NovoChamadoViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.NovoChamadoViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.NovoChamadoViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para criação de novo chamado</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.PerfilAcessoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.PerfilAcessoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.PerfilAcessoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.PerfilSimplificadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.PerfilSimplificadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.PerfilSimplificadoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.PrimeiroAcessoViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.PrimeiroAcessoViewModel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.PrimeiroAcessoViewModel",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.PrimeiroAcessoViewModel.yml\" sourcestartlinenumber=\"1\">ViewModel para troca de senha no primeiro acesso</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.PrioridadeDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.PrioridadeDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.PrioridadeDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.SetorDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.SetorDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.SetorDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.SetorSimplificadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.SetorSimplificadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.SetorSimplificadoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.StatusDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.StatusDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.StatusDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.SugestaoIADto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.SugestaoIADto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.SugestaoIADto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.UsuarioComSetorDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.UsuarioComSetorDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.UsuarioComSetorDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.UsuarioDetalhadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.UsuarioDetalhadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.UsuarioDetalhadoDto",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.UsuarioDetalhadoDto.yml\" sourcestartlinenumber=\"1\">ViewModel para exibir dados completos do usuário</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.UsuarioDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.UsuarioDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.UsuarioDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.UsuarioListaDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.UsuarioListaDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.UsuarioListaDto",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Models.UsuarioListaDto.yml\" sourcestartlinenumber=\"1\">DTO para listagem de usuários</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.UsuarioSimplificadoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.UsuarioSimplificadoDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models.UsuarioSimplificadoDto",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Models.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Models",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Services.ApiService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Services.ApiService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Services.ApiService",
+      "Summary": "<p sourcefile=\"web-docs/PIM.Web.Services.ApiService.yml\" sourcestartlinenumber=\"1\">Serviço para comunicação com a API REST do TechSolve</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "web-docs/PIM.Web.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/PIM.Web.Services.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "PIM.Web.Services",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "web-docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "web-docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "web-docs/toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

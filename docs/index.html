@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica | Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica | Sistema TechSolve - Documenta&#231;&#227;o T&#233;cnica ">
+      
+      
+      <link rel="icon" href="favicon.ico">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="index.html">
+            <img id="logo" class="svg" src="logo.svg" alt="Sistema TechSolve">
+            Sistema TechSolve
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="sistema-techsolve---documentação-técnica">Sistema TechSolve - Documentação Técnica</h1>
+
+<p>Bem-vindo à documentação técnica do <strong>Sistema TechSolve</strong>, uma solução completa de gerenciamento de chamados técnicos desenvolvida para o projeto PIM IV da UNIP.</p>
+<h2 id="visão-geral">Visão Geral</h2>
+<p>O Sistema TechSolve é uma plataforma de Service Desk que facilita o gerenciamento de solicitações de suporte técnico em ambientes acadêmicos. O sistema utiliza <strong>Inteligência Artificial</strong> para análise preliminar de problemas e oferece comunicação em tempo real entre técnicos e usuários.</p>
+<h2 id="arquitetura-do-sistema">Arquitetura do Sistema</h2>
+<p>O projeto está dividido em dois componentes principais:</p>
+<h3 id="api-backend"><strong>API</strong> (Backend)</h3>
+<ul>
+<li><strong>Tecnologia</strong>: ASP.NET Core 8.0 Web API</li>
+<li><strong>Banco de Dados</strong>: SQL Server com Entity Framework Core</li>
+<li><strong>Autenticação</strong>: JWT (JSON Web Tokens)</li>
+<li><strong>Segurança</strong>: BCrypt para hash de senhas</li>
+<li><strong>IA</strong>: Integração com OpenAI GPT-3.5-turbo</li>
+<li><strong>Comunicação em Tempo Real</strong>: SignalR</li>
+</ul>
+<h3 id="web-frontend"><strong>Web</strong> (Frontend)</h3>
+<ul>
+<li><strong>Tecnologia</strong>: ASP.NET Core 8.0 MVC</li>
+<li><strong>Interface</strong>: Bootstrap 5 + Bootstrap Icons</li>
+<li><strong>Comunicação</strong>: SignalR para chat em tempo real</li>
+<li><strong>Hospedagem</strong>: Azure App Service</li>
+</ul>
+<h2 id="principais-funcionalidades">Principais Funcionalidades</h2>
+<h3 id="-gerenciamento-de-chamados">🎫 Gerenciamento de Chamados</h3>
+<ul>
+<li>Abertura de chamados com análise preliminar por IA</li>
+<li>Categorização automática (Hardware, Software, Rede, etc.)</li>
+<li>Priorização inteligente (Baixa, Média, Alta, Crítica)</li>
+<li>Atribuição de técnicos</li>
+<li>Histórico completo de alterações</li>
+<li>Anexos de arquivos</li>
+<li>Feedback do usuário</li>
+</ul>
+<h3 id="-inteligência-artificial">🤖 Inteligência Artificial</h3>
+<ul>
+<li>Análise preliminar de problemas</li>
+<li>Sugestão de categoria e prioridade</li>
+<li>Recomendações de solução</li>
+<li>Indicação se o problema pode ser resolvido sem técnico</li>
+</ul>
+<h3 id="-chat-em-tempo-real">💬 Chat em Tempo Real</h3>
+<ul>
+<li>Comunicação direta entre usuário e técnico</li>
+<li>WebSocket via SignalR</li>
+<li>Fallback para API REST quando WebSocket não disponível</li>
+<li>Histórico de mensagens persistido</li>
+</ul>
+<h3 id="-relatórios-e-dashboards">📊 Relatórios e Dashboards</h3>
+<ul>
+<li>Chamados por status, categoria e prioridade</li>
+<li>Performance de técnicos (taxa de resolução)</li>
+<li>Evolução temporal de chamados</li>
+<li>Métricas gerais do sistema</li>
+</ul>
+<h3 id="-gestão-de-usuários">👥 Gestão de Usuários</h3>
+<ul>
+<li>Três perfis de acesso: Administrador, Técnico e Solicitante</li>
+<li>Controle de permissões por perfil</li>
+<li>Gerenciamento de setores</li>
+</ul>
+<h3 id="-base-de-conhecimento">📚 Base de Conhecimento</h3>
+<ul>
+<li>Artigos informativos</li>
+<li>Categorização de conteúdo</li>
+<li>Visualização de artigos relacionados</li>
+</ul>
+<h2 id="conformidade-e-segurança">Conformidade e Segurança</h2>
+<ul>
+<li><strong>LGPD</strong>: Política de Privacidade completa</li>
+<li><strong>Autenticação</strong>: JWT com expiração de 24 horas</li>
+<li><strong>Criptografia</strong>: BCrypt para senhas</li>
+<li><strong>HTTPS</strong>: Comunicação segura em produção</li>
+</ul>
+<h2 id="tecnologias-utilizadas">Tecnologias Utilizadas</h2>
+<ul>
+<li><strong>.NET 8.0</strong></li>
+<li><strong>Entity Framework Core</strong></li>
+<li><strong>SQL Server</strong></li>
+<li><strong>SignalR</strong></li>
+<li><strong>OpenAI API</strong></li>
+<li><strong>Bootstrap 5</strong></li>
+<li><strong>Azure App Service</strong></li>
+<li><strong>GitHub Actions</strong> (CI/CD)</li>
+</ul>
+<h2 id="navegação-da-documentação">Navegação da Documentação</h2>
+<p>Utilize o menu lateral para navegar entre:</p>
+<ul>
+<li><strong>API Reference</strong>: Documentação completa dos Controllers, Entities e DTOs da API</li>
+<li><strong>Web Application</strong>: Documentação dos Controllers e Models da aplicação Web</li>
+</ul>
+<h2 id="contato-e-suporte">Contato e Suporte</h2>
+<p>Sistema desenvolvido para <strong>UNIP - PIM IV</strong>
+Ano: 2025</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/matheusdmlopes/sistema-techsolve/blob/main/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Sistema desenvolvido para UNIP - PIM IV
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
