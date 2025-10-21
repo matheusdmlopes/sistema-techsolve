@@ -22,7 +22,7 @@
           "files": [
             "PIM.Web.csproj"
           ],
-          "src": "web"
+          "src": "web/PIM.Web"
         }
       ],
       "dest": "web-docs",
