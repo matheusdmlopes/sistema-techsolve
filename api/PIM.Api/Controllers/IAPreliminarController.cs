@@ -9,8 +9,13 @@ using PIM.Api.DTOs.Responses;
 namespace PIM.Api.Controllers;
 
 /// <summary>
-/// Controller para análise preliminar de problemas pela IA (antes de criar chamado)
+/// Controller para análise preliminar de problemas utilizando Inteligência Artificial
 /// </summary>
+/// <remarks>
+/// Utiliza OpenAI GPT-3.5-turbo para analisar descrições de problemas antes de criar um chamado.
+/// A IA sugere categoria, prioridade, e uma possível solução.
+/// Também indica se o problema pode ser resolvido pelo próprio usuário sem necessidade de técnico.
+/// </remarks>
 [ApiController]
 [Route("api/ia")]
 [Authorize]
@@ -31,12 +36,25 @@ public class IAPreliminarController : ControllerBase
     }
 
     /// <summary>
-    /// Analisa um problema descrito pelo usuário e retorna:
-    /// - Sugestão de solução
-    /// - Categoria sugerida
-    /// - Prioridade sugerida
-    /// - Se pode ser resolvido sem técnico
+    /// Analisa um problema descrito pelo usuário usando IA
     /// </summary>
+    /// <remarks>
+    /// Envia a descrição do problema para o modelo GPT-3.5-turbo da OpenAI.
+    /// A IA retorna:
+    /// - Categoria sugerida (baseada nas categorias cadastradas no sistema)
+    /// - Prioridade sugerida (baseada nas prioridades cadastradas)
+    /// - Sugestão de solução (orientações para o usuário)
+    /// - Indicador se pode ser resolvido sem técnico
+    ///
+    /// A resposta da IA é parseada e validada contra as categorias e prioridades existentes no banco.
+    /// Se a IA sugerir categoria/prioridade inexistente, usa fallback padrão.
+    /// </remarks>
+    /// <param name="request">Título e descrição do problema a ser analisado</param>
+    /// <returns>Análise preliminar com sugestões da IA</returns>
+    /// <response code="200">Análise realizada com sucesso</response>
+    /// <response code="400">Sistema sem categorias ou prioridades cadastradas</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro ao processar análise (falha na API OpenAI ou configuração inválida)</response>
     [HttpPost("analisar-preliminar")]
     public async Task<ActionResult<AnalisePreliminarDto>> AnalisarProblema([FromBody] AnalisePreliminarRequest request)
     {
@@ -127,8 +145,22 @@ IMPORTANTE:
     }
 
     /// <summary>
-    /// Parseia a resposta da IA no formato esperado
+    /// Parseia a resposta da IA e valida contra categorias/prioridades do banco
     /// </summary>
+    /// <remarks>
+    /// Extrai as seguintes informações da resposta da IA:
+    /// - CATEGORIA: nome da categoria sugerida
+    /// - PRIORIDADE: nível da prioridade sugerida
+    /// - PODE_RESOLVER: SIM ou NÃO
+    /// - SOLUÇÃO: texto com instruções
+    ///
+    /// Valida se categoria e prioridade existem no banco.
+    /// Usa fallback para "Outros" e "Média" se não encontrar.
+    /// </remarks>
+    /// <param name="respostaIA">Texto retornado pela OpenAI</param>
+    /// <param name="categorias">Lista de categorias disponíveis no sistema</param>
+    /// <param name="prioridades">Lista de prioridades disponíveis no sistema</param>
+    /// <returns>Tupla com categoria, prioridade, indicador booleano e texto da solução</returns>
     private (Entities.Categoria categoria, Entities.Prioridade prioridade, bool podeResolver, string solucao)
         ParsearRespostaIA(string respostaIA, List<Entities.Categoria> categorias, List<Entities.Prioridade> prioridades)
     {

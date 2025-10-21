@@ -9,6 +9,13 @@ using PIM.Api.Data;
 
 namespace PIM.Api.Controllers
 {
+    /// <summary>
+    /// Controller responsável pela autenticação de usuários
+    /// </summary>
+    /// <remarks>
+    /// Gerencia o login de usuários e geração de tokens JWT.
+    /// Utiliza BCrypt para verificação segura de senhas.
+    /// </remarks>
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
@@ -21,6 +28,21 @@ namespace PIM.Api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Realiza login de usuário no sistema
+        /// </summary>
+        /// <remarks>
+        /// Valida credenciais (email e senha) e retorna um token JWT válido por 24 horas.
+        /// A senha é verificada usando BCrypt.
+        /// Atualiza a data do último login do usuário.
+        /// Apenas usuários ativos podem fazer login.
+        /// </remarks>
+        /// <param name="request">Credenciais do usuário (email e senha)</param>
+        /// <returns>Token JWT e informações do usuário autenticado (incluindo perfil e setor)</returns>
+        /// <response code="200">Login realizado com sucesso - retorna token e dados do usuário</response>
+        /// <response code="400">Email ou senha não fornecidos</response>
+        /// <response code="401">Credenciais inválidas ou usuário inativo</response>
+        /// <response code="500">Erro interno do servidor</response>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
@@ -104,6 +126,16 @@ namespace PIM.Api.Controllers
         /// <summary>
         /// Retorna informações do usuário autenticado
         /// </summary>
+        /// <remarks>
+        /// Obtém dados completos do usuário logado a partir do token JWT.
+        /// Inclui informações de perfil de acesso, setor, datas de cadastro e último login.
+        /// Requer token JWT válido no header Authorization.
+        /// </remarks>
+        /// <returns>Informações completas do usuário autenticado</returns>
+        /// <response code="200">Dados do usuário retornados com sucesso</response>
+        /// <response code="401">Token inválido ou não fornecido</response>
+        /// <response code="404">Usuário não encontrado ou inativo</response>
+        /// <response code="500">Erro interno do servidor</response>
         [HttpGet("me")]
         [Authorize]
         public async Task<IActionResult> GetCurrentUser()
@@ -148,9 +180,19 @@ namespace PIM.Api.Controllers
         }
     }
 
+    /// <summary>
+    /// DTO para requisição de login
+    /// </summary>
     public class LoginRequest
     {
+        /// <summary>
+        /// Email do usuário
+        /// </summary>
         public string Email { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Senha do usuário (será verificada com BCrypt)
+        /// </summary>
         public string Senha { get; set; } = string.Empty;
     }
 }

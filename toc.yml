@@ -1,0 +1,22 @@
+- name: Início
+  href: index.md
+- name: API Reference
+  href: api-docs/
+  items:
+  - name: Controllers
+    href: api-docs/PIM.Api.Controllers.yml
+  - name: Entities
+    href: api-docs/PIM.Api.Entities.yml
+  - name: DTOs
+    items:
+    - name: Requests
+      href: api-docs/PIM.Api.DTOs.Requests.yml
+    - name: Responses
+      href: api-docs/PIM.Api.DTOs.Responses.yml
+- name: Web Application
+  href: web-docs/
+  items:
+  - name: Controllers
+    href: web-docs/PIM.Web.Controllers.yml
+  - name: Models
+    href: web-docs/PIM.Web.Models.yml

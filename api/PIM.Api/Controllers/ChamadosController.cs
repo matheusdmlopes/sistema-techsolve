@@ -8,6 +8,20 @@ using PIM.Api.DTOs.Responses;
 
 namespace PIM.Api.Controllers
 {
+    /// <summary>
+    /// Controller responsável pelo gerenciamento de chamados técnicos (tickets)
+    /// </summary>
+    /// <remarks>
+    /// Este controller fornece endpoints para CRUD de chamados, incluindo:
+    /// - Listagem e consulta de chamados
+    /// - Criação de novos chamados
+    /// - Atualização de status
+    /// - Atribuição de técnicos
+    /// - Histórico de alterações
+    ///
+    /// Requer autenticação JWT para todos os endpoints.
+    /// Alguns endpoints requerem perfil de Admin ou Técnico.
+    /// </remarks>
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
@@ -23,8 +37,16 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
-        /// Lista todos os chamados (máximo 100)
+        /// Lista todos os chamados com informações resumidas
         /// </summary>
+        /// <remarks>
+        /// Retorna os 100 chamados mais recentes, ordenados por data de abertura decrescente.
+        /// Inclui informações de categoria, prioridade, status, usuário criador e técnico atribuído.
+        /// </remarks>
+        /// <returns>Lista de chamados em formato DTO</returns>
+        /// <response code="200">Lista de chamados retornada com sucesso</response>
+        /// <response code="401">Usuário não autenticado</response>
+        /// <response code="500">Erro interno ao buscar chamados</response>
         [HttpGet]
         public async Task<ActionResult<List<ChamadoDto>>> GetChamados()
         {
@@ -88,8 +110,22 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
-        /// Obtém um chamado por ID com todos os relacionamentos
+        /// Obtém um chamado específico por ID com informações detalhadas
         /// </summary>
+        /// <remarks>
+        /// Retorna todas as informações do chamado incluindo:
+        /// - Dados completos do usuário criador (com setor)
+        /// - Histórico de alterações de status
+        /// - Lista de anexos
+        /// - Sugestões da IA
+        /// - Feedback do usuário (se existir)
+        /// </remarks>
+        /// <param name="id">ID do chamado a ser consultado</param>
+        /// <returns>Chamado detalhado em formato DTO</returns>
+        /// <response code="200">Chamado encontrado e retornado com sucesso</response>
+        /// <response code="401">Usuário não autenticado</response>
+        /// <response code="404">Chamado não encontrado</response>
+        /// <response code="500">Erro interno ao buscar chamado</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<ChamadoDetalhadoDto>> GetChamado(int id)
         {
@@ -202,8 +238,19 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
-        /// Cria um novo chamado
+        /// Cria um novo chamado técnico
         /// </summary>
+        /// <remarks>
+        /// Cria um chamado com status inicial "Aberto" e registra no histórico.
+        /// O ID do usuário criador pode vir do request ou do token JWT.
+        /// Valida categoria e prioridade antes de criar.
+        /// </remarks>
+        /// <param name="request">Dados do chamado a ser criado (título, descrição, categoria, prioridade)</param>
+        /// <returns>Chamado criado com informações completas</returns>
+        /// <response code="201">Chamado criado com sucesso (retorna Location header com URL do recurso)</response>
+        /// <response code="400">Categoria ou prioridade inválida</response>
+        /// <response code="401">Usuário não autenticado</response>
+        /// <response code="500">Erro interno ao criar chamado</response>
         [HttpPost]
         public async Task<ActionResult<ChamadoCriadoDto>> CreateChamado([FromBody] CriarChamadoRequest request)
         {
@@ -320,8 +367,25 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
-        /// Atualiza o status de um chamado e registra no histórico
+        /// Atualiza o status de um chamado
         /// </summary>
+        /// <remarks>
+        /// Permite alterar o status do chamado e registra a mudança no histórico.
+        /// Se o novo status for "Fechado" ou "Resolvido", registra a data de fechamento.
+        /// Permite atribuir técnico durante a atualização de status.
+        /// Registra automaticamente quem realizou a alteração.
+        ///
+        /// REQUER PERFIL: Admin ou Técnico
+        /// </remarks>
+        /// <param name="id">ID do chamado a ser atualizado</param>
+        /// <param name="request">Dados da atualização (ID do novo status, observação, solução final, técnico)</param>
+        /// <returns>Mensagem de confirmação</returns>
+        /// <response code="200">Status atualizado com sucesso</response>
+        /// <response code="400">Status ou técnico não encontrado</response>
+        /// <response code="401">Usuário não autenticado</response>
+        /// <response code="403">Usuário sem permissão (não é Admin nem Técnico)</response>
+        /// <response code="404">Chamado não encontrado</response>
+        /// <response code="500">Erro interno ao atualizar status</response>
         [HttpPut("{id}/status")]
         [Authorize(Roles = "Admin,Técnico")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] AtualizarStatusRequest request)
@@ -396,8 +460,19 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
-        /// Obtém o histórico de um chamado
+        /// Obtém o histórico completo de alterações de um chamado
         /// </summary>
+        /// <remarks>
+        /// Retorna todas as mudanças de status do chamado ordenadas por data (mais recentes primeiro).
+        /// Inclui informações do técnico que realizou cada alteração.
+        /// Alterações automáticas do sistema aparecem com técnico "Sistema".
+        /// </remarks>
+        /// <param name="id">ID do chamado</param>
+        /// <returns>Lista de registros históricos com status anterior, novo status, data e técnico responsável</returns>
+        /// <response code="200">Histórico retornado com sucesso</response>
+        /// <response code="401">Usuário não autenticado</response>
+        /// <response code="404">Chamado não encontrado</response>
+        /// <response code="500">Erro interno ao buscar histórico</response>
         [HttpGet("{id}/historico")]
         public async Task<ActionResult<List<HistoricoChamadoDto>>> GetHistorico(int id)
         {
@@ -438,8 +513,24 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
-        /// Atribui um técnico a um chamado
+        /// Atribui um técnico responsável a um chamado
         /// </summary>
+        /// <remarks>
+        /// Atribui um técnico para resolver o chamado.
+        /// Se o chamado estiver com status "Aberto", automaticamente altera para "Em Atendimento".
+        /// Registra a atribuição no histórico do chamado.
+        ///
+        /// REQUER PERFIL: Admin ou Técnico
+        /// </remarks>
+        /// <param name="id">ID do chamado</param>
+        /// <param name="request">Dados da atribuição (ID do técnico)</param>
+        /// <returns>Mensagem de confirmação</returns>
+        /// <response code="200">Técnico atribuído com sucesso</response>
+        /// <response code="400">Técnico não encontrado</response>
+        /// <response code="401">Usuário não autenticado</response>
+        /// <response code="403">Usuário sem permissão (não é Admin nem Técnico)</response>
+        /// <response code="404">Chamado não encontrado</response>
+        /// <response code="500">Erro interno ao atribuir técnico</response>
         [HttpPut("{id}/atribuir")]
         [Authorize(Roles = "Admin,Técnico")]
         public async Task<IActionResult> AtribuirTecnico(int id, [FromBody] AtribuirTecnicoRequest request)
