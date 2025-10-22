@@ -503,5 +503,83 @@ namespace PIM.Web.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// Obtém lista de técnicos para alocação (Admin)
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> ObterTecnicos()
+        {
+            try
+            {
+                var perfilAcessoId = HttpContext.Session.GetInt32("PerfilAcessoId");
+
+                // Apenas admin pode acessar
+                if (perfilAcessoId != 1)
+                {
+                    return Forbid();
+                }
+
+                var tecnicos = await _apiService.GetAsync<List<dynamic>>("/api/usuarios/tecnicos");
+                return Ok(tecnicos ?? new List<dynamic>());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao obter técnicos: {ex.Message}");
+                return StatusCode(500, new { erro = "Erro ao obter técnicos" });
+            }
+        }
+
+        /// <summary>
+        /// Aloca ou remove técnico do chamado (Admin apenas)
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AlocarTecnico(int id, int? idTecnico)
+        {
+            try
+            {
+                var perfilAcessoId = HttpContext.Session.GetInt32("PerfilAcessoId");
+
+                // Apenas admin pode alocar técnicos
+                if (perfilAcessoId != 1)
+                {
+                    TempData["Erro"] = "Acesso negado. Apenas administradores podem gerenciar técnicos.";
+                    return RedirectToAction("Detalhes", new { id });
+                }
+
+                // Criar request com idTecnico (pode ser null para remover)
+                var request = new
+                {
+                    idUsuarioTecnico = idTecnico.HasValue && idTecnico.Value > 0 ? (int?)idTecnico.Value : null
+                };
+
+                var sucesso = await _apiService.PutAsync<object, object>($"/api/chamados/{id}/atribuir", request);
+
+                if (sucesso != null)
+                {
+                    if (!idTecnico.HasValue || idTecnico.Value == 0)
+                    {
+                        TempData["Sucesso"] = "Técnico removido com sucesso!";
+                    }
+                    else
+                    {
+                        TempData["Sucesso"] = "Técnico atribuído com sucesso!";
+                    }
+                }
+                else
+                {
+                    TempData["Erro"] = "Erro ao gerenciar técnico";
+                }
+
+                return RedirectToAction("Detalhes", new { id });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao alocar técnico ao chamado {id}: {ex.Message}");
+                TempData["Erro"] = "Erro ao alocar técnico";
+                return RedirectToAction("Detalhes", new { id });
+            }
+        }
     }
 }

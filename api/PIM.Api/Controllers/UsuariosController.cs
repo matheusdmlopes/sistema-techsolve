@@ -111,6 +111,41 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
+        /// Lista todos os técnicos ativos
+        /// </summary>
+        [HttpGet("tecnicos")]
+        public async Task<IActionResult> GetTecnicos()
+        {
+            try
+            {
+                var perfilTecnico = await _context.PerfisAcesso
+                    .FirstOrDefaultAsync(p => p.NomePerfil == "Técnico");
+
+                if (perfilTecnico == null)
+                {
+                    return Ok(new List<object>());
+                }
+
+                var tecnicos = await _context.Usuarios
+                    .Where(u => u.Ativo && u.IdPerfil == perfilTecnico.IdPerfil)
+                    .OrderBy(u => u.NomeCompleto)
+                    .Select(u => new
+                    {
+                        idUsuario = u.IdUsuario,
+                        nome = u.NomeCompleto,
+                        email = u.Email
+                    })
+                    .ToListAsync();
+
+                return Ok(tecnicos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao buscar técnicos", detalhes = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Cria um novo usuário
         /// </summary>
         [HttpPost]

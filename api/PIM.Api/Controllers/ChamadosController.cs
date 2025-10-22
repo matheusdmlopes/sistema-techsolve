@@ -513,19 +513,20 @@ namespace PIM.Api.Controllers
         }
 
         /// <summary>
-        /// Atribui um técnico responsável a um chamado
+        /// Atribui ou remove um técnico responsável de um chamado
         /// </summary>
         /// <remarks>
-        /// Atribui um técnico para resolver o chamado.
-        /// Se o chamado estiver com status "Aberto", automaticamente altera para "Em Atendimento".
-        /// Registra a atribuição no histórico do chamado.
+        /// Atribui um técnico para resolver o chamado ou remove a atribuição.
+        /// Se IdUsuarioTecnico for null, remove o técnico atribuído.
+        /// Se o chamado estiver com status "Aberto" e um técnico for atribuído, automaticamente altera para "Em Atendimento".
+        /// Registra a atribuição/remoção no histórico do chamado.
         ///
         /// REQUER PERFIL: Admin ou Técnico
         /// </remarks>
         /// <param name="id">ID do chamado</param>
-        /// <param name="request">Dados da atribuição (ID do técnico)</param>
+        /// <param name="request">Dados da atribuição (ID do técnico ou null para remover)</param>
         /// <returns>Mensagem de confirmação</returns>
-        /// <response code="200">Técnico atribuído com sucesso</response>
+        /// <response code="200">Técnico atribuído/removido com sucesso</response>
         /// <response code="400">Técnico não encontrado</response>
         /// <response code="401">Usuário não autenticado</response>
         /// <response code="403">Usuário sem permissão (não é Admin nem Técnico)</response>
@@ -546,14 +547,37 @@ namespace PIM.Api.Controllers
                     return NotFound(new { erro = "Chamado não encontrado" });
                 }
 
-                var tecnicoExiste = await _context.Usuarios.AnyAsync(u => u.IdUsuario == request.IdUsuarioTecnico);
+                var statusAnterior = chamado.Status.NomeStatus;
+
+                // Se request.IdUsuarioTecnico for null, remover técnico
+                if (!request.IdUsuarioTecnico.HasValue)
+                {
+                    chamado.IdUsuarioTecnico = null;
+
+                    // Registrar remoção no histórico
+                    var historicoRemocao = new HistoricoChamado
+                    {
+                        IdChamado = id,
+                        StatusAnterior = statusAnterior,
+                        StatusAtual = statusAnterior,
+                        DataHoraAlteracao = DateTime.UtcNow,
+                        Observacao = "Técnico removido do chamado (administrador)",
+                        IdTecnico = null
+                    };
+                    _context.HistoricosChamados.Add(historicoRemocao);
+
+                    await _context.SaveChangesAsync();
+                    return Ok(new { mensagem = "Técnico removido com sucesso" });
+                }
+
+                // Validar se técnico existe
+                var tecnicoExiste = await _context.Usuarios.AnyAsync(u => u.IdUsuario == request.IdUsuarioTecnico.Value);
                 if (!tecnicoExiste)
                 {
                     return BadRequest(new { erro = "Técnico não encontrado" });
                 }
 
-                var statusAnterior = chamado.Status.NomeStatus;
-                chamado.IdUsuarioTecnico = request.IdUsuarioTecnico;
+                chamado.IdUsuarioTecnico = request.IdUsuarioTecnico.Value;
 
                 // Alterar status para "Em Atendimento" se ainda estiver "Aberto"
                 if (chamado.Status.NomeStatus == "Aberto")
@@ -573,10 +597,24 @@ namespace PIM.Api.Controllers
                             StatusAtual = "Em Atendimento",
                             DataHoraAlteracao = DateTime.UtcNow,
                             Observacao = "Técnico assumiu o chamado",
-                            IdTecnico = request.IdUsuarioTecnico
+                            IdTecnico = request.IdUsuarioTecnico.Value
                         };
                         _context.HistoricosChamados.Add(historico);
                     }
+                }
+                else
+                {
+                    // Se não mudou status, ainda registrar a atribuição
+                    var historicoAtribuicao = new HistoricoChamado
+                    {
+                        IdChamado = id,
+                        StatusAnterior = statusAnterior,
+                        StatusAtual = statusAnterior,
+                        DataHoraAlteracao = DateTime.UtcNow,
+                        Observacao = "Técnico atribuído ao chamado (administrador)",
+                        IdTecnico = request.IdUsuarioTecnico.Value
+                    };
+                    _context.HistoricosChamados.Add(historicoAtribuicao);
                 }
 
                 await _context.SaveChangesAsync();

@@ -236,6 +236,32 @@
             </div>
         }
 
+        <!-- Ações do Admin - Gerenciar Técnico -->
+        @if (perfilAcessoId == 1)
+        {
+            <div class="card mb-3">
+                <div class="card-header bg-danger text-white">
+                    <h6 class="mb-0"><i class="bi bi-shield-lock"></i> Gerenciar Técnico</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>Técnico atual:</strong>
+                        @if (Model.UsuarioTecnico != null)
+                        {
+                            <span>@Model.UsuarioTecnico.Nome</span>
+                        }
+                        else
+                        {
+                            <span class="text-warning">Não atribuído</span>
+                        }
+                    </p>
+                    <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#modalAlocarTecnico">
+                        <i class="bi bi-person-gear"></i> Alocar/Remover Técnico
+                    </button>
+                </div>
+            </div>
+        }
+
         <!-- Feedback -->
         @if (podeAvaliar)
         {
@@ -398,4 +424,104 @@
             </div>
         </div>
     </div>
+}
+
+<!-- Modal - Alocar Técnico (Admin) -->
+@if (perfilAcessoId == 1)
+{
+    <div class="modal fade" id="modalAlocarTecnico" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-action="AlocarTecnico" asp-route-id="@Model.IdChamado" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title"><i class="bi bi-person-gear"></i> Gerenciar Técnico</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info">
+                            <strong>Técnico atual:</strong>
+                            @if (Model.UsuarioTecnico != null)
+                            {
+                                <span>@Model.UsuarioTecnico.Nome</span>
+                            }
+                            else
+                            {
+                                <span class="text-warning">Nenhum técnico atribuído</span>
+                            }
+                        </div>
+                        <div class="mb-3">
+                            <label for="idTecnico" class="form-label fw-bold">Selecionar Técnico</label>
+                            <select name="idTecnico" id="idTecnico" class="form-select form-select-lg">
+                                <option value="">-- Remover técnico (deixar sem atribuição) --</option>
+                                <option value="loading" disabled>Carregando técnicos...</option>
+                            </select>
+                            <small class="text-muted">Selecione um técnico para atribuir ao chamado ou deixe em branco para remover</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Salvar Alteração</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carregar técnicos ao abrir o modal
+        document.getElementById('modalAlocarTecnico').addEventListener('show.bs.modal', function () {
+            const select = document.getElementById('idTecnico');
+            const tecnicoAtualId = @(Model.UsuarioTecnico?.IdUsuario ?? 0);
+
+            // Limpar options (exceto a primeira)
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+
+            // Adicionar option de loading
+            const loadingOption = document.createElement('option');
+            loadingOption.value = 'loading';
+            loadingOption.disabled = true;
+            loadingOption.selected = true;
+            loadingOption.textContent = 'Carregando técnicos...';
+            select.appendChild(loadingOption);
+
+            // Buscar técnicos da API
+            fetch('/Chamados/ObterTecnicos')
+                .then(response => response.json())
+                .then(tecnicos => {
+                    // Remover option de loading
+                    select.remove(1);
+
+                    // Adicionar técnicos
+                    tecnicos.forEach(tecnico => {
+                        const option = document.createElement('option');
+                        option.value = tecnico.idUsuario;
+                        option.textContent = `${tecnico.nome} (${tecnico.email})`;
+
+                        // Marcar o técnico atual como selecionado
+                        if (tecnico.idUsuario === tecnicoAtualId) {
+                            option.selected = true;
+                        }
+
+                        select.appendChild(option);
+                    });
+
+                    // Se não houver técnico atual, selecionar a primeira opção (remover)
+                    if (tecnicoAtualId === 0) {
+                        select.selectedIndex = 0;
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar técnicos:', error);
+                    select.remove(1);
+                    const errorOption = document.createElement('option');
+                    errorOption.value = '';
+                    errorOption.textContent = 'Erro ao carregar técnicos';
+                    errorOption.disabled = true;
+                    select.appendChild(errorOption);
+                });
+        });
+    </script>
 }
