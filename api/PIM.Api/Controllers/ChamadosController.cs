@@ -387,7 +387,7 @@ namespace PIM.Api.Controllers
         /// <response code="404">Chamado não encontrado</response>
         /// <response code="500">Erro interno ao atualizar status</response>
         [HttpPut("{id}/status")]
-        [Authorize(Roles = "Admin,Técnico")]
+        [Authorize(Roles = "Administrador,Técnico")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] AtualizarStatusRequest request)
         {
             try
@@ -532,7 +532,7 @@ namespace PIM.Api.Controllers
         /// <response code="404">Chamado não encontrado</response>
         /// <response code="500">Erro interno ao atribuir técnico</response>
         [HttpPut("{id}/atribuir")]
-        [Authorize(Roles = "Admin,Técnico")]
+        [Authorize(Roles = "Administrador,Técnico")]
         public async Task<IActionResult> AtribuirTecnico(int id, [FromBody] AtribuirTecnicoRequest request)
         {
             try

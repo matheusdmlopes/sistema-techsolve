@@ -114,7 +114,7 @@ namespace PIM.Api.Controllers
         /// Cria um novo usuário
         /// </summary>
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> CreateUsuario([FromBody] CriarUsuarioRequest request)
         {
             try
@@ -174,7 +174,7 @@ namespace PIM.Api.Controllers
         /// Atualiza um usuário existente
         /// </summary>
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> UpdateUsuario(int id, [FromBody] AtualizarUsuarioRequest request)
         {
             try
@@ -405,7 +405,7 @@ namespace PIM.Api.Controllers
         /// Desativa um usuário (soft delete)
         /// </summary>
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
             try

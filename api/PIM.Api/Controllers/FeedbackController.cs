@@ -139,7 +139,7 @@ public class FeedbackController : ControllerBase
     /// Listar todos os feedbacks (com paginação simples)
     /// </summary>
     [HttpGet("feedbacks")]
-    [Authorize(Roles = "Admin,Técnico")]
+    [Authorize(Roles = "Administrador,Técnico")]
     public async Task<IActionResult> ListarFeedbacks([FromQuery] int? notaMinima = null)
     {
         try
@@ -185,7 +185,7 @@ public class FeedbackController : ControllerBase
     /// Relatório de satisfação geral
     /// </summary>
     [HttpGet("feedbacks/relatorio")]
-    [Authorize(Roles = "Admin,Técnico")]
+    [Authorize(Roles = "Administrador,Técnico")]
     public async Task<IActionResult> RelatorioSatisfacao([FromQuery] DateTime? dataInicio, [FromQuery] DateTime? dataFim)
     {
         try
@@ -257,7 +257,7 @@ public class FeedbackController : ControllerBase
     /// Relatório de satisfação por técnico
     /// </summary>
     [HttpGet("feedbacks/relatorio/tecnicos")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> RelatorioSatisfacaoPorTecnico([FromQuery] DateTime? dataInicio, [FromQuery] DateTime? dataFim)
     {
         try

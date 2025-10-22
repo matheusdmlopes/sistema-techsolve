@@ -7,7 +7,7 @@ namespace PIM.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,Técnico")]
+[Authorize(Roles = "Administrador,Técnico")]
 public class DashboardController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
