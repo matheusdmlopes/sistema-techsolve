@@ -326,4 +326,18 @@ _site/
 *.yml
 !toc.yml
 
-docs-projeto/
+# Android / IntelliJ
+mobile/.gradle/
+mobile/.idea/
+mobile/local.properties
+mobile/build/
+mobile/app/build/
+mobile/captures/
+mobile/.externalNativeBuild/
+mobile/.cxx/
+mobile/*.iml
+mobile/*.apk
+mobile/*.ap_
+mobile/*.aab
+mobile/.DS_Store
+
