@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace PIM.Desktop.Forms
 {
-    public partial class Form1: Form
+    public partial class CadastroForm : Form
     {
-        public Form1()
+        public CadastroForm()
         {
             InitializeComponent();
         }
