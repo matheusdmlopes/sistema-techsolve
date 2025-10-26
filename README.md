@@ -109,6 +109,13 @@ dotnet run
 A API estará disponível em: `https://localhost:7095`
 Swagger UI: `https://localhost:7095/swagger`
 
+6. **Compile e execute o WinForms:**
+```bash
+cd desktop/PIM.Desktop
+xbuild PIM.Desktop.csproj /p:Configuration=Release
+wine bin/Release/PIM.Desktop.exe
+```
+
 ### Dados Iniciais (DataSeeder)
 
 Ao iniciar pela primeira vez, o sistema cria automaticamente:
