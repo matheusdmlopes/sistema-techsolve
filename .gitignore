@@ -261,6 +261,16 @@ node_modules/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
+# NuGet Packages
+packages/
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+
 # Paket dependency manager
 .paket/paket.exe
 paket-files/
@@ -341,5 +351,5 @@ mobile/*.ap_
 mobile/*.aab
 mobile/.DS_Store
 
-docs-projeto/
+# docs-projeto/
 

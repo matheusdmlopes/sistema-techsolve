@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
+using PIM.Desktop.Models;
+using PIM.Desktop.Services;
 using PIM.Desktop.Utils;
 
 namespace PIM.Desktop.Forms
@@ -27,7 +22,7 @@ namespace PIM.Desktop.Forms
             this.TextBox2.KeyPress += TextBox2_KeyPress;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private async void Button1_Click(object sender, EventArgs e)
         {
             // Validação básica dos campos
             string email = TextBox1.Text.Trim();
@@ -49,17 +44,81 @@ namespace PIM.Desktop.Forms
                 return;
             }
 
-            // Por enquanto, simular login bem-sucedido
-            // TODO: Integrar com ApiService futuramente
-            SessionManager.UsuarioEmail = email;
-            SessionManager.UsuarioNome = "Usuário Teste";
-            SessionManager.Token = "fake-token-for-testing";
+            // Desabilitar botão durante o login
+            Button1.Enabled = false;
+            Button1.Text = "Autenticando...";
 
-            // Abrir a tela principal
-            this.Hide();
-            HomeForm homeForm = new HomeForm();
-            homeForm.FormClosed += (s, args) => this.Close();
-            homeForm.Show();
+            try
+            {
+                // Chamar a API para fazer login
+                var loginRequest = new LoginRequest
+                {
+                    Email = email,
+                    Senha = senha
+                };
+
+                LoginResponse response = await ApiService.PostAsync<LoginRequest, LoginResponse>(
+                    "/api/Auth/login", loginRequest);
+
+                if (response != null && !string.IsNullOrEmpty(response.Token))
+                {
+                    // Verificar se o usuário é Admin ou Administrador
+                    if (response.Usuario.Perfil != null &&
+                        (response.Usuario.Perfil.Equals("Admin", StringComparison.OrdinalIgnoreCase) ||
+                         response.Usuario.Perfil.Equals("Administrador", StringComparison.OrdinalIgnoreCase)))
+                    {
+                        // Armazenar dados da sessão
+                        SessionManager.Token = response.Token;
+                        SessionManager.UsuarioId = response.Usuario.IdUsuario;
+                        SessionManager.UsuarioNome = response.Usuario.Nome;
+                        SessionManager.UsuarioEmail = response.Usuario.Email;
+                        SessionManager.PerfilAcesso = response.Usuario.Perfil;
+                        SessionManager.IdPerfil = response.Usuario.IdPerfil;
+                        SessionManager.Setor = response.Usuario.Setor;
+
+                        // Configurar o token no ApiService para as próximas requisições
+                        ApiService.SetAuthToken(response.Token);
+
+                        // Abrir a tela principal
+                        this.Hide();
+
+                        MainForm mainForm = new MainForm();
+                        mainForm.FormClosed += (s, args) => this.Close();
+                        mainForm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "Acesso negado. Este sistema é exclusivo para administradores.\n" +
+                            $"Seu perfil: {response.Usuario.Perfil ?? "Desconhecido"}",
+                            "Acesso Negado",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        // Limpar campos
+                        TextBox2.Clear();
+                        TextBox1.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao processar resposta da API.",
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Erro ao fazer login:\n\n{ex.Message}\n\n" +
+                    $"Verifique se a API está em execução em: {AppConfig.ApiBaseUrl}",
+                    "Erro de Conexão",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Reabilitar botão
+                Button1.Enabled = true;
+                Button1.Text = "ENTRAR";
+            }
         }
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

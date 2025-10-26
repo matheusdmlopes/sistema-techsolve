@@ -8,7 +8,7 @@ namespace PIM.Desktop.Utils
     public static class SessionManager
     {
         /// <summary>
-        /// Nome do usuário logado
+        /// Nome completo do usuário logado
         /// </summary>
         public static string UsuarioNome { get; set; }
 
@@ -33,11 +33,34 @@ namespace PIM.Desktop.Utils
         public static string PerfilAcesso { get; set; }
 
         /// <summary>
+        /// ID do perfil de acesso
+        /// </summary>
+        public static int? IdPerfil { get; set; }
+
+        /// <summary>
+        /// Nome do setor do usuário
+        /// </summary>
+        public static string Setor { get; set; }
+
+        /// <summary>
         /// Verifica se há um usuário autenticado
         /// </summary>
         public static bool IsAuthenticated
         {
             get { return !string.IsNullOrEmpty(Token); }
+        }
+
+        /// <summary>
+        /// Verifica se o usuário logado é administrador
+        /// </summary>
+        public static bool IsAdmin
+        {
+            get
+            {
+                return IsAuthenticated &&
+                       !string.IsNullOrEmpty(PerfilAcesso) &&
+                       PerfilAcesso.Equals("Admin", StringComparison.OrdinalIgnoreCase);
+            }
         }
 
         /// <summary>
@@ -50,6 +73,8 @@ namespace PIM.Desktop.Utils
             Token = null;
             UsuarioId = null;
             PerfilAcesso = null;
+            IdPerfil = null;
+            Setor = null;
         }
     }
 }
