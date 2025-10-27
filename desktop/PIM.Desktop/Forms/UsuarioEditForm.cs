@@ -194,7 +194,7 @@ namespace PIM.Desktop.Forms
         {
             try
             {
-                var usuario = await ApiService.GetAsync<UsuarioDetailDto>($"/api/Admin/usuarios/{idUsuario}");
+                var usuario = await ApiService.GetAsync<UsuarioDetailDto>($"/api/Usuarios/{idUsuario}");
 
                 if (usuario != null)
                 {
@@ -240,7 +240,7 @@ namespace PIM.Desktop.Forms
                     };
 
                     await ApiService.PutAsync<AtualizarUsuarioRequest, object>(
-                        $"/api/Admin/usuarios/{idUsuario}", request);
+                        $"/api/Usuarios/{idUsuario}", request);
 
                     MessageBox.Show("Usuário atualizado com sucesso!",
                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -259,7 +259,7 @@ namespace PIM.Desktop.Forms
                     };
 
                     await ApiService.PostAsync<CriarUsuarioRequest, object>(
-                        "/api/Admin/usuarios", request);
+                        "/api/Usuarios", request);
 
                     MessageBox.Show("Usuário criado com sucesso!",
                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -29,14 +29,14 @@ namespace PIM.Desktop.Forms
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(1024, 600);
 
-            // Criar painel superior (TopBar)
+            // Importante: Ordem de criação/adição dos controles
+            // 1. TopBar (Dock.Top)
+            // 2. Content (Dock.Fill) - deve ser adicionado ANTES do menu
+            // 3. SideMenu (Dock.Left) - assim fica por cima do Content
+
             CreateTopBar();
-
-            // Criar menu lateral
-            CreateSideMenu();
-
-            // Criar área de conteúdo
             CreateContentArea();
+            CreateSideMenu();
         }
 
         private void CreateTopBar()

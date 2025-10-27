@@ -225,7 +225,7 @@ namespace PIM.Desktop.Forms
                 btnAtualizar.Text = "Carregando...";
 
                 // Carregar usuários
-                todosUsuarios = await ApiService.GetAsync<List<UsuarioListDto>>("/api/Admin/usuarios");
+                todosUsuarios = await ApiService.GetAsync<List<UsuarioListDto>>("/api/Usuarios");
 
                 // Carregar setores para filtro
                 setores = await ApiService.GetAsync<List<SetorDto>>("/api/Setores");
@@ -234,8 +234,13 @@ namespace PIM.Desktop.Forms
                 cboFiltroSetor.Items.AddRange(setores.Select(s => s.NomeSetor).ToArray());
                 cboFiltroSetor.SelectedIndex = 0;
 
-                // Carregar perfis para filtro
-                perfis = await ApiService.GetAsync<List<PerfilDto>>("/api/Admin/perfis");
+                // Carregar perfis para filtro (lista estática - não há endpoint na API)
+                perfis = new List<PerfilDto>
+                {
+                    new PerfilDto { IdPerfil = 1, NomePerfil = "Admin" },
+                    new PerfilDto { IdPerfil = 2, NomePerfil = "Técnico" },
+                    new PerfilDto { IdPerfil = 3, NomePerfil = "Usuário" }
+                };
                 cboFiltroPerfil.Items.Clear();
                 cboFiltroPerfil.Items.Add("Todos");
                 cboFiltroPerfil.Items.AddRange(perfis.Select(p => p.NomePerfil).ToArray());
