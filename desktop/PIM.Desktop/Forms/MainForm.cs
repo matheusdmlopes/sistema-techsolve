@@ -206,24 +206,26 @@ namespace PIM.Desktop.Forms
 
         private void LoadDashboard()
         {
-            // Por enquanto, carregar um placeholder
-            Label lblDashboard = new Label
+            DashboardForm dashboardForm = new DashboardForm
             {
-                Text = "Dashboard\n\nBem-vindo ao sistema administrativo TechSolve!\n\n" +
-                       "Estatísticas e gráficos serão implementados em breve.",
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Segoe UI", 16, FontStyle.Regular),
-                ForeColor = Color.FromArgb(44, 62, 80)
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
             };
-
-            LoadForm(lblDashboard);
+            LoadForm(dashboardForm);
         }
 
         private void LoadForm(Control childControl)
         {
             // Limpar conteúdo anterior
             panelContent.Controls.Clear();
+
+            // Se for um Form, mostrar ele
+            if (childControl is Form)
+            {
+                Form childForm = (Form)childControl;
+                childForm.Show();
+            }
 
             // Adicionar novo controle
             childControl.Dock = DockStyle.Fill;
