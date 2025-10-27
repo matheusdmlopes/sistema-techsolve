@@ -116,7 +116,7 @@ namespace PIM.Desktop.Forms
 
             // Botão Usuários
             Button btnUsuarios = CreateMenuButton("👥 Usuários", yPosition);
-            btnUsuarios.Click += (s, e) => LoadForm(new Label { Text = "Usuários - Em Desenvolvimento", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 16) });
+            btnUsuarios.Click += (s, e) => LoadUsuarios();
             panelMenu.Controls.Add(btnUsuarios);
             yPosition += 50;
 
@@ -213,6 +213,17 @@ namespace PIM.Desktop.Forms
                 Dock = DockStyle.Fill
             };
             LoadForm(dashboardForm);
+        }
+
+        private void LoadUsuarios()
+        {
+            UsuariosListForm usuariosForm = new UsuariosListForm
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            LoadForm(usuariosForm);
         }
 
         private void LoadForm(Control childControl)
