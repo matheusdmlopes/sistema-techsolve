@@ -158,7 +158,7 @@ namespace PIM.Desktop.Forms
 
             // Botão Chamados
             Button btnChamados = CreateMenuButton("📋 Chamados", yPosition);
-            btnChamados.Click += (s, e) => LoadForm(new Label { Text = "Chamados - Em Desenvolvimento", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 16) });
+            btnChamados.Click += (s, e) => LoadChamados();
             panelMenu.Controls.Add(btnChamados);
             yPosition += 50;
 
@@ -268,6 +268,17 @@ namespace PIM.Desktop.Forms
                 Dock = DockStyle.Fill
             };
             LoadForm(statusForm);
+        }
+
+        private void LoadChamados()
+        {
+            ChamadosListForm chamadosForm = new ChamadosListForm
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            LoadForm(chamadosForm);
         }
 
         private void LoadForm(Control childControl)
