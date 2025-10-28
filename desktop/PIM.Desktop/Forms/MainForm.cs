@@ -146,13 +146,13 @@ namespace PIM.Desktop.Forms
 
             // Botão Prioridades
             Button btnPrioridades = CreateMenuButton("  ⚡ Prioridades", yPosition);
-            btnPrioridades.Click += (s, e) => LoadForm(new Label { Text = "Prioridades - Em Desenvolvimento", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 16) });
+            btnPrioridades.Click += (s, e) => LoadPrioridades();
             panelMenu.Controls.Add(btnPrioridades);
             yPosition += 50;
 
             // Botão Status
             Button btnStatus = CreateMenuButton("  🔄 Status", yPosition);
-            btnStatus.Click += (s, e) => LoadForm(new Label { Text = "Status - Em Desenvolvimento", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 16) });
+            btnStatus.Click += (s, e) => LoadStatus();
             panelMenu.Controls.Add(btnStatus);
             yPosition += 70;
 
@@ -246,6 +246,28 @@ namespace PIM.Desktop.Forms
                 Dock = DockStyle.Fill
             };
             LoadForm(categoriasForm);
+        }
+
+        private void LoadPrioridades()
+        {
+            PrioridadesListForm prioridadesForm = new PrioridadesListForm
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            LoadForm(prioridadesForm);
+        }
+
+        private void LoadStatus()
+        {
+            StatusListForm statusForm = new StatusListForm
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            LoadForm(statusForm);
         }
 
         private void LoadForm(Control childControl)

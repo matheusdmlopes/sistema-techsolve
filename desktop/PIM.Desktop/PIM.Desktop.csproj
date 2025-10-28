@@ -104,6 +104,30 @@
     <Compile Include="Forms\CategoriaEditForm.Designer.cs">
       <DependentUpon>CategoriaEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PrioridadesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrioridadesListForm.Designer.cs">
+      <DependentUpon>PrioridadesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PrioridadeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrioridadeEditForm.Designer.cs">
+      <DependentUpon>PrioridadeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StatusListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StatusListForm.Designer.cs">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StatusEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StatusEditForm.Designer.cs">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\DashboardStats.cs" />
     <Compile Include="Models\LoginRequest.cs" />
@@ -116,6 +140,12 @@
     <Compile Include="Models\CategoriaResponseDto.cs" />
     <Compile Include="Models\CategoriaCreateRequest.cs" />
     <Compile Include="Models\CategoriaUpdateRequest.cs" />
+    <Compile Include="Models\PrioridadeResponseDto.cs" />
+    <Compile Include="Models\PrioridadeCreateRequest.cs" />
+    <Compile Include="Models\PrioridadeUpdateRequest.cs" />
+    <Compile Include="Models\StatusResponseDto.cs" />
+    <Compile Include="Models\StatusCreateRequest.cs" />
+    <Compile Include="Models\StatusUpdateRequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Utils\AppConfig.cs" />
@@ -147,6 +177,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CategoriaEditForm.resx">
       <DependentUpon>CategoriaEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrioridadesListForm.resx">
+      <DependentUpon>PrioridadesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrioridadeEditForm.resx">
+      <DependentUpon>PrioridadeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StatusListForm.resx">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StatusEditForm.resx">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

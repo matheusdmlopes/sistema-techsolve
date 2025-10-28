@@ -1,0 +1,315 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using PIM.Desktop.Models;
+using PIM.Desktop.Services;
+
+namespace PIM.Desktop.Forms
+{
+    public partial class StatusListForm : Form
+    {
+        private DataGridView dgvStatus;
+        private TextBox txtBusca;
+        private Button btnNovo;
+        private Button btnEditar;
+        private Button btnExcluir;
+        private Button btnAtualizar;
+        private List<StatusResponseDto> todasStatus;
+
+        public StatusListForm()
+        {
+            InitializeComponent();
+            InitializeCustomComponents();
+            LoadData();
+        }
+
+        private void InitializeCustomComponents()
+        {
+            this.BackColor = Color.FromArgb(236, 240, 241);
+            this.AutoScroll = true;
+
+            Label lblTitle = new Label
+            {
+                Text = "Gestão de Status",
+                Font = new Font("Segoe UI", 20, FontStyle.Bold),
+                ForeColor = Color.FromArgb(44, 62, 80),
+                AutoSize = true,
+                Location = new Point(30, 30)
+            };
+            this.Controls.Add(lblTitle);
+
+            Panel panelBusca = new Panel
+            {
+                BackColor = Color.White,
+                Location = new Point(30, 80),
+                Size = new Size(900, 60),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            Label lblBusca = new Label
+            {
+                Text = "Buscar:",
+                Location = new Point(15, 10),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9, FontStyle.Regular)
+            };
+            panelBusca.Controls.Add(lblBusca);
+
+            txtBusca = new TextBox
+            {
+                Location = new Point(15, 30),
+                Size = new Size(400, 25),
+                Font = new Font("Segoe UI", 10)
+            };
+            txtBusca.TextChanged += (s, e) => FiltrarStatus();
+            panelBusca.Controls.Add(txtBusca);
+
+            Button btnLimpar = new Button
+            {
+                Text = "Limpar",
+                Location = new Point(425, 28),
+                Size = new Size(80, 28),
+                Cursor = Cursors.Hand
+            };
+            btnLimpar.Click += (s, e) => txtBusca.Clear();
+            panelBusca.Controls.Add(btnLimpar);
+
+            this.Controls.Add(panelBusca);
+
+            btnNovo = new Button
+            {
+                Text = "➕ Nova Prioridade",
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(46, 204, 113),
+                FlatStyle = FlatStyle.Flat,
+                Size = new Size(170, 40),
+                Location = new Point(30, 155),
+                Cursor = Cursors.Hand
+            };
+            btnNovo.FlatAppearance.BorderSize = 0;
+            btnNovo.Click += BtnNovo_Click;
+            this.Controls.Add(btnNovo);
+
+            btnEditar = new Button
+            {
+                Text = "✏️ Editar",
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(52, 152, 219),
+                FlatStyle = FlatStyle.Flat,
+                Size = new Size(110, 40),
+                Location = new Point(210, 155),
+                Cursor = Cursors.Hand,
+                Enabled = false
+            };
+            btnEditar.FlatAppearance.BorderSize = 0;
+            btnEditar.Click += BtnEditar_Click;
+            this.Controls.Add(btnEditar);
+
+            btnExcluir = new Button
+            {
+                Text = "🗑️ Excluir",
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(231, 76, 60),
+                FlatStyle = FlatStyle.Flat,
+                Size = new Size(110, 40),
+                Location = new Point(330, 155),
+                Cursor = Cursors.Hand,
+                Enabled = false
+            };
+            btnExcluir.FlatAppearance.BorderSize = 0;
+            btnExcluir.Click += BtnExcluir_Click;
+            this.Controls.Add(btnExcluir);
+
+            btnAtualizar = new Button
+            {
+                Text = "🔄 Atualizar",
+                Font = new Font("Segoe UI", 10, FontStyle.Regular),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(127, 140, 141),
+                FlatStyle = FlatStyle.Flat,
+                Size = new Size(120, 40),
+                Location = new Point(450, 155),
+                Cursor = Cursors.Hand
+            };
+            btnAtualizar.FlatAppearance.BorderSize = 0;
+            btnAtualizar.Click += (s, e) => LoadData();
+            this.Controls.Add(btnAtualizar);
+
+            dgvStatus = new DataGridView
+            {
+                Location = new Point(30, 210),
+                Size = new Size(900, 350),
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                ReadOnly = true,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                MultiSelect = false,
+                BackgroundColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                RowHeadersVisible = false
+            };
+
+            dgvStatus.SelectionChanged += (s, e) =>
+            {
+                bool hasSelection = dgvStatus.SelectedRows.Count > 0;
+                btnEditar.Enabled = hasSelection;
+                btnExcluir.Enabled = hasSelection;
+            };
+
+            dgvStatus.CellDoubleClick += (s, e) =>
+            {
+                if (e.RowIndex >= 0)
+                    BtnEditar_Click(s, e);
+            };
+
+            this.Controls.Add(dgvStatus);
+
+            Label lblInfo = new Label
+            {
+                Name = "lblInfo",
+                Text = "Total: 0 status",
+                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                ForeColor = Color.FromArgb(127, 140, 141),
+                AutoSize = true,
+                Location = new Point(30, 570)
+            };
+            this.Controls.Add(lblInfo);
+        }
+
+        private async void LoadData()
+        {
+            try
+            {
+                btnAtualizar.Enabled = false;
+                btnAtualizar.Text = "Carregando...";
+
+                todasStatus = await ApiService.GetAsync<List<StatusResponseDto>>("/api/Status");
+
+                FiltrarStatus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar status:\n{ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnAtualizar.Enabled = true;
+                btnAtualizar.Text = "🔄 Atualizar";
+            }
+        }
+
+        private void FiltrarStatus()
+        {
+            if (todasStatus == null)
+                return;
+
+            var statusFiltradas = todasStatus.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(txtBusca.Text))
+            {
+                string busca = txtBusca.Text.ToLower();
+                statusFiltradas = statusFiltradas.Where(p =>
+                    p.Nome.ToLower().Contains(busca) ||
+                    (p.Descricao != null && p.Descricao.ToLower().Contains(busca)));
+            }
+
+            var lista = statusFiltradas.ToList();
+            PreencherGrid(lista);
+
+            var lblInfo = this.Controls.Find("lblInfo", false).FirstOrDefault() as Label;
+            if (lblInfo != null)
+            {
+                lblInfo.Text = $"Total: {lista.Count} status(s)";
+            }
+        }
+
+        private void PreencherGrid(List<StatusResponseDto> status)
+        {
+            dgvStatus.DataSource = null;
+            dgvStatus.Columns.Clear();
+
+            if (status == null || status.Count == 0)
+            {
+                return;
+            }
+
+            dgvStatus.DataSource = status;
+
+            dgvStatus.Columns["IdStatus"].HeaderText = "ID";
+            dgvStatus.Columns["IdStatus"].Width = 80;
+            dgvStatus.Columns["Nome"].HeaderText = "Nome";
+            dgvStatus.Columns["Nome"].Width = 200;
+            dgvStatus.Columns["Descricao"].HeaderText = "Descrição";
+            dgvStatus.Columns["Descricao"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        }
+
+        private void BtnNovo_Click(object sender, EventArgs e)
+        {
+            StatusEditForm editForm = new StatusEditForm();
+            if (editForm.ShowDialog() == DialogResult.OK)
+            {
+                LoadData();
+            }
+        }
+
+        private void BtnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvStatus.SelectedRows.Count == 0)
+                return;
+
+            var status = (StatusResponseDto)dgvStatus.SelectedRows[0].DataBoundItem;
+            StatusEditForm editForm = new StatusEditForm(status.IdStatus);
+            if (editForm.ShowDialog() == DialogResult.OK)
+            {
+                LoadData();
+            }
+        }
+
+        private async void BtnExcluir_Click(object sender, EventArgs e)
+        {
+            if (dgvStatus.SelectedRows.Count == 0)
+                return;
+
+            var status = (StatusResponseDto)dgvStatus.SelectedRows[0].DataBoundItem;
+
+            DialogResult resultado = MessageBox.Show(
+                $"Deseja realmente excluir a status '{status.Nome}'?\n\n" +
+                "ATENÇÃO: Esta ação não pode ser desfeita e pode afetar chamados vinculados a esta status.",
+                "Confirmar Exclusão",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (resultado == DialogResult.Yes)
+            {
+                try
+                {
+                    bool sucesso = await ApiService.DeleteAsync($"/api/Status/{status.IdStatus}");
+
+                    if (sucesso)
+                    {
+                        MessageBox.Show("Prioridade excluída com sucesso!",
+                            "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possível excluir a status.",
+                            "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao excluir status:\n{ex.Message}",
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+    }
+}
