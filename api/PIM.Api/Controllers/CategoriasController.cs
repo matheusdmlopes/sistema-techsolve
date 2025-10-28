@@ -72,5 +72,131 @@ namespace PIM.Api.Controllers
                 return StatusCode(500, new { erro = "Erro ao buscar categoria", detalhes = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Cria uma nova categoria
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> CreateCategoria([FromBody] CreateCategoriaRequest request)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(request.Nome))
+                {
+                    return BadRequest(new { erro = "O nome da categoria é obrigatório" });
+                }
+
+                var categoria = new Entities.Categoria
+                {
+                    NomeCategoria = request.Nome.Trim(),
+                    Descricao = request.Descricao?.Trim()
+                };
+
+                _context.Categorias.Add(categoria);
+                await _context.SaveChangesAsync();
+
+                var response = new
+                {
+                    idCategoria = categoria.IdCategoria,
+                    nome = categoria.NomeCategoria,
+                    descricao = categoria.Descricao
+                };
+
+                return CreatedAtAction(nameof(GetCategoria), new { id = categoria.IdCategoria }, response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao criar categoria", detalhes = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Atualiza uma categoria existente
+        /// </summary>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategoria(int id, [FromBody] UpdateCategoriaRequest request)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(request.Nome))
+                {
+                    return BadRequest(new { erro = "O nome da categoria é obrigatório" });
+                }
+
+                var categoria = await _context.Categorias.FindAsync(id);
+                if (categoria == null)
+                {
+                    return NotFound(new { erro = "Categoria não encontrada" });
+                }
+
+                categoria.NomeCategoria = request.Nome.Trim();
+                categoria.Descricao = request.Descricao?.Trim();
+
+                await _context.SaveChangesAsync();
+
+                var response = new
+                {
+                    idCategoria = categoria.IdCategoria,
+                    nome = categoria.NomeCategoria,
+                    descricao = categoria.Descricao
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao atualizar categoria", detalhes = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Deleta uma categoria
+        /// </summary>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategoria(int id)
+        {
+            try
+            {
+                var categoria = await _context.Categorias.FindAsync(id);
+                if (categoria == null)
+                {
+                    return NotFound(new { erro = "Categoria não encontrada" });
+                }
+
+                // Verificar se há chamados vinculados
+                var chamadosVinculados = await _context.Chamados
+                    .CountAsync(c => c.IdCategoria == id);
+
+                if (chamadosVinculados > 0)
+                {
+                    return BadRequest(new
+                    {
+                        erro = $"Não é possível excluir a categoria pois existem {chamadosVinculados} chamado(s) vinculado(s) a ela"
+                    });
+                }
+
+                _context.Categorias.Remove(categoria);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { mensagem = "Categoria excluída com sucesso" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro ao deletar categoria", detalhes = ex.Message });
+            }
+        }
+    }
+
+    // DTOs para request
+    public class CreateCategoriaRequest
+    {
+        public string Nome { get; set; } = string.Empty;
+        public string? Descricao { get; set; }
+    }
+
+    public class UpdateCategoriaRequest
+    {
+        public string Nome { get; set; } = string.Empty;
+        public string? Descricao { get; set; }
     }
 }

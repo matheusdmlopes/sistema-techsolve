@@ -140,7 +140,7 @@ namespace PIM.Desktop.Forms
 
             // Botão Categorias
             Button btnCategorias = CreateMenuButton("  🏷️ Categorias", yPosition);
-            btnCategorias.Click += (s, e) => LoadForm(new Label { Text = "Categorias - Em Desenvolvimento", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 16) });
+            btnCategorias.Click += (s, e) => LoadCategorias();
             panelMenu.Controls.Add(btnCategorias);
             yPosition += 50;
 
@@ -235,6 +235,17 @@ namespace PIM.Desktop.Forms
                 Dock = DockStyle.Fill
             };
             LoadForm(setoresForm);
+        }
+
+        private void LoadCategorias()
+        {
+            CategoriasListForm categoriasForm = new CategoriasListForm
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            LoadForm(categoriasForm);
         }
 
         private void LoadForm(Control childControl)
