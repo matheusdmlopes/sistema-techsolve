@@ -134,7 +134,7 @@ namespace PIM.Desktop.Forms
 
             // Botão Setores
             Button btnSetores = CreateMenuButton("  📁 Setores", yPosition);
-            btnSetores.Click += (s, e) => LoadForm(new Label { Text = "Setores - Em Desenvolvimento", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 16) });
+            btnSetores.Click += (s, e) => LoadSetores();
             panelMenu.Controls.Add(btnSetores);
             yPosition += 50;
 
@@ -224,6 +224,17 @@ namespace PIM.Desktop.Forms
                 Dock = DockStyle.Fill
             };
             LoadForm(usuariosForm);
+        }
+
+        private void LoadSetores()
+        {
+            SetoresListForm setoresForm = new SetoresListForm
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            LoadForm(setoresForm);
         }
 
         private void LoadForm(Control childControl)

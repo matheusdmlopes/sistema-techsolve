@@ -80,12 +80,27 @@
     <Compile Include="Forms\UsuarioEditForm.Designer.cs">
       <DependentUpon>UsuarioEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SetoresListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SetoresListForm.Designer.cs">
+      <DependentUpon>SetoresListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SetorEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SetorEditForm.Designer.cs">
+      <DependentUpon>SetorEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\DashboardStats.cs" />
     <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Models\LoginResponse.cs" />
     <Compile Include="Models\UsuarioListDto.cs" />
     <Compile Include="Models\UsuarioDetailDto.cs" />
+    <Compile Include="Models\SetorResponseDto.cs" />
+    <Compile Include="Models\SetorCreateRequest.cs" />
+    <Compile Include="Models\SetorUpdateRequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Utils\AppConfig.cs" />
@@ -105,6 +120,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UsuarioEditForm.resx">
       <DependentUpon>UsuarioEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SetoresListForm.resx">
+      <DependentUpon>SetoresListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SetorEditForm.resx">
+      <DependentUpon>SetorEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
