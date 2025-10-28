@@ -224,11 +224,28 @@ namespace PIM.Desktop.Forms
                 btnAtualizar.Enabled = false;
                 btnAtualizar.Text = "Carregando...";
 
-                // Carregar usuários
-                todosUsuarios = await ApiService.GetAsync<List<UsuarioListDto>>("/api/Usuarios");
+                // Carregar usuários da API
+                var usuariosApi = await ApiService.GetAsync<List<UsuarioApiResponse>>("/api/Usuarios");
+
+                // Converter para UsuarioListDto
+                todosUsuarios = usuariosApi.Select(u => new UsuarioListDto
+                {
+                    IdUsuario = u.Id,
+                    NomeCompleto = u.NomeCompleto,
+                    Email = u.Email,
+                    Telefone = u.Telefone,
+                    Setor = u.Setor?.Nome ?? "Sem setor",
+                    PerfilAcesso = u.Perfil?.Nome ?? "Sem perfil",
+                    Ativo = u.Ativo
+                }).ToList();
 
                 // Carregar setores para filtro
-                setores = await ApiService.GetAsync<List<SetorDto>>("/api/Setores");
+                var setoresApi = await ApiService.GetAsync<List<SetorResponseDto>>("/api/Setores");
+                setores = setoresApi.Select(s => new SetorDto
+                {
+                    IdSetor = s.Id,
+                    NomeSetor = s.Nome
+                }).ToList();
                 cboFiltroSetor.Items.Clear();
                 cboFiltroSetor.Items.Add("Todos");
                 cboFiltroSetor.Items.AddRange(setores.Select(s => s.NomeSetor).ToArray());
