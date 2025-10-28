@@ -25,11 +25,35 @@ namespace PIM.Desktop.Forms
         {
             try
             {
-                // Buscar estatísticas da API
-                var stats = await ApiService.GetAsync<DashboardStats>("/api/Dashboard/estatisticas");
+                // Buscar métricas da API
+                var metricas = await ApiService.GetAsync<MetricasDashboard>("/api/Dashboard/metricas");
 
-                if (stats != null)
+                // Buscar total de usuários
+                int totalUsuarios = 0;
+                try
                 {
+                    var usuarios = await ApiService.GetAsync<System.Collections.Generic.List<UsuarioApiResponse>>("/api/Usuarios");
+                    totalUsuarios = usuarios?.Count ?? 0;
+                }
+                catch
+                {
+                    // Se falhar ao buscar usuários, continua com 0
+                }
+
+                if (metricas != null && metricas.ResumoGeral != null)
+                {
+                    // Converter MetricasDashboard para DashboardStats
+                    var stats = new DashboardStats
+                    {
+                        TotalChamados = metricas.ResumoGeral.TotalChamados,
+                        ChamadosAbertos = metricas.ResumoGeral.ChamadosAbertos,
+                        ChamadosEmAndamento = metricas.ResumoGeral.ChamadosEmAndamento,
+                        ChamadosResolvidos = metricas.ResumoGeral.ChamadosResolvidos,
+                        TotalTecnicos = metricas.ResumoGeral.TecnicosAtivos,
+                        MediaSatisfacao = metricas.ResumoGeral.SatisfacaoMedia,
+                        TotalUsuarios = totalUsuarios
+                    };
+
                     CreateDashboardCards(stats);
                 }
                 else
