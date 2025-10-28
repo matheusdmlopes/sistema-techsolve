@@ -146,6 +146,12 @@
     <Compile Include="Forms\ChamadoDetalhesForm.Designer.cs">
       <DependentUpon>ChamadoDetalhesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RelatoriosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RelatoriosForm.Designer.cs">
+      <DependentUpon>RelatoriosForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\DashboardStats.cs" />
     <Compile Include="Models\LoginRequest.cs" />
@@ -170,6 +176,9 @@
     <Compile Include="Models\CriarChamadoRequest.cs" />
     <Compile Include="Models\AtualizarStatusRequest.cs" />
     <Compile Include="Models\AtribuirTecnicoRequest.cs" />
+    <Compile Include="Models\MetricasDashboard.cs" />
+    <Compile Include="Models\RelatorioSatisfacao.cs" />
+    <Compile Include="Models\FeedbackListDto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Utils\AppConfig.cs" />
@@ -222,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChamadoDetalhesForm.resx">
       <DependentUpon>ChamadoDetalhesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RelatoriosForm.resx">
+      <DependentUpon>RelatoriosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

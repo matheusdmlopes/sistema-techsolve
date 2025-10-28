@@ -164,7 +164,7 @@ namespace PIM.Desktop.Forms
 
             // Botão Relatórios
             Button btnRelatorios = CreateMenuButton("📊 Relatórios", yPosition);
-            btnRelatorios.Click += (s, e) => LoadForm(new Label { Text = "Relatórios - Em Desenvolvimento", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 16) });
+            btnRelatorios.Click += (s, e) => LoadRelatorios();
             panelMenu.Controls.Add(btnRelatorios);
 
             this.Controls.Add(panelMenu);
@@ -279,6 +279,17 @@ namespace PIM.Desktop.Forms
                 Dock = DockStyle.Fill
             };
             LoadForm(chamadosForm);
+        }
+
+        private void LoadRelatorios()
+        {
+            RelatoriosForm relatoriosForm = new RelatoriosForm
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            LoadForm(relatoriosForm);
         }
 
         private void LoadForm(Control childControl)
