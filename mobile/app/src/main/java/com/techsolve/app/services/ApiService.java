@@ -21,8 +21,8 @@ public interface ApiService {
     @POST("Auth/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @GET("Chamados/usuario/{idUsuario}")
-    Call<List<Chamado>> getChamadosUsuario(@Path("idUsuario") int idUsuario);
+    @GET("Chamados")
+    Call<List<Chamado>> getChamados();
 
     @GET("Chamados/{id}")
     Call<Chamado> getChamado(@Path("id") int id);

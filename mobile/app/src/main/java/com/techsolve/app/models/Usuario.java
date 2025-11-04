@@ -1,13 +1,18 @@
 package com.techsolve.app.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Usuario {
+    @SerializedName("idUsuario")
     private int id;
     private String nome;
     private String email;
     private String telefone;
     private int idSetor;
+    @SerializedName("setor")
     private String nomeSetor;
     private int idPerfil;
+    @SerializedName("perfil")
     private String nomePerfil;
 
     public int getId() {

@@ -1,139 +1,137 @@
 package com.techsolve.app.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Chamado {
+    @SerializedName("idChamado")
     private int id;
     private String titulo;
     private String descricao;
     private String dataAbertura;
     private String dataFechamento;
-    private int idCategoria;
-    private String nomeCategoria;
-    private int idPrioridade;
-    private String nomePrioridade;
-    private int idStatus;
-    private String nomeStatus;
-    private int idUsuarioCriador;
-    private String nomeUsuarioCriador;
-    private Integer idUsuarioTecnico;
-    private String nomeUsuarioTecnico;
 
-    public int getId() {
-        return id;
+    private CategoriaSimples categoria;
+    private PrioridadeSimples prioridade;
+    private StatusSimples status;
+    private UsuarioSimples usuarioCriador;
+    private UsuarioSimples usuarioTecnico;
+
+    // Classes internas para objetos aninhados
+    public static class CategoriaSimples {
+        @SerializedName("idCategoria")
+        private int id;
+        private String nome;
+
+        public int getId() { return id; }
+        public String getNome() { return nome; }
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static class PrioridadeSimples {
+        @SerializedName("idPrioridade")
+        private int id;
+        private String nome;
+
+        public int getId() { return id; }
+        public String getNome() { return nome; }
+    }
+
+    public static class StatusSimples {
+        @SerializedName("idStatus")
+        private int id;
+        private String nome;
+
+        public int getId() { return id; }
+        public String getNome() { return nome; }
+    }
+
+    public static class UsuarioSimples {
+        @SerializedName("idUsuario")
+        private int id;
+        private String nome;
+
+        public int getId() { return id; }
+        public String getNome() { return nome; }
+    }
+
+    // Getters
+    public int getId() {
+        return id;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getDescricao() {
         return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public String getDataAbertura() {
         return dataAbertura;
     }
 
-    public void setDataAbertura(String dataAbertura) {
-        this.dataAbertura = dataAbertura;
-    }
-
     public String getDataFechamento() {
         return dataFechamento;
     }
 
-    public void setDataFechamento(String dataFechamento) {
-        this.dataFechamento = dataFechamento;
-    }
-
     public int getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
+        return categoria != null ? categoria.getId() : 0;
     }
 
     public String getNomeCategoria() {
-        return nomeCategoria;
-    }
-
-    public void setNomeCategoria(String nomeCategoria) {
-        this.nomeCategoria = nomeCategoria;
+        return categoria != null ? categoria.getNome() : "";
     }
 
     public int getIdPrioridade() {
-        return idPrioridade;
-    }
-
-    public void setIdPrioridade(int idPrioridade) {
-        this.idPrioridade = idPrioridade;
+        return prioridade != null ? prioridade.getId() : 0;
     }
 
     public String getNomePrioridade() {
-        return nomePrioridade;
-    }
-
-    public void setNomePrioridade(String nomePrioridade) {
-        this.nomePrioridade = nomePrioridade;
+        return prioridade != null ? prioridade.getNome() : "";
     }
 
     public int getIdStatus() {
-        return idStatus;
-    }
-
-    public void setIdStatus(int idStatus) {
-        this.idStatus = idStatus;
+        return status != null ? status.getId() : 0;
     }
 
     public String getNomeStatus() {
-        return nomeStatus;
-    }
-
-    public void setNomeStatus(String nomeStatus) {
-        this.nomeStatus = nomeStatus;
+        return status != null ? status.getNome() : "";
     }
 
     public int getIdUsuarioCriador() {
-        return idUsuarioCriador;
-    }
-
-    public void setIdUsuarioCriador(int idUsuarioCriador) {
-        this.idUsuarioCriador = idUsuarioCriador;
+        return usuarioCriador != null ? usuarioCriador.getId() : 0;
     }
 
     public String getNomeUsuarioCriador() {
-        return nomeUsuarioCriador;
-    }
-
-    public void setNomeUsuarioCriador(String nomeUsuarioCriador) {
-        this.nomeUsuarioCriador = nomeUsuarioCriador;
+        return usuarioCriador != null ? usuarioCriador.getNome() : "";
     }
 
     public Integer getIdUsuarioTecnico() {
-        return idUsuarioTecnico;
-    }
-
-    public void setIdUsuarioTecnico(Integer idUsuarioTecnico) {
-        this.idUsuarioTecnico = idUsuarioTecnico;
+        return usuarioTecnico != null ? usuarioTecnico.getId() : null;
     }
 
     public String getNomeUsuarioTecnico() {
-        return nomeUsuarioTecnico;
+        return usuarioTecnico != null ? usuarioTecnico.getNome() : null;
     }
 
-    public void setNomeUsuarioTecnico(String nomeUsuarioTecnico) {
-        this.nomeUsuarioTecnico = nomeUsuarioTecnico;
+    // Setters (se necessário)
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setDataAbertura(String dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
+
+    public void setDataFechamento(String dataFechamento) {
+        this.dataFechamento = dataFechamento;
     }
 }

@@ -101,18 +101,27 @@ public class ChamadosActivity extends AppCompatActivity implements ChamadoAdapte
 
         ApiService apiService = ApiClient.getClient(tokenManager.getToken()).create(ApiService.class);
 
-        apiService.getChamadosUsuario(usuario.getId()).enqueue(new Callback<List<Chamado>>() {
+        apiService.getChamados().enqueue(new Callback<List<Chamado>>() {
             @Override
             public void onResponse(Call<List<Chamado>> call, Response<List<Chamado>> response) {
                 progressBar.setVisibility(View.GONE);
                 swipeRefresh.setRefreshing(false);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Chamado> chamados = response.body();
-                    if (chamados.isEmpty()) {
+                    List<Chamado> todosChamados = response.body();
+
+                    // Filtrar apenas chamados do usuário logado
+                    List<Chamado> chamadosDoUsuario = new java.util.ArrayList<>();
+                    for (Chamado chamado : todosChamados) {
+                        if (chamado.getIdUsuarioCriador() == usuario.getId()) {
+                            chamadosDoUsuario.add(chamado);
+                        }
+                    }
+
+                    if (chamadosDoUsuario.isEmpty()) {
                         tvEmpty.setVisibility(View.VISIBLE);
                     } else {
-                        adapter.setChamados(chamados);
+                        adapter.setChamados(chamadosDoUsuario);
                     }
                 } else {
                     Toast.makeText(ChamadosActivity.this, "Erro ao carregar chamados", Toast.LENGTH_SHORT).show();

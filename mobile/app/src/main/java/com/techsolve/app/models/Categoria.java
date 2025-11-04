@@ -1,6 +1,9 @@
 package com.techsolve.app.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Categoria {
+    @SerializedName("idCategoria")
     private int id;
     private String nome;
     private String descricao;
