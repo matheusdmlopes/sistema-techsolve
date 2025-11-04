@@ -1,10 +1,13 @@
 package com.techsolve.app.services;
 
+import com.techsolve.app.models.AnalisePreliminarRequest;
+import com.techsolve.app.models.AnalisePreliminarResponse;
 import com.techsolve.app.models.Categoria;
 import com.techsolve.app.models.Chamado;
 import com.techsolve.app.models.CriarChamadoRequest;
 import com.techsolve.app.models.LoginRequest;
 import com.techsolve.app.models.LoginResponse;
+import com.techsolve.app.models.Prioridade;
 import com.techsolve.app.models.Usuario;
 
 import java.util.List;
@@ -32,6 +35,12 @@ public interface ApiService {
 
     @GET("Categorias")
     Call<List<Categoria>> getCategorias();
+
+    @GET("Prioridades")
+    Call<List<Prioridade>> getPrioridades();
+
+    @POST("ia/analisar-preliminar")
+    Call<AnalisePreliminarResponse> analisarProblema(@Body AnalisePreliminarRequest request);
 
     @GET("Usuarios/{id}")
     Call<Usuario> getUsuario(@Path("id") int id);
