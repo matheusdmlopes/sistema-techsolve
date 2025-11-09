@@ -15,9 +15,6 @@ namespace PIM.Desktop.Forms
             // Configurar evento do botão Entrar
             this.Button1.Click += Button1_Click;
 
-            // Configurar evento do LinkLabel (esqueceu a senha)
-            this.LinkLabel1.LinkClicked += LinkLabel1_LinkClicked;
-
             // Configurar Enter no campo de senha para fazer login
             this.TextBox2.KeyPress += TextBox2_KeyPress;
         }

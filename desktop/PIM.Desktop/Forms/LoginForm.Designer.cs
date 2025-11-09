@@ -81,7 +81,6 @@
             this.LinkLabel1.Size = new System.Drawing.Size(170, 20);
             this.LinkLabel1.TabIndex = 4;
             this.LinkLabel1.TabStop = true;
-            this.LinkLabel1.Text = "Esqueceu a senha?";
             this.LinkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             //
