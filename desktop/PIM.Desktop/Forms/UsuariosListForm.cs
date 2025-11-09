@@ -41,7 +41,7 @@ namespace PIM.Desktop.Forms
                 Font = new Font("Segoe UI", 20, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
                 AutoSize = true,
-                Location = new Point(30, 30)
+                Location = new Point(30, 10)
             };
             this.Controls.Add(lblTitle);
 
@@ -49,7 +49,7 @@ namespace PIM.Desktop.Forms
             Panel panelFiltros = new Panel
             {
                 BackColor = Color.White,
-                Location = new Point(30, 80),
+                Location = new Point(30, 60),
                 Size = new Size(900, 80),
                 BorderStyle = BorderStyle.FixedSingle
             };
@@ -143,13 +143,13 @@ namespace PIM.Desktop.Forms
             // Botões de ação
             btnNovo = new Button
             {
-                Text = "➕ Novo Usuário",
+                Text = "Novo Usuário",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(46, 204, 113),
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(150, 40),
-                Location = new Point(30, 175),
+                Location = new Point(30, 155),
                 Cursor = Cursors.Hand
             };
             btnNovo.FlatAppearance.BorderSize = 0;
@@ -158,13 +158,13 @@ namespace PIM.Desktop.Forms
 
             btnEditar = new Button
             {
-                Text = "✏️ Editar",
+                Text = "Editar",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(52, 152, 219),
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(120, 40),
-                Location = new Point(190, 175),
+                Location = new Point(190, 155),
                 Cursor = Cursors.Hand,
                 Enabled = false
             };
@@ -174,13 +174,13 @@ namespace PIM.Desktop.Forms
 
             btnAtualizar = new Button
             {
-                Text = "🔄 Atualizar",
+                Text = "Atualizar",
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(127, 140, 141),
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(120, 40),
-                Location = new Point(320, 175),
+                Location = new Point(320, 155),
                 Cursor = Cursors.Hand
             };
             btnAtualizar.FlatAppearance.BorderSize = 0;
@@ -190,7 +190,7 @@ namespace PIM.Desktop.Forms
             // DataGridView
             dgvUsuarios = new DataGridView
             {
-                Location = new Point(30, 230),
+                Location = new Point(30, 210),
                 Size = new Size(900, 350),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 AllowUserToAddRows = false,
@@ -273,7 +273,7 @@ namespace PIM.Desktop.Forms
             finally
             {
                 btnAtualizar.Enabled = true;
-                btnAtualizar.Text = "🔄 Atualizar";
+                btnAtualizar.Text = "Atualizar";
             }
         }
 

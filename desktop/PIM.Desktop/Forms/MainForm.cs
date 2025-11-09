@@ -109,13 +109,13 @@ namespace PIM.Desktop.Forms
             int yPosition = 20;
 
             // Botão Dashboard
-            Button btnDashboard = CreateMenuButton("🏠 Dashboard", yPosition);
+            Button btnDashboard = CreateMenuButton("Dashboard", yPosition);
             btnDashboard.Click += (s, e) => LoadDashboard();
             panelMenu.Controls.Add(btnDashboard);
             yPosition += 50;
 
             // Botão Usuários
-            Button btnUsuarios = CreateMenuButton("👥 Usuários", yPosition);
+            Button btnUsuarios = CreateMenuButton("Usuários", yPosition);
             btnUsuarios.Click += (s, e) => LoadUsuarios();
             panelMenu.Controls.Add(btnUsuarios);
             yPosition += 50;
@@ -133,37 +133,37 @@ namespace PIM.Desktop.Forms
             yPosition += 30;
 
             // Botão Setores
-            Button btnSetores = CreateMenuButton("  📁 Setores", yPosition);
+            Button btnSetores = CreateMenuButton("  Setores", yPosition);
             btnSetores.Click += (s, e) => LoadSetores();
             panelMenu.Controls.Add(btnSetores);
             yPosition += 50;
 
             // Botão Categorias
-            Button btnCategorias = CreateMenuButton("  🏷️ Categorias", yPosition);
+            Button btnCategorias = CreateMenuButton("  Categorias", yPosition);
             btnCategorias.Click += (s, e) => LoadCategorias();
             panelMenu.Controls.Add(btnCategorias);
             yPosition += 50;
 
             // Botão Prioridades
-            Button btnPrioridades = CreateMenuButton("  ⚡ Prioridades", yPosition);
+            Button btnPrioridades = CreateMenuButton("  Prioridades", yPosition);
             btnPrioridades.Click += (s, e) => LoadPrioridades();
             panelMenu.Controls.Add(btnPrioridades);
             yPosition += 50;
 
             // Botão Status
-            Button btnStatus = CreateMenuButton("  🔄 Status", yPosition);
+            Button btnStatus = CreateMenuButton("  Status", yPosition);
             btnStatus.Click += (s, e) => LoadStatus();
             panelMenu.Controls.Add(btnStatus);
             yPosition += 70;
 
             // Botão Chamados
-            Button btnChamados = CreateMenuButton("📋 Chamados", yPosition);
+            Button btnChamados = CreateMenuButton("Chamados", yPosition);
             btnChamados.Click += (s, e) => LoadChamados();
             panelMenu.Controls.Add(btnChamados);
             yPosition += 50;
 
             // Botão Relatórios
-            Button btnRelatorios = CreateMenuButton("📊 Relatórios", yPosition);
+            Button btnRelatorios = CreateMenuButton("Relatórios", yPosition);
             btnRelatorios.Click += (s, e) => LoadRelatorios();
             panelMenu.Controls.Add(btnRelatorios);
 

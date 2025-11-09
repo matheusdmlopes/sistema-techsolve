@@ -79,7 +79,7 @@ namespace PIM.Desktop.Forms
                 Font = new Font("Segoe UI", 20, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
                 AutoSize = true,
-                Location = new Point(30, 30)
+                Location = new Point(30, 10)
             };
             this.Controls.Add(lblTitle);
 
@@ -90,12 +90,12 @@ namespace PIM.Desktop.Forms
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 ForeColor = Color.FromArgb(127, 140, 141),
                 AutoSize = true,
-                Location = new Point(30, 65)
+                Location = new Point(30, 45)
             };
             this.Controls.Add(lblSubtitle);
 
             // Cards de estatísticas
-            int startY = 110;
+            int startY = 90;
             int cardWidth = 250;
             int cardHeight = 120;
             int spacing = 20;
@@ -134,7 +134,7 @@ namespace PIM.Desktop.Forms
             // Botão Atualizar
             Button btnRefresh = new Button
             {
-                Text = "🔄 Atualizar",
+                Text = "Atualizar",
                 Font = new Font("Segoe UI", 11, FontStyle.Bold),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(52, 152, 219),
@@ -286,10 +286,10 @@ namespace PIM.Desktop.Forms
         {
             Label lblError = new Label
             {
-                Text = $"⚠️ {message}",
+                Text = $"ERRO: {message}",
                 Font = new Font("Segoe UI", 12, FontStyle.Regular),
                 ForeColor = Color.FromArgb(231, 76, 60),
-                Location = new Point(30, 110),
+                Location = new Point(30, 90),
                 AutoSize = true
             };
             this.Controls.Add(lblError);

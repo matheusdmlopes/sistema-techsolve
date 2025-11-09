@@ -54,7 +54,7 @@ namespace PIM.Desktop.Forms
                 Text = "Gerenciamento de Chamados",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 ForeColor = Color.FromArgb(52, 73, 94),
-                Location = new Point(20, 20),
+                Location = new Point(20, 10),
                 AutoSize = true
             };
             this.Controls.Add(lblTitulo);
@@ -65,7 +65,7 @@ namespace PIM.Desktop.Forms
                 Text = "Total: 0 chamados",
                 Font = new Font("Segoe UI", 9),
                 ForeColor = Color.FromArgb(127, 140, 141),
-                Location = new Point(20, 55),
+                Location = new Point(20, 35),
                 AutoSize = true
             };
             this.Controls.Add(lblTotal);
@@ -73,7 +73,7 @@ namespace PIM.Desktop.Forms
             // Painel de Filtros
             Panel panelFiltros = new Panel
             {
-                Location = new Point(20, 90),
+                Location = new Point(20, 70),
                 Size = new Size(1050, 60),
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle
@@ -134,7 +134,7 @@ namespace PIM.Desktop.Forms
 
             btnRefresh = new Button
             {
-                Text = "🔄 Atualizar",
+                Text = "Atualizar",
                 Location = new Point(820, 15),
                 Size = new Size(100, 30),
                 BackColor = Color.FromArgb(52, 152, 219),
@@ -152,7 +152,7 @@ namespace PIM.Desktop.Forms
             // DataGridView
             dgvChamados = new DataGridView
             {
-                Location = new Point(20, 170),
+                Location = new Point(20, 150),
                 Size = new Size(1050, 380),
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
@@ -183,8 +183,8 @@ namespace PIM.Desktop.Forms
             // Botões inferiores
             btnNovo = new Button
             {
-                Text = "➕ Novo Chamado",
-                Location = new Point(20, 565),
+                Text = "Novo Chamado",
+                Location = new Point(20, 545),
                 Size = new Size(140, 35),
                 BackColor = Color.FromArgb(46, 204, 113),
                 ForeColor = Color.White,
@@ -198,8 +198,8 @@ namespace PIM.Desktop.Forms
 
             btnVerDetalhes = new Button
             {
-                Text = "👁 Ver Detalhes",
-                Location = new Point(180, 565),
+                Text = "Ver Detalhes",
+                Location = new Point(180, 545),
                 Size = new Size(140, 35),
                 BackColor = Color.FromArgb(52, 152, 219),
                 ForeColor = Color.White,
@@ -270,7 +270,7 @@ namespace PIM.Desktop.Forms
             finally
             {
                 btnRefresh.Enabled = true;
-                btnRefresh.Text = "🔄 Atualizar";
+                btnRefresh.Text = "Atualizar";
             }
         }
 

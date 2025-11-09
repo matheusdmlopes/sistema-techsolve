@@ -70,7 +70,7 @@ namespace PIM.Desktop.Forms
                 Text = "Relatórios e Estatísticas",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 ForeColor = Color.FromArgb(52, 73, 94),
-                Location = new Point(20, 20),
+                Location = new Point(20, 10),
                 AutoSize = true
             };
             this.Controls.Add(lblTitulo);
@@ -78,8 +78,8 @@ namespace PIM.Desktop.Forms
             // TabControl
             tabRelatorios = new TabControl
             {
-                Location = new Point(20, 65),
-                Size = new Size(1050, 600),
+                Location = new Point(20, 50),
+                Size = new Size(1050, 615),
                 Font = new Font("Segoe UI", 9)
             };
 
@@ -106,7 +106,7 @@ namespace PIM.Desktop.Forms
             // Botão Atualizar
             btnRefreshMetricas = new Button
             {
-                Text = "🔄 Atualizar",
+                Text = "Atualizar",
                 Location = new Point(920, 10),
                 Size = new Size(100, 30),
                 BackColor = Color.FromArgb(52, 152, 219),
@@ -252,7 +252,7 @@ namespace PIM.Desktop.Forms
             // Botão Atualizar
             btnRefreshSatisfacao = new Button
             {
-                Text = "🔄 Atualizar",
+                Text = "Atualizar",
                 Location = new Point(920, 10),
                 Size = new Size(100, 30),
                 BackColor = Color.FromArgb(52, 152, 219),
@@ -359,7 +359,7 @@ namespace PIM.Desktop.Forms
 
             btnRefreshFeedbacks = new Button
             {
-                Text = "🔄 Atualizar",
+                Text = "Atualizar",
                 Location = new Point(220, 12),
                 Size = new Size(100, 28),
                 BackColor = Color.FromArgb(52, 152, 219),
@@ -489,7 +489,7 @@ namespace PIM.Desktop.Forms
             finally
             {
                 btnRefreshMetricas.Enabled = true;
-                btnRefreshMetricas.Text = "🔄 Atualizar";
+                btnRefreshMetricas.Text = "Atualizar";
             }
         }
 
@@ -528,7 +528,7 @@ namespace PIM.Desktop.Forms
             finally
             {
                 btnRefreshSatisfacao.Enabled = true;
-                btnRefreshSatisfacao.Text = "🔄 Atualizar";
+                btnRefreshSatisfacao.Text = "Atualizar";
             }
         }
 
@@ -572,7 +572,7 @@ namespace PIM.Desktop.Forms
             finally
             {
                 btnRefreshFeedbacks.Enabled = true;
-                btnRefreshFeedbacks.Text = "🔄 Atualizar";
+                btnRefreshFeedbacks.Text = "Atualizar";
             }
         }
     }
