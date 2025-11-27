@@ -1,4 +1,4 @@
-# 🎫 TechSolve - Sistema de Help Desk Inteligente
+# TechSolve - Sistema de Help Desk Inteligente
 
 <div align="center">
 
@@ -7,29 +7,25 @@
 Desenvolvido como Projeto Integrado Multidisciplinar (PIM IV)
 Análise e Desenvolvimento de Sistemas - UNIP 2025/2
 
-[📱 Demo Online](#-ambientes-de-demonstração) • [🚀 Começar](#-como-executar-localmente) • [📚 Documentação](#-documentação)
+[Demo Online](#ambientes-de-demonstração) • [Como Executar](#como-executar-localmente) • [Documentação](#documentação)
 
 </div>
 
 ---
 
-## 💡 Sobre o Projeto
+## Sobre o Projeto
 
 O TechSolve nasceu da necessidade de modernizar o atendimento de suporte técnico, substituindo processos fragmentados por e-mail e telefone por uma solução centralizada e inteligente.
 
 **O que foi desenvolvido:**
 
-🎯 **Sistema completo de Help Desk** com três interfaces (Web, Mobile e Desktop) integradas a uma API REST robusta
+- **Sistema completo de Help Desk** com três interfaces (Web, Mobile e Desktop) integradas a uma API REST robusta
+- **Inteligência Artificial integrada** que auxilia na triagem automática de chamados, sugerindo categorias, prioridades e até possíveis soluções
+- **Painel gerencial completo** com métricas em tempo real, relatórios de desempenho e análise de satisfação
+- **Conformidade com LGPD** incluindo portabilidade de dados e direito ao esquecimento
+- **Chat em tempo real** entre usuários e técnicos usando SignalR para comunicação instantânea
 
-🤖 **Inteligência Artificial integrada** que auxilia na triagem automática de chamados, sugerindo categorias, prioridades e até possíveis soluções
-
-📊 **Painel gerencial completo** com métricas em tempo real, relatórios de desempenho e análise de satisfação
-
-🔒 **Conformidade com LGPD** incluindo portabilidade de dados e direito ao esquecimento
-
-💬 **Chat em tempo real** entre usuários e técnicos usando SignalR para comunicação instantânea
-
-## 🏗️ Como Foi Construído
+## Como Foi Construído
 
 ### Arquitetura Multi-Plataforma
 
@@ -78,16 +74,16 @@ O projeto foi desenvolvido seguindo uma arquitetura moderna de APIs REST, permit
 - **Azure SQL Database** - Banco de dados gerenciado
 - **Swagger/OpenAPI** - Documentação interativa da API
 
-## ✨ Principais Funcionalidades
+## Principais Funcionalidades
 
-### 🎫 Gestão Completa de Chamados
+### Gestão Completa de Chamados
 - Abertura de tickets com anexos e descrição detalhada
 - Categorização e priorização automática ou manual
 - Atribuição inteligente de técnicos por especialidade
 - Histórico completo de todas as alterações
 - Filtros e busca avançada
 
-### 🤖 Inteligência Artificial (Diferencial do Projeto)
+### Inteligência Artificial (Diferencial do Projeto)
 A integração com OpenAI GPT-3.5 oferece três recursos principais:
 - **Auto-categorização**: Analisa a descrição e sugere a categoria mais adequada
 - **Priorização inteligente**: Avalia a urgência automaticamente (Baixa, Média, Alta, Crítica)
@@ -95,33 +91,33 @@ A integração com OpenAI GPT-3.5 oferece três recursos principais:
 
 Todas as sugestões da IA são registradas e podem ser aceitas ou rejeitadas pelo técnico.
 
-### 💬 Chat em Tempo Real
+### Chat em Tempo Real
 - Comunicação instantânea entre solicitante e técnico via SignalR
 - Indicadores de "digitando..."
 - Histórico de conversas salvo automaticamente
 - Marcação de mensagens lidas/não lidas
 
-### ⭐ Sistema de Feedback
+### Sistema de Feedback
 - Avaliação de 1 a 5 estrelas após conclusão do atendimento
 - Comentários opcionais para melhoria contínua
 - Relatórios de satisfação geral e por técnico
 - Apenas o solicitante pode avaliar seu próprio chamado
 
-### 📊 Dashboards e Relatórios
+### Dashboards e Relatórios
 - **Métricas gerais**: Total de chamados, taxa de resolução, tempo médio
 - **Relatórios por período**: Análise temporal (dia, semana, mês)
 - **Performance de técnicos**: Chamados resolvidos, tempo médio, satisfação
 - **SLA (Service Level Agreement)**: Acompanhamento de cumprimento de prazos
 - **Análise por categoria**: Identificação de problemas recorrentes
 
-### 🔒 Segurança e LGPD
+### Segurança e LGPD
 - **Autenticação JWT** com tokens de 24 horas
 - **Senhas criptografadas** com BCrypt
 - **Controle de acesso** por perfis (Admin, Técnico, Usuário)
 - **Portabilidade de dados**: Usuário pode exportar todos seus dados
 - **Direito ao esquecimento**: Anonimização completa de informações pessoais
 
-## 🌐 Ambientes de Demonstração
+## Ambientes de Demonstração
 
 **API REST:**
 - URL: `https://api-pimads-fghxhgerbkbqhsdx.brazilsouth-01.azurewebsites.net`
@@ -134,7 +130,7 @@ Todas as sugestões da IA são registradas e podem ser aceitas ou rejeitadas pel
 - Email: `admin@techsolve.com`
 - Senha: `admin123`
 
-## 🚀 Como Executar Localmente
+## Como Executar Localmente
 
 ### Requisitos
 - .NET 8 SDK
@@ -162,25 +158,25 @@ dotnet run
 
 > **Nota**: Na primeira execução, o sistema cria automaticamente dados iniciais incluindo perfis, setores, categorias e um usuário administrador (admin@techsolve.com / admin123)
 
-## 📊 Estrutura da API
+## Estrutura da API
 
 A API REST foi desenvolvida com 53 endpoints organizados por contexto:
 
 | Módulo | Endpoints | Funcionalidade |
 |--------|-----------|----------------|
-| 🔐 Autenticação | 2 | Login e validação de token |
-| 👥 Usuários | 7 | Gerenciamento completo + LGPD |
-| 🎫 Chamados | 7 | CRUD, atribuição e histórico |
-| 🤖 Inteligência Artificial | 5 | Sugestões, categorização e priorização |
-| ⭐ Feedback | 5 | Avaliações e relatórios de satisfação |
-| 📎 Anexos | 5 | Upload, download e listagem |
-| 📈 Dashboard | 2 | Métricas e feed de atividades |
-| 📊 Relatórios | 5 | Análises por status, categoria, período e SLA |
-| 📋 Dados Auxiliares | 8 | Listas de perfis, setores, categorias, etc. |
+| Autenticação | 2 | Login e validação de token |
+| Usuários | 7 | Gerenciamento completo + LGPD |
+| Chamados | 7 | CRUD, atribuição e histórico |
+| Inteligência Artificial | 5 | Sugestões, categorização e priorização |
+| Feedback | 5 | Avaliações e relatórios de satisfação |
+| Anexos | 5 | Upload, download e listagem |
+| Dashboard | 2 | Métricas e feed de atividades |
+| Relatórios | 5 | Análises por status, categoria, período e SLA |
+| Dados Auxiliares | 8 | Listas de perfis, setores, categorias, etc. |
 
 > Toda a API está documentada com Swagger/OpenAPI disponível em `/swagger`
 
-## 🎯 Processo de Desenvolvimento
+## Processo de Desenvolvimento
 
 ### Metodologia
 O projeto foi desenvolvido seguindo boas práticas de engenharia de software:
@@ -207,28 +203,28 @@ Utilizamos **Entity Framework Core** com abordagem Code-First:
 - **CORS configurado** para segurança
 - **Migrations versionadas** para controle do banco
 
-## 🎓 Objetivos Acadêmicos
+## Objetivos Acadêmicos
 
 Este projeto foi desenvolvido como PIM IV do curso de Análise e Desenvolvimento de Sistemas da UNIP, atendendo aos seguintes requisitos:
 
 | Requisito | Implementação | Status |
 |-----------|--------------|--------|
-| Código funcional e documentado | API REST completa com Swagger | ✅ Completo |
-| Múltiplas interfaces | Web (ASP.NET MVC), Mobile (Android) | ✅ Completo |
-| Banco SQL Server | Azure SQL Database com EF Core | ✅ Completo |
-| Integração com IA | OpenAI GPT-3.5 para triagem inteligente | ✅ Completo |
-| Relatórios gerenciais | Dashboard e múltiplos relatórios | ✅ Completo |
-| Conformidade LGPD | Portabilidade e esquecimento | ✅ Completo |
-| Deploy em produção | Azure App Service | ✅ Completo |
+| Código funcional e documentado | API REST completa com Swagger | Completo |
+| Múltiplas interfaces | Web (ASP.NET MVC), Mobile (Android) | Completo |
+| Banco SQL Server | Azure SQL Database com EF Core | Completo |
+| Integração com IA | OpenAI GPT-3.5 para triagem inteligente | Completo |
+| Relatórios gerenciais | Dashboard e múltiplos relatórios | Completo |
+| Conformidade LGPD | Portabilidade e esquecimento | Completo |
+| Deploy em produção | Azure App Service | Completo |
 
-## 📚 Documentação
+## Documentação
 
 - **CLAUDE.md**: Instruções detalhadas para desenvolvimento e arquitetura
 - **README-DOCS.md**: Guia de documentação técnica com DocFX
 - **Swagger UI**: Documentação interativa da API em `/swagger`
 - **Código comentado**: Métodos e classes documentadas com XML comments
 
-## 👨‍💻 Desenvolvimento
+## Desenvolvimento
 
 **Projeto Integrado Multidisciplinar IV**
 Curso de Análise e Desenvolvimento de Sistemas
@@ -238,6 +234,6 @@ UNIP - 2025/2
 
 <div align="center">
 
-**Desenvolvido com** ❤️ **como projeto acadêmico**
+Desenvolvido como projeto acadêmico
 
 </div>
