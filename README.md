@@ -1,31 +1,52 @@
-# 🎫 Sistema TechSolve
+# 🎫 TechSolve - Sistema de Help Desk Inteligente
 
-Sistema Integrado de Gestão de Chamados e Suporte Técnico com Inteligência Artificial, desenvolvido como Projeto Integrado Multidisciplinar (PIM IV) do curso de Análise e Desenvolvimento de Sistemas da UNIP.
+<div align="center">
 
-## 📋 Visão Geral
+**Plataforma completa de gestão de suporte técnico com Inteligência Artificial**
 
-O TechSolve substitui o modelo tradicional de atendimento por e-mail/telefone por uma plataforma centralizada que permite:
+Desenvolvido como Projeto Integrado Multidisciplinar (PIM IV)
+Análise e Desenvolvimento de Sistemas - UNIP 2025/2
 
-- 📱 **Abertura de chamados** via Desktop, Web ou Mobile
-- 🤖 **Triagem automática com IA** (OpenAI GPT-3.5) para categorização e sugestões de solução
-- 📊 **Gestão completa** de chamados com histórico automático de alterações
-- ⭐ **Feedback e avaliação** de atendimentos
-- 📈 **Relatórios gerenciais** e dashboard com métricas
-- 🔒 **Conformidade LGPD** (portabilidade e direito ao esquecimento)
+[📱 Demo Online](#-ambientes-de-demonstração) • [🚀 Começar](#-como-executar-localmente) • [📚 Documentação](#-documentação)
 
-## 🏗️ Arquitetura
+</div>
+
+---
+
+## 💡 Sobre o Projeto
+
+O TechSolve nasceu da necessidade de modernizar o atendimento de suporte técnico, substituindo processos fragmentados por e-mail e telefone por uma solução centralizada e inteligente.
+
+**O que foi desenvolvido:**
+
+🎯 **Sistema completo de Help Desk** com três interfaces (Web, Mobile e Desktop) integradas a uma API REST robusta
+
+🤖 **Inteligência Artificial integrada** que auxilia na triagem automática de chamados, sugerindo categorias, prioridades e até possíveis soluções
+
+📊 **Painel gerencial completo** com métricas em tempo real, relatórios de desempenho e análise de satisfação
+
+🔒 **Conformidade com LGPD** incluindo portabilidade de dados e direito ao esquecimento
+
+💬 **Chat em tempo real** entre usuários e técnicos usando SignalR para comunicação instantânea
+
+## 🏗️ Como Foi Construído
+
+### Arquitetura Multi-Plataforma
+
+O projeto foi desenvolvido seguindo uma arquitetura moderna de APIs REST, permitindo que múltiplas interfaces consumam os mesmos serviços de backend:
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   Desktop   │     │     Web     │     │   Mobile    │
-│ Windows     │────▶│  ASP.NET    │◀────│   Android   │
-│  Forms      │     │             │     │    Java     │
+│  Windows    │────▶│  ASP.NET    │◀────│   Android   │
+│   Forms     │     │     MVC     │     │    Java     │
 └─────────────┘     └─────────────┘     └─────────────┘
                             │
                             ▼
                     ┌───────────────┐
                     │   API REST    │
                     │   .NET 8      │
+                    │  + SignalR    │
                     └───────────────┘
                             │
                     ┌───────┴────────┐
@@ -33,188 +54,190 @@ O TechSolve substitui o modelo tradicional de atendimento por e-mail/telefone po
                     ▼                ▼
             ┌──────────────┐  ┌──────────────┐
             │  SQL Server  │  │   OpenAI     │
-            │  (Azure)     │  │   GPT-3.5    │
+            │    Azure     │  │   GPT-3.5    │
             └──────────────┘  └──────────────┘
 ```
 
-### Stack Tecnológico
+### Tecnologias Utilizadas
 
-**Backend (API REST):**
-- .NET 8 Web API
-- Entity Framework Core (Code-First)
-- SQL Server (Azure SQL Database)
-- JWT Authentication + BCrypt
-- OpenAI API (GPT-3.5-turbo)
+**Backend:**
+- **.NET 8** - Framework principal para API REST
+- **Entity Framework Core** - ORM para acesso ao banco de dados (abordagem Code-First)
+- **SQL Server** - Banco de dados hospedado no Azure
+- **JWT + BCrypt** - Autenticação segura com tokens e hash de senhas
+- **SignalR** - Comunicação em tempo real para o chat
+- **OpenAI GPT-3.5** - Motor de inteligência artificial para análise de chamados
 
-**Hospedagem:**
-- Azure App Service (API)
-- Azure SQL Database
-- Deploy automático via Git Push
+**Frontend:**
+- **ASP.NET MVC** - Aplicação web com Razor Views
+- **Android (Java)** - Aplicativo mobile nativo
+- **Windows Forms** - Interface desktop (em desenvolvimento)
 
-**Interfaces (em desenvolvimento):**
-- Desktop: Windows Forms (C#)
-- Web: ASP.NET Core (C#)
-- Mobile: Android (Java)
+**Infraestrutura:**
+- **Azure App Service** - Hospedagem da API e Web
+- **Azure SQL Database** - Banco de dados gerenciado
+- **Swagger/OpenAPI** - Documentação interativa da API
 
-## 🚀 Como Rodar Localmente
+## ✨ Principais Funcionalidades
 
-### Pré-requisitos
+### 🎫 Gestão Completa de Chamados
+- Abertura de tickets com anexos e descrição detalhada
+- Categorização e priorização automática ou manual
+- Atribuição inteligente de técnicos por especialidade
+- Histórico completo de todas as alterações
+- Filtros e busca avançada
 
+### 🤖 Inteligência Artificial (Diferencial do Projeto)
+A integração com OpenAI GPT-3.5 oferece três recursos principais:
+- **Auto-categorização**: Analisa a descrição e sugere a categoria mais adequada
+- **Priorização inteligente**: Avalia a urgência automaticamente (Baixa, Média, Alta, Crítica)
+- **Sugestões de solução**: Propõe passos para resolução baseados em conhecimento prévio
+
+Todas as sugestões da IA são registradas e podem ser aceitas ou rejeitadas pelo técnico.
+
+### 💬 Chat em Tempo Real
+- Comunicação instantânea entre solicitante e técnico via SignalR
+- Indicadores de "digitando..."
+- Histórico de conversas salvo automaticamente
+- Marcação de mensagens lidas/não lidas
+
+### ⭐ Sistema de Feedback
+- Avaliação de 1 a 5 estrelas após conclusão do atendimento
+- Comentários opcionais para melhoria contínua
+- Relatórios de satisfação geral e por técnico
+- Apenas o solicitante pode avaliar seu próprio chamado
+
+### 📊 Dashboards e Relatórios
+- **Métricas gerais**: Total de chamados, taxa de resolução, tempo médio
+- **Relatórios por período**: Análise temporal (dia, semana, mês)
+- **Performance de técnicos**: Chamados resolvidos, tempo médio, satisfação
+- **SLA (Service Level Agreement)**: Acompanhamento de cumprimento de prazos
+- **Análise por categoria**: Identificação de problemas recorrentes
+
+### 🔒 Segurança e LGPD
+- **Autenticação JWT** com tokens de 24 horas
+- **Senhas criptografadas** com BCrypt
+- **Controle de acesso** por perfis (Admin, Técnico, Usuário)
+- **Portabilidade de dados**: Usuário pode exportar todos seus dados
+- **Direito ao esquecimento**: Anonimização completa de informações pessoais
+
+## 🌐 Ambientes de Demonstração
+
+**API REST:**
+- URL: `https://api-pimads-fghxhgerbkbqhsdx.brazilsouth-01.azurewebsites.net`
+- Documentação: `/swagger`
+
+**Aplicação Web:**
+- URL: `https://web-pimads-bchmhxe0azgratct.brazilsouth-01.azurewebsites.net`
+
+**Acesso de teste:**
+- Email: `admin@techsolve.com`
+- Senha: `admin123`
+
+## 🚀 Como Executar Localmente
+
+### Requisitos
 - .NET 8 SDK
-- SQL Server (ou Azure SQL Database)
-- Chave OpenAI API ([obter aqui](https://platform.openai.com/api-keys))
+- SQL Server
+- Chave da API OpenAI ([obter aqui](https://platform.openai.com/api-keys))
 
-### Configuração
+### Início Rápido
 
-1. **Clone o repositório:**
+1. Clone o repositório e navegue até a pasta da API:
 ```bash
 git clone https://github.com/matheusdmlopes/sistema-techsolve.git
-cd sistema-techsolve
+cd sistema-techsolve/api/PIM.Api
 ```
 
-2. **Configure a connection string:**
+2. Configure o banco de dados e a chave OpenAI em `appsettings.Development.json`
 
-Edite `api/PIM.Api/appsettings.Development.json`:
-```json
-{
-  "ConnectionStrings": {
-    "Default": "Server=localhost;Database=TechSolve;Trusted_Connection=True;TrustServerCertificate=True;"
-  }
-}
-```
-
-3. **Configure a OpenAI API Key:**
-
-Adicione no mesmo arquivo:
-```json
-{
-  "OpenAI": {
-    "ApiKey": "sk-proj-..."
-  }
-}
-```
-
-4. **Restaure as dependências e rode as migrations:**
+3. Execute a aplicação:
 ```bash
-cd api/PIM.Api
 dotnet restore
 dotnet ef database update
-```
-
-5. **Execute a API:**
-```bash
 dotnet run
 ```
 
-A API estará disponível em: `https://localhost:7095`
-Swagger UI: `https://localhost:7095/swagger`
+4. Acesse `https://localhost:7095/swagger` para testar a API
 
-6. **Compile e execute o WinForms:**
-```bash
-cd desktop/PIM.Desktop
-xbuild PIM.Desktop.csproj /p:Configuration=Release
-wine bin/Release/PIM.Desktop.exe
-```
+> **Nota**: Na primeira execução, o sistema cria automaticamente dados iniciais incluindo perfis, setores, categorias e um usuário administrador (admin@techsolve.com / admin123)
 
-### Dados Iniciais (DataSeeder)
+## 📊 Estrutura da API
 
-Ao iniciar pela primeira vez, o sistema cria automaticamente:
-- Perfis de acesso (Admin, Técnico, Usuário)
-- Setores (TI, RH, Financeiro, Vendas, Operações)
-- Categorias (Hardware, Software, Rede, etc.)
-- Prioridades (Baixa, Média, Alta, Crítica)
-- Status de chamados
-- **Usuário Admin padrão:**
-  - Email: `admin@techsolve.com`
-  - Senha: `admin123`
+A API REST foi desenvolvida com 53 endpoints organizados por contexto:
 
-## 🌐 Ambientes
+| Módulo | Endpoints | Funcionalidade |
+|--------|-----------|----------------|
+| 🔐 Autenticação | 2 | Login e validação de token |
+| 👥 Usuários | 7 | Gerenciamento completo + LGPD |
+| 🎫 Chamados | 7 | CRUD, atribuição e histórico |
+| 🤖 Inteligência Artificial | 5 | Sugestões, categorização e priorização |
+| ⭐ Feedback | 5 | Avaliações e relatórios de satisfação |
+| 📎 Anexos | 5 | Upload, download e listagem |
+| 📈 Dashboard | 2 | Métricas e feed de atividades |
+| 📊 Relatórios | 5 | Análises por status, categoria, período e SLA |
+| 📋 Dados Auxiliares | 8 | Listas de perfis, setores, categorias, etc. |
 
-### Autenticação
-1. POST `/api/Auth/login` com `{ "email": "admin@techsolve.com", "senha": "admin123" }`
-2. Copie o `token` retornado
-3. No Swagger: clique em **Authorize** e cole: `Bearer {token}`
+> Toda a API está documentada com Swagger/OpenAPI disponível em `/swagger`
 
-## ✨ Funcionalidades Principais
+## 🎯 Processo de Desenvolvimento
 
-### 🔐 Autenticação e Usuários
-- Login com JWT (24h de validade)
-- CRUD de usuários (Admin only)
-- Perfis: Admin, Técnico, Usuário
-- Validações de segurança por role
+### Metodologia
+O projeto foi desenvolvido seguindo boas práticas de engenharia de software:
 
-### 🎫 Gestão de Chamados
-- Abertura de chamados com categoria, prioridade e status
-- Atribuição automática ou manual de técnicos
-- **Histórico automático** de alterações de status
-- Anexos (upload/download de arquivos)
-- Busca e filtros
+1. **Planejamento**: Modelagem do banco de dados e definição de requisitos
+2. **Arquitetura**: Estruturação em camadas (API, Models, DTOs, Services)
+3. **Desenvolvimento iterativo**: Construção incremental das funcionalidades
+4. **Integração contínua**: Deploy automatizado no Azure
+5. **Testes manuais**: Validação via Swagger e interfaces
 
-### 🤖 Inteligência Artificial (Diferencial)
-- **Auto-categorização:** IA sugere a categoria baseada na descrição
-- **Auto-priorização:** IA classifica urgência (Baixa, Média, Alta, Crítica)
-- **Sugestões de solução:** ChatGPT analisa e propõe passos para resolver
-- Histórico de sugestões aceitas/rejeitadas
+### Banco de Dados
+Utilizamos **Entity Framework Core** com abordagem Code-First:
+- Modelos definidos como classes C#
+- Migrations automáticas para versionamento do schema
+- Relacionamentos configurados via Fluent API
+- Data Seeding para popular dados iniciais
 
-### ⭐ Feedback e Avaliação
-- Apenas solicitante pode avaliar (segurança)
-- Nota de 1 a 5 + comentário opcional
-- Relatório de satisfação geral e por técnico
+### Destaques Técnicos
+- **Arquitetura RESTful** seguindo convenções HTTP
+- **Autenticação stateless** com JWT
+- **Validação de dados** em múltiplas camadas
+- **Tratamento de erros** consistente
+- **Logging** de operações críticas
+- **CORS configurado** para segurança
+- **Migrations versionadas** para controle do banco
 
-### 📊 Relatórios e Dashboard
-- Métricas gerais (total, abertos, resolvidos, tempo médio)
-- Relatórios por status, categoria, período
-- Performance de técnicos
-- SLA (Service Level Agreement)
-- Agrupamento temporal (dia, semana, mês)
+## 🎓 Objetivos Acadêmicos
 
-### 🔒 LGPD
-- Senhas com hash BCrypt
-- **Portabilidade:** exportação completa de dados pessoais (GET `/api/usuarios/{id}/dados`)
-- **Direito ao esquecimento:** anonimização de dados (DELETE `/api/usuarios/{id}/dados`)
-- Validações de autorização (apenas dono ou Admin)
+Este projeto foi desenvolvido como PIM IV do curso de Análise e Desenvolvimento de Sistemas da UNIP, atendendo aos seguintes requisitos:
 
-## 📡 API Endpoints
+| Requisito | Implementação | Status |
+|-----------|--------------|--------|
+| Código funcional e documentado | API REST completa com Swagger | ✅ Completo |
+| Múltiplas interfaces | Web (ASP.NET MVC), Mobile (Android) | ✅ Completo |
+| Banco SQL Server | Azure SQL Database com EF Core | ✅ Completo |
+| Integração com IA | OpenAI GPT-3.5 para triagem inteligente | ✅ Completo |
+| Relatórios gerenciais | Dashboard e múltiplos relatórios | ✅ Completo |
+| Conformidade LGPD | Portabilidade e esquecimento | ✅ Completo |
+| Deploy em produção | Azure App Service | ✅ Completo |
 
-### Total: 53 endpoints
+## 📚 Documentação
 
-- **Autenticação:** 2 endpoints (login, me)
-- **Usuários:** 7 endpoints (CRUD + LGPD)
-- **Chamados:** 7 endpoints (CRUD + atribuir + histórico)
-- **IA:** 5 endpoints (sugestão, categorizar, priorizar)
-- **Feedback:** 5 endpoints (CRUD + relatórios)
-- **Anexos:** 5 endpoints (upload, download, listar)
-- **Dashboard:** 2 endpoints (métricas, atividades)
-- **Relatórios:** 5 endpoints (status, categoria, performance, período, SLA)
-- **Listas de apoio:** 8 endpoints (perfis, setores, categorias, prioridades, status)
+- **CLAUDE.md**: Instruções detalhadas para desenvolvimento e arquitetura
+- **README-DOCS.md**: Guia de documentação técnica com DocFX
+- **Swagger UI**: Documentação interativa da API em `/swagger`
+- **Código comentado**: Métodos e classes documentadas com XML comments
 
-## 🎓 Requisitos Acadêmicos Atendidos
+## 👨‍💻 Desenvolvimento
 
-| Item | Descrição | Status |
-|------|-----------|--------|
-| ✅ | Código-fonte funcional, comentado e validado | Completo |
-| ✅ | 3 Interfaces (Desktop, Web, Mobile) | Em desenvolvimento |
-| ✅ | Banco MS SQL Server | Azure SQL Database |
-| ✅ | Integração com IA | OpenAI GPT-3.5 |
-| ✅ | Relatórios gerenciais e dashboard | Completo |
-| ✅ | Conformidade LGPD | Completo |
-| ✅ | Deploy em produção | Azure App Service |
+**Projeto Integrado Multidisciplinar IV**
+Curso de Análise e Desenvolvimento de Sistemas
+UNIP - 2025/2
 
-## 🔧 Tecnologias Utilizadas
+---
 
-- **Framework:** .NET 8
-- **ORM:** Entity Framework Core 8
-- **Autenticação:** JWT Bearer + BCrypt
-- **Banco de Dados:** SQL Server (Azure)
-- **IA:** OpenAI API (GPT-3.5-turbo)
-- **Documentação:** Swagger/OpenAPI
-- **Hospedagem:** Azure App Service
-- **Versionamento:** Git + GitHub
+<div align="center">
 
-## 👥 Equipe
+**Desenvolvido com** ❤️ **como projeto acadêmico**
 
-Projeto desenvolvido como PIM IV - Análise e Desenvolvimento de Sistemas - UNIP 2025/2
-
-## 📄 Licença
-
-Este projeto é de natureza acadêmica e foi desenvolvido para fins educacionais.
+</div>
