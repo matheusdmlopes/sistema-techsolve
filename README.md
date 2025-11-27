@@ -42,7 +42,7 @@ O projeto foi desenvolvido seguindo uma arquitetura moderna de APIs REST, permit
                     ┌───────────────┐
                     │   API REST    │
                     │   .NET 8      │
-                    │  + SignalR    │
+                    │       C#      │
                     └───────────────┘
                             │
                     ┌───────┴────────┐
@@ -203,28 +203,28 @@ Utilizamos **Entity Framework Core** com abordagem Code-First:
 - **CORS configurado** para segurança
 - **Migrations versionadas** para controle do banco
 
-## Objetivos Acadêmicos
+## 🎓 Objetivos Acadêmicos
 
 Este projeto foi desenvolvido como PIM IV do curso de Análise e Desenvolvimento de Sistemas da UNIP, atendendo aos seguintes requisitos:
 
 | Requisito | Implementação | Status |
 |-----------|--------------|--------|
-| Código funcional e documentado | API REST completa com Swagger | Completo |
-| Múltiplas interfaces | Web (ASP.NET MVC), Mobile (Android) | Completo |
-| Banco SQL Server | Azure SQL Database com EF Core | Completo |
-| Integração com IA | OpenAI GPT-3.5 para triagem inteligente | Completo |
-| Relatórios gerenciais | Dashboard e múltiplos relatórios | Completo |
-| Conformidade LGPD | Portabilidade e esquecimento | Completo |
-| Deploy em produção | Azure App Service | Completo |
+| Código funcional e documentado | API REST completa com Swagger | ✅ Completo |
+| Múltiplas interfaces | Web (ASP.NET MVC), Mobile (Android) | ✅ Completo |
+| Banco SQL Server | Azure SQL Database com EF Core | ✅ Completo |
+| Integração com IA | OpenAI GPT-3.5 para triagem inteligente | ✅ Completo |
+| Relatórios gerenciais | Dashboard e múltiplos relatórios | ✅ Completo |
+| Conformidade LGPD | Portabilidade e esquecimento | ✅ Completo |
+| Deploy em produção | Azure App Service | ✅ Completo |
 
-## Documentação
+## 📚 Documentação
 
 - **CLAUDE.md**: Instruções detalhadas para desenvolvimento e arquitetura
 - **README-DOCS.md**: Guia de documentação técnica com DocFX
 - **Swagger UI**: Documentação interativa da API em `/swagger`
 - **Código comentado**: Métodos e classes documentadas com XML comments
 
-## Desenvolvimento
+## 👨‍💻 Desenvolvimento
 
 **Projeto Integrado Multidisciplinar IV**
 Curso de Análise e Desenvolvimento de Sistemas
@@ -234,6 +234,6 @@ UNIP - 2025/2
 
 <div align="center">
 
-Desenvolvido como projeto acadêmico
+**Desenvolvido com** ❤️ **como projeto acadêmico**
 
 </div>
