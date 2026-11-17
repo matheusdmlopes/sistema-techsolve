@@ -145,12 +145,26 @@ jobs:
             throw "Sem resposta de $endereco"
           }
 
+          # Se algo falhar, mostra se o servidor e o site estão de pé e em quais endereços atendem.
+          trap {
+            Write-Host '----- Processos do TechSolve em execução:'
+            Get-Process PIM.Api, PIM.Web -ErrorAction SilentlyContinue | Format-Table Id, ProcessName, StartTime | Out-String | Write-Host
+            Write-Host '----- Portas 5080 e 5000:'
+            netstat -ano | Select-String ':5080 |:5000 ' | Out-String | Write-Host
+            break
+          }
+
           Start-Process -FilePath "$PWD\api\PIM.Api.exe" -WorkingDirectory "$PWD\api"
-          Aguardar 'http://localhost:5080/health'
+          Aguardar 'http://127.0.0.1:5080/health'
           Start-Process -FilePath "$PWD\site\PIM.Web.exe" -WorkingDirectory "$PWD\site"
           Aguardar 'http://localhost:5000/'
 
           if (-not (Test-Path 'api\techsolve.db')) { throw 'O banco de dados não foi criado na pasta api.' }
+
+          # O site e o desktop chamam o servidor por "localhost", e o Windows tenta primeiro o endereço IPv6.
+          # Se o servidor só atendesse em IPv4, cada conexão nova demoraria cerca de 2 segundos.
+          try { Invoke-WebRequest -UseBasicParsing -TimeoutSec 2 'http://[::1]:5080/health' | Out-Null }
+          catch { throw 'O servidor não atende pelo endereço IPv6 de localhost ([::1]).' }
 
           # Servidor: login e triagem da IA.
           $login = Invoke-RestMethod -Method Post -Uri 'http://localhost:5080/api/Auth/login' -ContentType 'application/json' `
