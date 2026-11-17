@@ -1,7 +1,9 @@
 package com.techsolve.app.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -163,6 +165,7 @@ public class NovoChamadoActivity extends AppCompatActivity {
             return;
         }
 
+        fecharTeclado();
         btnAnalisarIA.setEnabled(false);
         progressBarIA.setVisibility(View.VISIBLE);
         cardSugestaoIA.setVisibility(View.GONE);
@@ -191,6 +194,15 @@ public class NovoChamadoActivity extends AppCompatActivity {
                 Toast.makeText(NovoChamadoActivity.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // Fecha o teclado para a sugestão da IA aparecer inteira na tela
+    private void fecharTeclado() {
+        View campoEmUso = getCurrentFocus();
+        if (campoEmUso != null) {
+            InputMethodManager teclado = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            teclado.hideSoftInputFromWindow(campoEmUso.getWindowToken(), 0);
+        }
     }
 
     private void exibirSugestaoIA() {

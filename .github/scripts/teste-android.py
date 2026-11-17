@@ -94,15 +94,23 @@ def esperar(o_que, identificador=None, texto=None, segundos=45):
 
 def rolar_ate(identificador):
     """Rola a tela para baixo até o elemento aparecer inteiro o bastante para ser tocado."""
-    largura, altura = [int(numero) for numero in re.findall(r"\d+", adb("shell", "wm", "size").decode())[-2:]]
-    for _ in range(6):
-        elemento = achar(ler_tela(), identificador)
+    for _ in range(12):
+        elementos = ler_tela()
+        elemento = achar(elementos, identificador)
         if elemento is not None:
             x1, y1, x2, y2 = posicao(elemento)
             if y2 - y1 >= 60:
                 return elemento
-        meio = str(largura // 2)
-        adb("shell", "input", "swipe", meio, str(int(altura * 0.7)), meio, str(int(altura * 0.4)), "400")
+
+        # O gesto é feito dentro da área do aplicativo. Com o teclado aberto essa área é menor,
+        # e um gesto na parte de baixo da tela cairia em cima do teclado, sem rolar nada.
+        area = achar(elementos, "content")
+        if area is None:
+            raise Falha("Não foi possível achar a área do aplicativo na tela.")
+        x1, y1, x2, y2 = posicao(area)
+        meio = str((x1 + x2) // 2)
+        de, para = str(int(y1 + (y2 - y1) * 0.7)), str(int(y1 + (y2 - y1) * 0.4))
+        adb("shell", "input", "swipe", meio, de, meio, para, "400")
         time.sleep(1)
     raise Falha(f"Não foi possível rolar a tela até: {identificador}")
 
