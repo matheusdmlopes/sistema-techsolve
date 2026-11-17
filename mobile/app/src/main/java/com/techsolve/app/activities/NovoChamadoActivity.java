@@ -83,7 +83,7 @@ public class NovoChamadoActivity extends AppCompatActivity {
     }
 
     private void carregarCategorias() {
-        ApiService apiService = ApiClient.getClient(tokenManager.getToken()).create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this, tokenManager.getToken()).create(ApiService.class);
 
         apiService.getCategorias().enqueue(new Callback<List<Categoria>>() {
             @Override
@@ -114,7 +114,7 @@ public class NovoChamadoActivity extends AppCompatActivity {
     }
 
     private void carregarPrioridades() {
-        ApiService apiService = ApiClient.getClient(tokenManager.getToken()).create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this, tokenManager.getToken()).create(ApiService.class);
 
         apiService.getPrioridades().enqueue(new Callback<List<Prioridade>>() {
             @Override
@@ -168,7 +168,7 @@ public class NovoChamadoActivity extends AppCompatActivity {
         cardSugestaoIA.setVisibility(View.GONE);
 
         AnalisePreliminarRequest request = new AnalisePreliminarRequest(titulo, descricao);
-        ApiService apiService = ApiClient.getClient(tokenManager.getToken()).create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this, tokenManager.getToken()).create(ApiService.class);
 
         apiService.analisarProblema(request).enqueue(new Callback<AnalisePreliminarResponse>() {
             @Override
@@ -261,7 +261,7 @@ public class NovoChamadoActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         CriarChamadoRequest request = new CriarChamadoRequest(titulo, descricao, categoriaId, prioridadeId);
-        ApiService apiService = ApiClient.getClient(tokenManager.getToken()).create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this, tokenManager.getToken()).create(ApiService.class);
 
         apiService.criarChamado(request).enqueue(new Callback<Chamado>() {
             @Override

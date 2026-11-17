@@ -517,7 +517,7 @@ namespace PIM.Web.Controllers
                 // Apenas admin pode acessar
                 if (perfilAcessoId != 1)
                 {
-                    return Forbid();
+                    return StatusCode(403);
                 }
 
                 var tecnicos = await _apiService.GetAsync<List<dynamic>>("/api/usuarios/tecnicos");

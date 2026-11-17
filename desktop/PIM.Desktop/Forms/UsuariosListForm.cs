@@ -254,7 +254,7 @@ namespace PIM.Desktop.Forms
                 // Carregar perfis para filtro (lista estática - não há endpoint na API)
                 perfis = new List<PerfilDto>
                 {
-                    new PerfilDto { IdPerfil = 1, NomePerfil = "Admin" },
+                    new PerfilDto { IdPerfil = 1, NomePerfil = "Administrador" },
                     new PerfilDto { IdPerfil = 2, NomePerfil = "Técnico" },
                     new PerfilDto { IdPerfil = 3, NomePerfil = "Usuário" }
                 };

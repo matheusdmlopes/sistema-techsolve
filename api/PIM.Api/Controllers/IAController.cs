@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OpenAI.Chat;
 using PIM.Api.Data;
 using PIM.Api.Entities;
+using PIM.Api.Services;
 
 namespace PIM.Api.Controllers;
 
@@ -13,12 +13,12 @@ namespace PIM.Api.Controllers;
 public class IAController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
-    private readonly IConfiguration _configuration;
+    private readonly IServicoIA _ia;
 
-    public IAController(ApplicationDbContext context, IConfiguration configuration)
+    public IAController(ApplicationDbContext context, IServicoIA ia)
     {
         _context = context;
-        _configuration = configuration;
+        _ia = ia;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class IAController : ControllerBase
 
             // Verificar se já existe sugestão recente (últimas 24h)
             var sugestaoRecente = await _context.SugestoesIA
-                .Where(s => s.IdChamado == idChamado && s.DataHoraGeracao > DateTime.UtcNow.AddHours(-24))
+                .Where(s => s.IdChamado == idChamado && s.DataHoraGeracao > DateTime.Now.AddHours(-24))
                 .OrderByDescending(s => s.DataHoraGeracao)
                 .FirstOrDefaultAsync();
 
@@ -58,41 +58,19 @@ public class IAController : ControllerBase
                 });
             }
 
-            // Obter chave da API OpenAI
-            var apiKey = _configuration["OpenAI:ApiKey"];
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                return StatusCode(500, new { erro = "Chave da API OpenAI não configurada" });
-            }
-
-            // Criar cliente OpenAI
-            var client = new ChatClient("gpt-3.5-turbo", apiKey);
-
-            // Montar prompt para a IA
-            var prompt = $@"Você é um assistente de suporte técnico especializado. Analise o seguinte chamado e forneça uma sugestão de solução:
-
-TÍTULO: {chamado.Titulo}
-DESCRIÇÃO: {chamado.Descricao}
-CATEGORIA ATUAL: {chamado.Categoria?.NomeCategoria ?? "Não definida"}
-PRIORIDADE ATUAL: {chamado.Prioridade?.NivelPrioridade ?? "Não definida"}
-
-Com base nessas informações, forneça:
-1. Uma análise breve do problema (máximo 2 linhas)
-2. Passos sugeridos para solução (máximo 4 passos)
-3. Se necessário, recomendações de categoria ou prioridade mais adequadas
-
-Seja direto e objetivo. Máximo 200 palavras.";
-
-            // Chamar API OpenAI
-            var chatCompletion = await client.CompleteChatAsync(prompt);
-            var respostaIA = chatCompletion.Value.Content[0].Text;
+            // Gerar a sugestão com o serviço de IA configurado
+            var respostaIA = await _ia.GerarSugestaoAsync(
+                chamado.Titulo,
+                chamado.Descricao,
+                chamado.Categoria?.NomeCategoria,
+                chamado.Prioridade?.NivelPrioridade);
 
             // Salvar sugestão no banco
             var sugestao = new SugestaoIA
             {
                 IdChamado = idChamado,
                 TextoSugestao = respostaIA,
-                DataHoraGeracao = DateTime.UtcNow,
+                DataHoraGeracao = DateTime.Now,
                 FoiAceita = false
             };
 
@@ -132,28 +110,10 @@ Seja direto e objetivo. Máximo 200 palavras.";
 
             // Obter todas as categorias disponíveis
             var categorias = await _context.Categorias.ToListAsync();
-            var listaCategoriasTexto = string.Join(", ", categorias.Select(c => c.NomeCategoria));
-
-            var apiKey = _configuration["OpenAI:ApiKey"];
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                return StatusCode(500, new { erro = "Chave da API OpenAI não configurada" });
-            }
-
-            var client = new ChatClient("gpt-3.5-turbo", apiKey);
-
-            var prompt = $@"Você é um classificador de chamados de suporte técnico.
-
-TÍTULO: {chamado.Titulo}
-DESCRIÇÃO: {chamado.Descricao}
-
-CATEGORIAS DISPONÍVEIS: {listaCategoriasTexto}
-
-Responda APENAS com o nome exato de UMA categoria da lista acima que melhor se encaixa neste chamado.
-Não adicione explicações, apenas o nome da categoria.";
-
-            var chatCompletion = await client.CompleteChatAsync(prompt);
-            var categoriaSugerida = chatCompletion.Value.Content[0].Text.Trim();
+            var categoriaSugerida = await _ia.CategorizarAsync(
+                chamado.Titulo,
+                chamado.Descricao,
+                categorias.Select(c => c.NomeCategoria).ToList());
 
             // Buscar categoria sugerida no banco
             var categoria = categorias.FirstOrDefault(c =>
@@ -195,34 +155,10 @@ Não adicione explicações, apenas o nome da categoria.";
             }
 
             var prioridades = await _context.Prioridades.ToListAsync();
-            var listaPrioridadesTexto = string.Join(", ", prioridades.Select(p => p.NivelPrioridade));
-
-            var apiKey = _configuration["OpenAI:ApiKey"];
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                return StatusCode(500, new { erro = "Chave da API OpenAI não configurada" });
-            }
-
-            var client = new ChatClient("gpt-3.5-turbo", apiKey);
-
-            var prompt = $@"Você é um classificador de prioridade de chamados de suporte técnico.
-
-TÍTULO: {chamado.Titulo}
-DESCRIÇÃO: {chamado.Descricao}
-
-PRIORIDADES DISPONÍVEIS: {listaPrioridadesTexto}
-
-Analise o impacto e urgência do problema. Responda APENAS com o nome exato de UMA prioridade da lista acima.
-Não adicione explicações, apenas o nome da prioridade.
-
-Critérios:
-- Crítica: Sistema parado, múltiplos usuários afetados, perda de produtividade massiva
-- Alta: Impossibilita trabalho individual, urgente
-- Média: Dificulta trabalho mas não impede
-- Baixa: Não afeta trabalho imediato";
-
-            var chatCompletion = await client.CompleteChatAsync(prompt);
-            var prioridadeSugerida = chatCompletion.Value.Content[0].Text.Trim();
+            var prioridadeSugerida = await _ia.PriorizarAsync(
+                chamado.Titulo,
+                chamado.Descricao,
+                prioridades.Select(p => p.NivelPrioridade).ToList());
 
             var prioridade = prioridades.FirstOrDefault(p =>
                 p.NivelPrioridade.Equals(prioridadeSugerida, StringComparison.OrdinalIgnoreCase));

@@ -1,0 +1,4 @@
+# Scripts do Windows precisam de fim de linha CRLF; scripts de shell, de LF.
+*.bat text eol=crlf
+pacote/LEIA-ME.txt text eol=crlf
+*.sh text eol=lf

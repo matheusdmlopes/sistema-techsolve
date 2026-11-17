@@ -88,7 +88,7 @@ public class ComentariosController : ControllerBase
                 IdChamado = idChamado,
                 IdUsuario = idUsuario,
                 Mensagem = request.Mensagem,
-                DataHoraEnvio = DateTime.UtcNow,
+                DataHoraEnvio = DateTime.Now,
                 Lido = false
             };
 

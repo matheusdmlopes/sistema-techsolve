@@ -27,7 +27,7 @@ namespace PIM.Desktop.Forms
 
         private void InitializeCustomComponents()
         {
-            this.Text = idStatus.HasValue ? "Editar Status" : "Nova Status";
+            this.Text = idStatus.HasValue ? "Editar Status" : "Novo Status";
             this.Size = new Size(500, 350);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -37,7 +37,7 @@ namespace PIM.Desktop.Forms
 
             Label lblTitle = new Label
             {
-                Text = idStatus.HasValue ? "Editar Status" : "Nova Status",
+                Text = idStatus.HasValue ? "Editar Status" : "Novo Status",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 ForeColor = Color.FromArgb(44, 62, 80),
                 AutoSize = true,
@@ -130,7 +130,7 @@ namespace PIM.Desktop.Forms
         {
             try
             {
-                var status = await ApiService.GetAsync<StatusResponseDto>($"/api/Statuss/{idStatus}");
+                var status = await ApiService.GetAsync<StatusResponseDto>($"/api/Status/{idStatus}");
 
                 if (status != null)
                 {
@@ -170,7 +170,7 @@ namespace PIM.Desktop.Forms
                     };
 
                     var response = await ApiService.PutAsync<StatusUpdateRequest, StatusResponseDto>(
-                        $"/api/Statuss/{idStatus}", request);
+                        $"/api/Status/{idStatus}", request);
 
                     MessageBox.Show("Status atualizada com sucesso!",
                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -184,7 +184,7 @@ namespace PIM.Desktop.Forms
                     };
 
                     var response = await ApiService.PostAsync<StatusCreateRequest, StatusResponseDto>(
-                        "/api/Statuss", request);
+                        "/api/Status", request);
 
                     MessageBox.Show("Status criada com sucesso!",
                         "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);

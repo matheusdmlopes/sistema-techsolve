@@ -71,7 +71,7 @@ public class ApplicationDbContext : DbContext
             
             entity.Property(e => e.DataCadastro)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("datetime('now', 'localtime')");
             
             entity.Property(e => e.PrimeiroAcesso)
                 .IsRequired()
@@ -161,15 +161,13 @@ public class ApplicationDbContext : DbContext
                 .HasMaxLength(100);
             
             entity.Property(e => e.Descricao)
-                .IsRequired()
-                .HasColumnType("VARCHAR(MAX)");
+                .IsRequired();
             
             entity.Property(e => e.DataAbertura)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("datetime('now', 'localtime')");
             
-            entity.Property(e => e.SolucaoFinal)
-                .HasColumnType("VARCHAR(MAX)");
+            entity.Property(e => e.SolucaoFinal);
 
             // Relacionamentos
             entity.HasOne(e => e.Categoria)
@@ -284,7 +282,7 @@ public class ApplicationDbContext : DbContext
             
             entity.Property(e => e.DataHoraAlteracao)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("datetime('now', 'localtime')");
             
             entity.Property(e => e.Observacao)
                 .HasMaxLength(255);
@@ -305,7 +303,7 @@ public class ApplicationDbContext : DbContext
             
             entity.Property(e => e.DataHoraGeracao)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("datetime('now', 'localtime')");
             
             entity.Property(e => e.FoiAceita)
                 .IsRequired()
@@ -329,7 +327,7 @@ public class ApplicationDbContext : DbContext
             
             entity.Property(e => e.DataHoraFeedback)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("datetime('now', 'localtime')");
             
             // Constraint de uniqueness para garantir apenas um feedback por chamado
             entity.HasIndex(e => e.IdChamado)
@@ -356,7 +354,7 @@ public class ApplicationDbContext : DbContext
             
             entity.Property(e => e.DataUpload)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("datetime('now', 'localtime')");
         });
     }
 
@@ -374,7 +372,7 @@ public class ApplicationDbContext : DbContext
 
             entity.Property(e => e.DataHoraEnvio)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("datetime('now', 'localtime')");
 
             entity.Property(e => e.Lido)
                 .IsRequired()

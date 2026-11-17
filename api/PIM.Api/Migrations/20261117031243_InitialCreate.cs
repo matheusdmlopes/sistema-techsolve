@@ -15,10 +15,10 @@ namespace PIM.Api.Migrations
                 name: "Categoria",
                 columns: table => new
                 {
-                    IdCategoria = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeCategoria = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    IdCategoria = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomeCategoria = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,10 +29,10 @@ namespace PIM.Api.Migrations
                 name: "PerfilAcesso",
                 columns: table => new
                 {
-                    IdPerfil = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomePerfil = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    IdPerfil = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomePerfil = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,10 +43,10 @@ namespace PIM.Api.Migrations
                 name: "Prioridade",
                 columns: table => new
                 {
-                    IdPrioridade = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NivelPrioridade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    IdPrioridade = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NivelPrioridade = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,10 +57,10 @@ namespace PIM.Api.Migrations
                 name: "Setor",
                 columns: table => new
                 {
-                    IdSetor = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeSetor = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    IdSetor = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomeSetor = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,10 +71,10 @@ namespace PIM.Api.Migrations
                 name: "StatusChamado",
                 columns: table => new
                 {
-                    IdStatus = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeStatus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    IdStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomeStatus = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,19 +85,19 @@ namespace PIM.Api.Migrations
                 name: "Usuario",
                 columns: table => new
                 {
-                    IdUsuario = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeCompleto = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Senha = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Telefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    UltimoLogin = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PrimeiroAcesso = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    IdSetor = table.Column<int>(type: "int", nullable: false),
-                    IdPerfil = table.Column<int>(type: "int", nullable: false),
-                    PerfilAcessoIdPerfil = table.Column<int>(type: "int", nullable: true)
+                    IdUsuario = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomeCompleto = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Senha = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Telefone = table.Column<string>(type: "TEXT", maxLength: 15, nullable: true),
+                    DataCadastro = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "datetime('now', 'localtime')"),
+                    UltimoLogin = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    PrimeiroAcesso = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: true),
+                    Ativo = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: true),
+                    IdSetor = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdPerfil = table.Column<int>(type: "INTEGER", nullable: false),
+                    PerfilAcessoIdPerfil = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,18 +125,18 @@ namespace PIM.Api.Migrations
                 name: "Chamado",
                 columns: table => new
                 {
-                    IdChamado = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descricao = table.Column<string>(type: "VARCHAR(MAX)", maxLength: 2147483647, nullable: false),
-                    DataAbertura = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    DataFechamento = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SolucaoFinal = table.Column<string>(type: "VARCHAR(MAX)", nullable: true),
-                    IdUsuarioCriador = table.Column<int>(type: "int", nullable: false),
-                    IdUsuarioTecnico = table.Column<int>(type: "int", nullable: true),
-                    IdCategoria = table.Column<int>(type: "int", nullable: false),
-                    IdPrioridade = table.Column<int>(type: "int", nullable: false),
-                    IdStatus = table.Column<int>(type: "int", nullable: false)
+                    IdChamado = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Titulo = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 2147483647, nullable: false),
+                    DataAbertura = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "datetime('now', 'localtime')"),
+                    DataFechamento = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    SolucaoFinal = table.Column<string>(type: "TEXT", nullable: true),
+                    IdUsuarioCriador = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdUsuarioTecnico = table.Column<int>(type: "INTEGER", nullable: true),
+                    IdCategoria = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdPrioridade = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdStatus = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -177,12 +177,12 @@ namespace PIM.Api.Migrations
                 name: "Anexo",
                 columns: table => new
                 {
-                    IdAnexo = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdChamado = table.Column<int>(type: "int", nullable: false),
-                    NomeArquivo = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    CaminhoArquivo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    DataUpload = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
+                    IdAnexo = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IdChamado = table.Column<int>(type: "INTEGER", nullable: false),
+                    NomeArquivo = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    CaminhoArquivo = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    DataUpload = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "datetime('now', 'localtime')")
                 },
                 constraints: table =>
                 {
@@ -196,15 +196,44 @@ namespace PIM.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ComentarioChamado",
+                columns: table => new
+                {
+                    IdComentario = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IdChamado = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdUsuario = table.Column<int>(type: "INTEGER", nullable: false),
+                    Mensagem = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: false),
+                    DataHoraEnvio = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "datetime('now', 'localtime')"),
+                    Lido = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ComentarioChamado", x => x.IdComentario);
+                    table.ForeignKey(
+                        name: "FK_ComentarioChamado_Chamado",
+                        column: x => x.IdChamado,
+                        principalTable: "Chamado",
+                        principalColumn: "IdChamado",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ComentarioChamado_Usuario",
+                        column: x => x.IdUsuario,
+                        principalTable: "Usuario",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Feedback",
                 columns: table => new
                 {
-                    IdFeedback = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdChamado = table.Column<int>(type: "int", nullable: false),
-                    Nota = table.Column<int>(type: "int", nullable: false),
-                    Comentario = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    DataHoraFeedback = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
+                    IdFeedback = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IdChamado = table.Column<int>(type: "INTEGER", nullable: false),
+                    Nota = table.Column<int>(type: "INTEGER", nullable: false),
+                    Comentario = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    DataHoraFeedback = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "datetime('now', 'localtime')")
                 },
                 constraints: table =>
                 {
@@ -222,14 +251,14 @@ namespace PIM.Api.Migrations
                 name: "HistoricoChamado",
                 columns: table => new
                 {
-                    IdHistorico = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdChamado = table.Column<int>(type: "int", nullable: false),
-                    IdTecnico = table.Column<int>(type: "int", nullable: true),
-                    StatusAnterior = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    StatusAtual = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    Observacao = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    IdHistorico = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IdChamado = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdTecnico = table.Column<int>(type: "INTEGER", nullable: true),
+                    StatusAnterior = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    StatusAtual = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    DataHoraAlteracao = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "datetime('now', 'localtime')"),
+                    Observacao = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -252,12 +281,12 @@ namespace PIM.Api.Migrations
                 name: "SugestaoIA",
                 columns: table => new
                 {
-                    IdSugestao = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdChamado = table.Column<int>(type: "int", nullable: false),
-                    TextoSugestao = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    DataHoraGeracao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    FoiAceita = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                    IdSugestao = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IdChamado = table.Column<int>(type: "INTEGER", nullable: false),
+                    TextoSugestao = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
+                    DataHoraGeracao = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "datetime('now', 'localtime')"),
+                    FoiAceita = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -299,6 +328,21 @@ namespace PIM.Api.Migrations
                 name: "IX_Chamado_IdUsuarioTecnico",
                 table: "Chamado",
                 column: "IdUsuarioTecnico");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ComentarioChamado_Chamado_Data",
+                table: "ComentarioChamado",
+                columns: new[] { "IdChamado", "DataHoraEnvio" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ComentarioChamado_IdChamado",
+                table: "ComentarioChamado",
+                column: "IdChamado");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ComentarioChamado_Usuario_Lido",
+                table: "ComentarioChamado",
+                columns: new[] { "IdUsuario", "Lido" });
 
             migrationBuilder.CreateIndex(
                 name: "UC_Feedback_Chamado",
@@ -348,6 +392,9 @@ namespace PIM.Api.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Anexo");
+
+            migrationBuilder.DropTable(
+                name: "ComentarioChamado");
 
             migrationBuilder.DropTable(
                 name: "Feedback");

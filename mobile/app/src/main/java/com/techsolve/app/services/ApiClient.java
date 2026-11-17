@@ -1,5 +1,9 @@
 package com.techsolve.app.services;
 
+import android.content.Context;
+
+import com.techsolve.app.utils.ServidorConfig;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -8,13 +12,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
-    // Altere esta URL para o IP da sua máquina quando testar no celular
-    // Ex: "http://192.168.0.100:7095/api/" ou use a API Azure em produção
-    private static final String BASE_URL = "https://api-pimads-fghxhgerbkbqhsdx.brazilsouth-01.azurewebsites.net/api/";
 
-    private static Retrofit retrofit = null;
+    public static Retrofit getClient(Context context, String token) {
+        // O endereço do servidor é configurado no próprio app (tela de login > Servidor).
+        // O cliente é montado a cada chamada, então sempre usa o endereço salvo no momento.
+        String baseUrl = new ServidorConfig(context).getUrlApi();
 
-    public static Retrofit getClient(String token) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -36,12 +39,27 @@ public class ApiClient {
             });
         }
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
+    }
 
-        return retrofit;
+    // Testa se a API responde no endereço informado (GET /health).
+    // O resultado chega no callback em uma thread de segundo plano.
+    public static okhttp3.Call testarConexao(String endereco, okhttp3.Callback callback) {
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .build();
+
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(endereco + "/health")
+                .build();
+
+        okhttp3.Call call = httpClient.newCall(request);
+        call.enqueue(callback);
+        return call;
     }
 }

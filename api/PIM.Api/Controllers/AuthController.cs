@@ -53,10 +53,13 @@ namespace PIM.Api.Controllers
                     return BadRequest(new { erro = "Email e senha são obrigatórios" });
                 }
 
+                // E-mail sem diferenciar maiúsculas de minúsculas (o teclado do celular costuma iniciar com maiúscula).
+                var email = request.Email.Trim().ToLower();
+
                 var usuario = await _context.Usuarios
                     .Include(u => u.PerfilAcesso)
                     .Include(u => u.Setor)
-                    .FirstOrDefaultAsync(u => u.Email == request.Email && u.Ativo);
+                    .FirstOrDefaultAsync(u => u.Email.ToLower() == email && u.Ativo);
 
                 if (usuario == null)
                 {

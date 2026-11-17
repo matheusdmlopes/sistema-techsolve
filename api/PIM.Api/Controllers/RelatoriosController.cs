@@ -203,7 +203,7 @@ public class RelatoriosController : ControllerBase
                         nomeTecnico = g.Key.NomeTecnico,
                         totalChamados = g.Count(),
                         chamadosAbertos = g.Count(c => c.Status!.NomeStatus == "Aberto" ||
-                                                      c.Status.NomeStatus == "Em Atendimento" ||
+                                                      c.Status.NomeStatus == "Em Andamento" ||
                                                       c.Status.NomeStatus == "Em Análise"),
                         chamadosResolvidos = g.Count(c => c.Status!.NomeStatus == "Resolvido"),
                         chamadosFechados = g.Count(c => c.Status!.NomeStatus == "Fechado"),
@@ -277,7 +277,7 @@ public class RelatoriosController : ControllerBase
                             diaSemana = g.Key.ToString("dddd", new System.Globalization.CultureInfo("pt-BR")),
                             total = g.Count(),
                             abertos = g.Count(c => c.Status!.NomeStatus == "Aberto"),
-                            emAndamento = g.Count(c => c.Status!.NomeStatus == "Em Atendimento" || c.Status.NomeStatus == "Em Análise"),
+                            emAndamento = g.Count(c => c.Status!.NomeStatus == "Em Andamento" || c.Status.NomeStatus == "Em Análise"),
                             fechados = g.Count(c => c.Status!.NomeStatus == "Fechado")
                         })
                         .OrderBy(x => x.data)
@@ -298,7 +298,7 @@ public class RelatoriosController : ControllerBase
                             periodo = $"{g.Key.Ano}-S{g.Key.Semana}",
                             total = g.Count(),
                             abertos = g.Count(c => c.Status!.NomeStatus == "Aberto"),
-                            emAndamento = g.Count(c => c.Status!.NomeStatus == "Em Atendimento" || c.Status.NomeStatus == "Em Análise"),
+                            emAndamento = g.Count(c => c.Status!.NomeStatus == "Em Andamento" || c.Status.NomeStatus == "Em Análise"),
                             fechados = g.Count(c => c.Status!.NomeStatus == "Fechado")
                         })
                         .OrderBy(x => x.ano).ThenBy(x => x.semana)
@@ -320,7 +320,7 @@ public class RelatoriosController : ControllerBase
                             periodo = $"{g.Key.Ano}-{g.Key.Mes:D2}",
                             total = g.Count(),
                             abertos = g.Count(c => c.Status!.NomeStatus == "Aberto"),
-                            emAndamento = g.Count(c => c.Status!.NomeStatus == "Em Atendimento" || c.Status.NomeStatus == "Em Análise"),
+                            emAndamento = g.Count(c => c.Status!.NomeStatus == "Em Andamento" || c.Status.NomeStatus == "Em Análise"),
                             fechados = g.Count(c => c.Status!.NomeStatus == "Fechado")
                         })
                         .OrderBy(x => x.ano).ThenBy(x => x.mes)

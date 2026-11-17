@@ -58,8 +58,8 @@ namespace PIM.Api.Controllers
                     .Include(c => c.Categoria)
                     .Include(c => c.Prioridade)
                     .Include(c => c.Status)
-                    .Take(100)
                     .OrderByDescending(c => c.DataAbertura)
+                    .Take(100)
                     .ToListAsync();
 
                 var chamadosDto = chamados.Select(c => new ChamadoDto
@@ -302,7 +302,7 @@ namespace PIM.Api.Controllers
                     IdPrioridade = request.IdPrioridade,
                     IdStatus = statusAberto.IdStatus,
                     IdUsuarioCriador = idUsuarioCriador,
-                    DataAbertura = DateTime.UtcNow
+                    DataAbertura = DateTime.Now
                 };
 
                 _context.Chamados.Add(chamado);
@@ -314,7 +314,7 @@ namespace PIM.Api.Controllers
                     IdChamado = chamado.IdChamado,
                     StatusAnterior = null,
                     StatusAtual = statusAberto.NomeStatus,
-                    DataHoraAlteracao = DateTime.UtcNow,
+                    DataHoraAlteracao = DateTime.Now,
                     Observacao = "Chamado criado"
                 };
 
@@ -418,7 +418,7 @@ namespace PIM.Api.Controllers
                 // Se status for "Fechado" ou "Resolvido", registrar data de fechamento
                 if (novoStatus.NomeStatus == "Fechado" || novoStatus.NomeStatus == "Resolvido")
                 {
-                    chamado.DataFechamento = DateTime.UtcNow;
+                    chamado.DataFechamento = DateTime.Now;
                     if (!string.IsNullOrEmpty(request.SolucaoFinal))
                     {
                         chamado.SolucaoFinal = request.SolucaoFinal;
@@ -442,7 +442,7 @@ namespace PIM.Api.Controllers
                     IdChamado = id,
                     StatusAnterior = statusAnterior,
                     StatusAtual = novoStatus.NomeStatus,
-                    DataHoraAlteracao = DateTime.UtcNow,
+                    DataHoraAlteracao = DateTime.Now,
                     Observacao = request.Observacao,
                     IdTecnico = !string.IsNullOrEmpty(userId) ? int.Parse(userId) : null
                 };
@@ -518,7 +518,7 @@ namespace PIM.Api.Controllers
         /// <remarks>
         /// Atribui um técnico para resolver o chamado ou remove a atribuição.
         /// Se IdUsuarioTecnico for null, remove o técnico atribuído.
-        /// Se o chamado estiver com status "Aberto" e um técnico for atribuído, automaticamente altera para "Em Atendimento".
+        /// Se o chamado estiver com status "Aberto" e um técnico for atribuído, automaticamente altera para "Em Andamento".
         /// Registra a atribuição/remoção no histórico do chamado.
         ///
         /// REQUER PERFIL: Admin ou Técnico
@@ -560,7 +560,7 @@ namespace PIM.Api.Controllers
                         IdChamado = id,
                         StatusAnterior = statusAnterior,
                         StatusAtual = statusAnterior,
-                        DataHoraAlteracao = DateTime.UtcNow,
+                        DataHoraAlteracao = DateTime.Now,
                         Observacao = "Técnico removido do chamado (administrador)",
                         IdTecnico = null
                     };
@@ -579,11 +579,11 @@ namespace PIM.Api.Controllers
 
                 chamado.IdUsuarioTecnico = request.IdUsuarioTecnico.Value;
 
-                // Alterar status para "Em Atendimento" se ainda estiver "Aberto"
+                // Alterar status para "Em Andamento" se ainda estiver "Aberto"
                 if (chamado.Status.NomeStatus == "Aberto")
                 {
                     var statusEmAtendimento = await _context.StatusChamados
-                        .FirstOrDefaultAsync(s => s.NomeStatus == "Em Atendimento");
+                        .FirstOrDefaultAsync(s => s.NomeStatus == "Em Andamento");
 
                     if (statusEmAtendimento != null)
                     {
@@ -594,8 +594,8 @@ namespace PIM.Api.Controllers
                         {
                             IdChamado = id,
                             StatusAnterior = statusAnterior,
-                            StatusAtual = "Em Atendimento",
-                            DataHoraAlteracao = DateTime.UtcNow,
+                            StatusAtual = "Em Andamento",
+                            DataHoraAlteracao = DateTime.Now,
                             Observacao = "Técnico assumiu o chamado",
                             IdTecnico = request.IdUsuarioTecnico.Value
                         };
@@ -610,7 +610,7 @@ namespace PIM.Api.Controllers
                         IdChamado = id,
                         StatusAnterior = statusAnterior,
                         StatusAtual = statusAnterior,
-                        DataHoraAlteracao = DateTime.UtcNow,
+                        DataHoraAlteracao = DateTime.Now,
                         Observacao = "Técnico atribuído ao chamado (administrador)",
                         IdTecnico = request.IdUsuarioTecnico.Value
                     };

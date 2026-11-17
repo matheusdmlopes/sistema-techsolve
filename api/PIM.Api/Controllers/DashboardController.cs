@@ -26,8 +26,8 @@ public class DashboardController : ControllerBase
         try
         {
             // Período padrão: últimos 30 dias
-            var inicio = dataInicio ?? DateTime.UtcNow.AddDays(-30);
-            var fim = dataFim ?? DateTime.UtcNow;
+            var inicio = dataInicio ?? DateTime.Now.AddDays(-30);
+            var fim = dataFim ?? DateTime.Now;
 
             // Total de chamados (geral)
             var totalChamados = await _context.Chamados.CountAsync();
@@ -46,7 +46,7 @@ public class DashboardController : ControllerBase
             var chamadosEmAndamento = await _context.Chamados
                 .Include(c => c.Status)
                 .Where(c => c.Status != null &&
-                    (c.Status.NomeStatus == "Em Atendimento" ||
+                    (c.Status.NomeStatus == "Em Andamento" ||
                      c.Status.NomeStatus == "Em Análise" ||
                      c.Status.NomeStatus == "Aguardando Usuário"))
                 .CountAsync();

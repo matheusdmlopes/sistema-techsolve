@@ -49,7 +49,7 @@ public class Usuario
     /// <summary>
     /// Data e hora de cadastro do usuário no sistema (UTC)
     /// </summary>
-    public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
+    public DateTime DataCadastro { get; set; } = DateTime.Now;
 
     /// <summary>
     /// Data e hora do último login do usuário (null se nunca fez login)

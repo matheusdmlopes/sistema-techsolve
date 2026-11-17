@@ -65,7 +65,7 @@ public class AnexosController : ControllerBase
             }
 
             // Criar estrutura de diretórios: wwwroot/uploads/{ano}/{mes}/
-            var dataAtual = DateTime.UtcNow;
+            var dataAtual = DateTime.Now;
             var pastaAno = dataAtual.Year.ToString();
             var pastaMes = dataAtual.Month.ToString("D2");
             var caminhoRelativo = Path.Combine("uploads", pastaAno, pastaMes);
@@ -94,7 +94,7 @@ public class AnexosController : ControllerBase
                 IdChamado = idChamado,
                 NomeArquivo = arquivo.FileName,
                 CaminhoArquivo = Path.Combine(caminhoRelativo, nomeUnico).Replace("\\", "/"),
-                DataUpload = DateTime.UtcNow
+                DataUpload = DateTime.Now
             };
 
             _context.Anexos.Add(anexo);
@@ -245,9 +245,8 @@ public class AnexosController : ControllerBase
 
             // Validar permissão: apenas Admin ou o solicitante do chamado podem remover
             var userId = User.FindFirst("id")?.Value;
-            var userRole = User.FindFirst("role")?.Value;
 
-            if (userRole != "Admin" && anexo.Chamado.IdUsuarioCriador != int.Parse(userId ?? "0"))
+            if (!User.IsInRole("Administrador") && anexo.Chamado.IdUsuarioCriador != int.Parse(userId ?? "0"))
             {
                 return StatusCode(403, new { erro = "Você não tem permissão para remover este anexo" });
             }

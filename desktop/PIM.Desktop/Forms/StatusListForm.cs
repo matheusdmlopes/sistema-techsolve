@@ -80,7 +80,7 @@ namespace PIM.Desktop.Forms
 
             btnNovo = new Button
             {
-                Text = "Nova Prioridade",
+                Text = "Novo Status",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(46, 204, 113),

@@ -19,7 +19,7 @@ public class FeedbackController : ControllerBase
     }
 
     /// <summary>
-    /// Criar feedback para um chamado fechado
+    /// Criar feedback para um chamado resolvido ou fechado
     /// </summary>
     [HttpPost("chamados/{idChamado}/feedback")]
     public async Task<IActionResult> CreateFeedback(int idChamado, [FromBody] CriarFeedbackRequest request)
@@ -36,10 +36,11 @@ public class FeedbackController : ControllerBase
                 return NotFound(new { erro = "Chamado não encontrado" });
             }
 
-            // Validar se o chamado está fechado (apenas chamados fechados podem receber feedback)
-            if (chamado.Status?.NomeStatus != "Fechado")
+            // O atendimento pode ser avaliado assim que for resolvido, e também depois de fechado.
+            var statusAtual = chamado.Status?.NomeStatus;
+            if (statusAtual != "Resolvido" && statusAtual != "Fechado")
             {
-                return BadRequest(new { erro = "Apenas chamados com status 'Fechado' podem receber feedback" });
+                return BadRequest(new { erro = "Apenas chamados resolvidos ou fechados podem receber feedback" });
             }
 
             // Validar se o usuário logado é o solicitante do chamado
@@ -70,7 +71,7 @@ public class FeedbackController : ControllerBase
                 IdChamado = idChamado,
                 Nota = request.Nota,
                 Comentario = request.Comentario,
-                DataHoraFeedback = DateTime.UtcNow
+                DataHoraFeedback = DateTime.Now
             };
 
             _context.Feedbacks.Add(feedback);

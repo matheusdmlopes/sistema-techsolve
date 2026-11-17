@@ -1,0 +1,121 @@
+﻿TECHSOLVE - VERSÃO PARA APRESENTAÇÃO (funciona sem internet)
+============================================================
+
+Não precisa instalar nada. O sistema inteiro roda neste computador:
+servidor, banco de dados, site e inteligência artificial.
+
+
+COMO ABRIR
+----------
+1. Extraia o .zip inteiro para a Área de Trabalho ou para Documentos.
+2. Abra a pasta e dê dois cliques em "Iniciar TechSolve.bat".
+3. Espere alguns segundos. O site abre sozinho no navegador.
+4. Deixe a janela preta aberta enquanto estiver usando.
+   Para encerrar, pressione qualquer tecla nela.
+
+Na primeira vez o Windows pode perguntar duas coisas:
+ - "O Windows protegeu o computador": clique em "Mais informações"
+   e depois em "Executar assim mesmo".
+ - Aviso do Firewall: clique em "Permitir acesso".
+   (Só é necessário para usar o aplicativo do celular.)
+
+
+LOGINS
+------
+ Administrador   admin@empresa.com         senha: admin123
+ Técnico         joao.silva@empresa.com    senha: senha123
+ Técnico         maria.santos@empresa.com  senha: senha123
+ Usuário         pedro.costa@empresa.com   senha: senha123
+ Usuário         lucia.ferreira@empresa.com  senha: senha123
+
+ Primeiro acesso (pede troca de senha):
+                 ana.souza@empresa.com     senha: senha123
+
+
+AS TRÊS INTERFACES
+------------------
+ Site      Abre sozinho. Endereço: http://localhost:5000
+           Aceita os três perfis: administrador, técnico e usuário.
+ Desktop   Dois cliques em "Abrir Desktop.bat" (com o sistema já iniciado).
+           É o painel administrativo: só o Administrador entra.
+ Celular   Instale o arquivo da pasta "celular" no Android (veja abaixo).
+           É o aplicativo do usuário: mostra os chamados de quem entrou.
+           Use pedro.costa@empresa.com, que já tem chamados de exemplo.
+
+
+CELULAR (ANDROID)
+-----------------
+1. O celular e o notebook precisam estar na mesma rede Wi-Fi.
+   O jeito mais seguro: ligue o roteador Wi-Fi (hotspot) do celular e
+   conecte o notebook nele. Não precisa ter internet.
+
+   ATENÇÃO: Wi-Fi de faculdade, de empresa e de visitantes costuma
+   impedir que um aparelho enxergue o outro. Nesse caso o aplicativo
+   não acha o notebook, mesmo com o endereço certo. Use o hotspot.
+   O site e o desktop não são afetados: rodam no próprio notebook.
+
+   Conecte o notebook na rede ANTES de abrir o "Iniciar TechSolve.bat",
+   para o endereço mostrado na janela preta ser o da rede certa.
+2. Copie o arquivo "TechSolve.apk" da pasta "celular" para o telefone
+   e toque nele para instalar (aceite "instalar de fonte desconhecida").
+3. Abra o aplicativo e informe o endereço do servidor. Ele aparece na
+   janela preta do "Iniciar TechSolve.bat", na linha "Celular".
+   Exemplo: http://192.168.0.15:5080
+4. Toque em "Testar conexão" e depois em "Salvar". Se falhar, troque
+   para o hotspot do celular (passo 1) e confira o aviso do Firewall
+   (passo "Permitir acesso"). Para trocar o endereço depois, toque em
+   "Servidor" na tela de login.
+5. Se já existir uma versão antiga do aplicativo no telefone,
+   desinstale antes de instalar esta.
+
+
+ROTEIRO SUGERIDO PARA A APRESENTAÇÃO
+------------------------------------
+1. Entre como Usuário (pedro.costa) e abra um chamado novo. Escreva o
+   problema com as suas palavras: a IA analisa, sugere categoria,
+   prioridade e uma solução antes de abrir o chamado.
+   Exemplos que funcionam bem:
+    - "Minha impressora não imprime, os documentos ficam na fila"
+    - "Esqueci minha senha e não consigo entrar no sistema"
+    - "A internet caiu no setor inteiro, ninguém consegue trabalhar"
+    - "Meu notebook não liga"
+2. Entre como Técnico (joao.silva) em outra janela do navegador
+   (janela anônima). Assuma o chamado e converse com o usuário pelo
+   chat em tempo real. Nos chamados de exemplo, a tela de detalhes
+   mostra também a sugestão de solução que a IA gerou para o técnico.
+3. Resolva e feche o chamado. Volte ao Usuário, atualize a página
+   (tecla F5) e avalie o atendimento. As mensagens do chat aparecem na
+   hora nas duas janelas; a mudança de status só aparece depois de
+   atualizar a página.
+4. Entre como Administrador e mostre o painel e os relatórios, que já
+   vêm preenchidos com cerca de 3 meses de chamados de exemplo.
+
+
+ANTES DA APRESENTAÇÃO
+---------------------
+1. Dê dois cliques em "Restaurar dados de exemplo.bat". Ele apaga o que
+   foi criado nos testes e recria os chamados de exemplo com datas a
+   partir de hoje, para o painel aparecer atualizado.
+2. Teste o celular no local da apresentação, com a rede que vai usar
+   no dia. É a única parte que depende de rede.
+
+
+SE ALGO DER ERRADO
+------------------
+ - O site não abre: feche tudo com "Parar TechSolve.bat" e abra o
+   "Iniciar TechSolve.bat" de novo.
+ - Erro logo ao iniciar: confira se a pasta foi extraída do .zip e se
+   está na Área de Trabalho ou em Documentos, e não em
+   "Arquivos de Programas".
+ - Aparece erro de porta em uso: reinicie o computador e tente de novo.
+ - O celular não conecta: a rede do local pode estar impedindo um
+   aparelho de enxergar o outro. Use o hotspot do celular e confira o
+   aviso do Firewall. O site e o desktop funcionam sem rede nenhuma.
+
+
+SOBRE A INTELIGÊNCIA ARTIFICIAL
+-------------------------------
+Nesta versão a IA responde a partir de uma base de conhecimento local,
+por isso funciona sem internet. O sistema também aceita o modelo
+GPT-3.5 da OpenAI: basta informar a chave no arquivo
+api\appsettings.json ("IA": "Modo": "OpenAI") e ter internet.

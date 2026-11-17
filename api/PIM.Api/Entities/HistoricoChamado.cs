@@ -7,7 +7,7 @@ public class HistoricoChamado
     public int? IdTecnico { get; set; }
     public string? StatusAnterior { get; set; }
     public string StatusAtual { get; set; } = string.Empty;
-    public DateTime DataHoraAlteracao { get; set; } = DateTime.UtcNow;
+    public DateTime DataHoraAlteracao { get; set; } = DateTime.Now;
     public string? Observacao { get; set; }
     
     // Navigation Properties

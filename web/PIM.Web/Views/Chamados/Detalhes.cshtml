@@ -5,7 +5,8 @@
     var usuarioId = ViewData["UsuarioId"] as int?;
     var isTecnico = perfilAcessoId != 3;
     var isCriador = Model.UsuarioCriador.IdUsuario == usuarioId;
-    var podeAvaliar = isCriador && Model.Status.Nome.ToLower() == "resolvido" && Model.Feedback == null;
+    var statusNome = Model.Status.Nome.ToLower();
+    var podeAvaliar = isCriador && (statusNome == "resolvido" || statusNome == "fechado") && Model.Feedback == null;
 
     // Função auxiliar para cor dos status
     string ObterCorStatus(string nomeStatus)
@@ -91,6 +92,7 @@
                                     "baixa" => "bg-success",
                                     "média" => "bg-warning",
                                     "alta" => "bg-danger",
+                                    "crítica" => "bg-danger",
                                     _ => "bg-secondary"
                                 };
                             }
@@ -198,7 +200,7 @@
                     {
                         <div class="mb-2">
                             <small class="text-muted">@sugestao.DataSugestao.ToString("dd/MM/yyyy HH:mm")</small>
-                            <p>@sugestao.TextoSugestao</p>
+                            <p style="white-space: pre-line">@sugestao.TextoSugestao</p>
                         </div>
                     }
                 </div>

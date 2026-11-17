@@ -184,7 +184,7 @@
 
 @section Scripts {
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="~/lib/chartjs/chart.umd.min.js"></script>
 
     <script>
         // Dados dos gráficos
@@ -196,6 +196,24 @@
         // Configuração padrão
         Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
 
+        // Cada status e cada prioridade tem cor fixa, seja qual for a ordem em que os dados chegam.
+        const coresStatus = {
+            'Aberto': '#0d6efd',
+            'Em Análise': '#0dcaf0',
+            'Em Andamento': '#ffc107',
+            'Aguardando Usuário': '#6c757d',
+            'Aguardando Fornecedor': '#adb5bd',
+            'Resolvido': '#198754',
+            'Fechado': '#212529',
+            'Cancelado': '#dc3545'
+        };
+        const coresPrioridade = {
+            'Baixa': '#198754',
+            'Média': '#ffc107',
+            'Alta': '#fd7e14',
+            'Crítica': '#dc3545'
+        };
+
         // Gráfico: Chamados por Status (Pizza)
         new Chart(document.getElementById('chartStatus'), {
             type: 'doughnut',
@@ -203,16 +221,7 @@
                 labels: dadosStatus.map(d => d.Status),
                 datasets: [{
                     data: dadosStatus.map(d => d.Total),
-                    backgroundColor: [
-                        '#0d6efd', // Aberto (azul)
-                        '#0dcaf0', // Em Análise (azul claro)
-                        '#ffc107', // Em Andamento (amarelo)
-                        '#6c757d', // Aguardando (cinza)
-                        '#6c757d', // Aguardando Fornecedor (cinza)
-                        '#198754', // Resolvido (verde)
-                        '#212529', // Fechado (preto)
-                        '#dc3545'  // Cancelado (vermelho)
-                    ]
+                    backgroundColor: dadosStatus.map(d => coresStatus[d.Status] || '#6c757d')
                 }]
             },
             options: {
@@ -297,12 +306,7 @@
                 datasets: [{
                     label: 'Chamados',
                     data: dadosPrioridade.map(d => d.Total),
-                    backgroundColor: [
-                        '#198754', // Baixa (verde)
-                        '#ffc107', // Média (amarelo)
-                        '#dc3545', // Alta (vermelho)
-                        '#dc3545'  // Crítica (vermelho)
-                    ]
+                    backgroundColor: dadosPrioridade.map(d => coresPrioridade[d.Prioridade] || '#6c757d')
                 }]
             },
             options: {

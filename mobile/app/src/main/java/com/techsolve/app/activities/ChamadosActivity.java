@@ -99,7 +99,7 @@ public class ChamadosActivity extends AppCompatActivity implements ChamadoAdapte
         progressBar.setVisibility(View.VISIBLE);
         tvEmpty.setVisibility(View.GONE);
 
-        ApiService apiService = ApiClient.getClient(tokenManager.getToken()).create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this, tokenManager.getToken()).create(ApiService.class);
 
         apiService.getChamados().enqueue(new Callback<List<Chamado>>() {
             @Override

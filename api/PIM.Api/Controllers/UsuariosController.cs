@@ -155,7 +155,7 @@ namespace PIM.Api.Controllers
             try
             {
                 // Validar se email já existe
-                var emailExiste = await _context.Usuarios.AnyAsync(u => u.Email == request.Email);
+                var emailExiste = await _context.Usuarios.AnyAsync(u => u.Email.ToLower() == request.Email.ToLower());
                 if (emailExiste)
                 {
                     return BadRequest(new { erro = "Email já cadastrado" });
@@ -183,7 +183,7 @@ namespace PIM.Api.Controllers
                     Telefone = request.Telefone,
                     IdSetor = request.IdSetor,
                     IdPerfil = request.IdPerfil,
-                    DataCadastro = DateTime.UtcNow,
+                    DataCadastro = DateTime.Now,
                     PrimeiroAcesso = true,
                     Ativo = true
                 };
@@ -227,7 +227,7 @@ namespace PIM.Api.Controllers
                 if (!string.IsNullOrEmpty(request.Email))
                 {
                     // Verificar se o novo email já existe em outro usuário
-                    var emailExiste = await _context.Usuarios.AnyAsync(u => u.Email == request.Email && u.IdUsuario != id);
+                    var emailExiste = await _context.Usuarios.AnyAsync(u => u.Email.ToLower() == request.Email.ToLower() && u.IdUsuario != id);
                     if (emailExiste)
                     {
                         return BadRequest(new { erro = "Email já cadastrado para outro usuário" });
@@ -285,10 +285,9 @@ namespace PIM.Api.Controllers
             {
                 // Validar se o usuário pode acessar esses dados
                 var userId = User.FindFirst("id")?.Value;
-                var userRole = User.FindFirst("role")?.Value;
 
                 // Apenas o próprio usuário ou Admin pode exportar dados
-                if (userRole != "Admin" && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
+                if (!User.IsInRole("Administrador") && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
                 {
                     return StatusCode(403, new { erro = "Você não tem permissão para acessar esses dados" });
                 }
@@ -371,7 +370,7 @@ namespace PIM.Api.Controllers
                         total = chamadosAtendidos.Count,
                         lista = chamadosAtendidos
                     },
-                    dataExportacao = DateTime.UtcNow,
+                    dataExportacao = DateTime.Now,
                     avisoLGPD = "Estes são todos os dados pessoais armazenados no sistema conforme a Lei Geral de Proteção de Dados (LGPD)"
                 };
 
@@ -394,10 +393,9 @@ namespace PIM.Api.Controllers
             {
                 // Validar se o usuário pode remover esses dados
                 var userId = User.FindFirst("id")?.Value;
-                var userRole = User.FindFirst("role")?.Value;
 
                 // Apenas o próprio usuário ou Admin pode remover dados
-                if (userRole != "Admin" && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
+                if (!User.IsInRole("Administrador") && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
                 {
                     return StatusCode(403, new { erro = "Você não tem permissão para remover esses dados" });
                 }
@@ -425,7 +423,7 @@ namespace PIM.Api.Controllers
                     {
                         idUsuario = id,
                         dadosAnonimizados = true,
-                        dataRemocao = DateTime.UtcNow,
+                        dataRemocao = DateTime.Now,
                         observacao = "Os dados foram anonimizados conforme LGPD. Registros de chamados foram mantidos para auditoria, mas sem informações pessoais identificáveis."
                     }
                 });
@@ -473,9 +471,8 @@ namespace PIM.Api.Controllers
             {
                 // Validar se o usuário está atualizando o próprio perfil
                 var userId = User.FindFirst("id")?.Value;
-                var userRole = User.FindFirst("role")?.Value;
 
-                if (userRole != "Admin" && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
+                if (!User.IsInRole("Administrador") && (string.IsNullOrEmpty(userId) || int.Parse(userId) != id))
                 {
                     return StatusCode(403, new { erro = "Você só pode atualizar seu próprio perfil" });
                 }

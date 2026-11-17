@@ -38,7 +38,7 @@ public class Chamado
     /// <summary>
     /// Data e hora em que o chamado foi aberto (UTC)
     /// </summary>
-    public DateTime DataAbertura { get; set; } = DateTime.UtcNow;
+    public DateTime DataAbertura { get; set; } = DateTime.Now;
 
     /// <summary>
     /// Data e hora em que o chamado foi fechado/resolvido (UTC), null se ainda aberto

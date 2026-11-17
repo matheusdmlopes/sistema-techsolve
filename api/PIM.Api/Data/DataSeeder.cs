@@ -9,8 +9,17 @@ namespace PIM.Api.Data
     /// </summary>
     public static class DataSeeder
     {
-        public static async Task SeedAsync(ApplicationDbContext context)
+        /// <summary>
+        /// Cria os cadastros básicos (perfis, setores, categorias, prioridades, status e usuários).
+        /// </summary>
+        /// <param name="incluirDadosDeExemplo">
+        /// Quando verdadeiro, cria também os chamados de exemplo de <see cref="DadosDeExemplo"/>.
+        /// </param>
+        public static async Task SeedAsync(ApplicationDbContext context, bool incluirDadosDeExemplo = false)
         {
+            // Com dados de exemplo, os usuários precisam existir antes dos chamados antigos que eles abriram.
+            var dataCadastro = incluirDadosDeExemplo ? DateTime.Now.AddDays(-150) : DateTime.Now;
+
             // Seed Perfis de Acesso
             if (!await context.PerfisAcesso.AnyAsync())
             {
@@ -111,7 +120,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 98765-4321",
                         IdSetor = setorTI.IdSetor,
                         IdPerfil = perfilAdmin.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = false,
                         Ativo = true
                     },
@@ -123,7 +132,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 97654-3210",
                         IdSetor = setorTI.IdSetor,
                         IdPerfil = perfilTecnico.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = false,
                         Ativo = true
                     },
@@ -135,7 +144,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 96543-2109",
                         IdSetor = setorTI.IdSetor,
                         IdPerfil = perfilTecnico.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = false,
                         Ativo = true
                     },
@@ -147,7 +156,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 95432-1098",
                         IdSetor = setorTI.IdSetor,
                         IdPerfil = perfilAdmin.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = false,
                         Ativo = true
                     },
@@ -159,7 +168,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 94321-0987",
                         IdSetor = setorRH.IdSetor,
                         IdPerfil = perfilUsuario.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = true,
                         Ativo = true
                     },
@@ -171,7 +180,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 93210-9876",
                         IdSetor = setorFinanceiro.IdSetor,
                         IdPerfil = perfilUsuario.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = false,
                         Ativo = true
                     },
@@ -183,7 +192,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 92109-8765",
                         IdSetor = setorComercial.IdSetor,
                         IdPerfil = perfilUsuario.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = false,
                         Ativo = true
                     },
@@ -195,7 +204,7 @@ namespace PIM.Api.Data
                         Telefone = "(11) 91098-7654",
                         IdSetor = setorAdministrativo.IdSetor,
                         IdPerfil = perfilUsuario.IdPerfil,
-                        DataCadastro = DateTime.UtcNow,
+                        DataCadastro = dataCadastro,
                         PrimeiroAcesso = false,
                         Ativo = true
                     }
@@ -203,6 +212,11 @@ namespace PIM.Api.Data
 
                 context.Usuarios.AddRange(usuarios);
                 await context.SaveChangesAsync();
+            }
+
+            if (incluirDadosDeExemplo)
+            {
+                await DadosDeExemplo.SeedAsync(context);
             }
         }
     }

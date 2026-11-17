@@ -172,7 +172,7 @@
             // 
             this.eMATENDIMENTOToolStripMenuItem1.Name = "eMATENDIMENTOToolStripMenuItem1";
             this.eMATENDIMENTOToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
-            this.eMATENDIMENTOToolStripMenuItem1.Text = "EM ATENDIMENTO";
+            this.eMATENDIMENTOToolStripMenuItem1.Text = "EM ANDAMENTO";
             // 
             // panel2
             // 
@@ -246,7 +246,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(129, 16);
             this.label4.TabIndex = 0;
-            this.label4.Text = "EM ATENDIMENTO";
+            this.label4.Text = "EM ANDAMENTO";
             // 
             // panel4
             // 

@@ -194,15 +194,18 @@ namespace PIM.Desktop.Forms
         {
             try
             {
-                var usuario = await ApiService.GetAsync<UsuarioDetailDto>($"/api/Usuarios/{idUsuario}");
+                var usuario = await ApiService.GetAsync<UsuarioApiResponse>($"/api/Usuarios/{idUsuario}");
 
                 if (usuario != null)
                 {
                     txtNome.Text = usuario.NomeCompleto;
                     txtEmail.Text = usuario.Email;
                     txtTelefone.Text = usuario.Telefone;
-                    cboSetor.SelectedValue = usuario.IdSetor;
-                    cboPerfil.SelectedValue = usuario.IdPerfil;
+                    // A API devolve setor e perfil como objetos ({ id, nome })
+                    if (usuario.Setor != null)
+                        cboSetor.SelectedValue = usuario.Setor.Id;
+                    if (usuario.Perfil != null)
+                        cboPerfil.SelectedValue = usuario.Perfil.Id;
 
                     if (chkAtivo != null)
                         chkAtivo.Checked = usuario.Ativo;

@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OpenAI.Chat;
 using PIM.Api.Data;
 using PIM.Api.DTOs.Requests;
 using PIM.Api.DTOs.Responses;
+using PIM.Api.Services;
 
 namespace PIM.Api.Controllers;
 
@@ -12,7 +12,8 @@ namespace PIM.Api.Controllers;
 /// Controller para análise preliminar de problemas utilizando Inteligência Artificial
 /// </summary>
 /// <remarks>
-/// Utiliza OpenAI GPT-3.5-turbo para analisar descrições de problemas antes de criar um chamado.
+/// Usa o serviço de IA configurado em "IA:Modo" (base de conhecimento local ou OpenAI GPT-3.5-turbo)
+/// para analisar descrições de problemas antes de criar um chamado.
 /// A IA sugere categoria, prioridade, e uma possível solução.
 /// Também indica se o problema pode ser resolvido pelo próprio usuário sem necessidade de técnico.
 /// </remarks>
@@ -22,16 +23,16 @@ namespace PIM.Api.Controllers;
 public class IAPreliminarController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
-    private readonly IConfiguration _configuration;
+    private readonly IServicoIA _ia;
     private readonly ILogger<IAPreliminarController> _logger;
 
     public IAPreliminarController(
         ApplicationDbContext context,
-        IConfiguration configuration,
+        IServicoIA ia,
         ILogger<IAPreliminarController> logger)
     {
         _context = context;
-        _configuration = configuration;
+        _ia = ia;
         _logger = logger;
     }
 
@@ -39,7 +40,7 @@ public class IAPreliminarController : ControllerBase
     /// Analisa um problema descrito pelo usuário usando IA
     /// </summary>
     /// <remarks>
-    /// Envia a descrição do problema para o modelo GPT-3.5-turbo da OpenAI.
+    /// Envia a descrição do problema para o serviço de IA configurado.
     /// A IA retorna:
     /// - Categoria sugerida (baseada nas categorias cadastradas no sistema)
     /// - Prioridade sugerida (baseada nas prioridades cadastradas)
@@ -54,20 +55,12 @@ public class IAPreliminarController : ControllerBase
     /// <response code="200">Análise realizada com sucesso</response>
     /// <response code="400">Sistema sem categorias ou prioridades cadastradas</response>
     /// <response code="401">Usuário não autenticado</response>
-    /// <response code="500">Erro ao processar análise (falha na API OpenAI ou configuração inválida)</response>
+    /// <response code="500">Erro ao processar análise</response>
     [HttpPost("analisar-preliminar")]
     public async Task<ActionResult<AnalisePreliminarDto>> AnalisarProblema([FromBody] AnalisePreliminarRequest request)
     {
         try
         {
-            // Validar chave da API OpenAI
-            var apiKey = _configuration["OpenAI:ApiKey"];
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                _logger.LogError("Chave da API OpenAI não configurada");
-                return StatusCode(500, new { erro = "Serviço de IA não configurado" });
-            }
-
             // Buscar categorias e prioridades disponíveis
             var categorias = await _context.Categorias.ToListAsync();
             var prioridades = await _context.Prioridades.ToListAsync();
@@ -77,38 +70,12 @@ public class IAPreliminarController : ControllerBase
                 return BadRequest(new { erro = "Sistema não possui categorias ou prioridades cadastradas" });
             }
 
-            var listaCategoriasTexto = string.Join(", ", categorias.Select(c => c.NomeCategoria));
-            var listaPrioridadesTexto = string.Join(", ", prioridades.Select(p => p.NivelPrioridade));
-
-            // Criar cliente OpenAI
-            var client = new ChatClient("gpt-3.5-turbo", apiKey);
-
-            // Prompt otimizado para análise preliminar
-            var prompt = $@"Você é um assistente de suporte técnico inteligente. Analise o seguinte problema e forneça uma resposta estruturada.
-
-TÍTULO: {request.Titulo}
-DESCRIÇÃO: {request.Descricao}
-
-CATEGORIAS DISPONÍVEIS: {listaCategoriasTexto}
-PRIORIDADES DISPONÍVEIS: {listaPrioridadesTexto}
-
-Forneça sua análise no seguinte formato EXATO (uma resposta por linha):
-
-CATEGORIA: [escolha UMA categoria da lista acima]
-PRIORIDADE: [escolha UMA prioridade da lista acima]
-PODE_RESOLVER: [SIM ou NÃO - se o usuário consegue resolver sozinho com suas instruções]
-SOLUÇÃO:
-[Forneça uma solução clara e objetiva em até 150 palavras. Se PODE_RESOLVER for SIM, dê instruções passo a passo. Se for NÃO, explique brevemente o que precisa ser feito e por que necessita de um técnico.]
-
-IMPORTANTE:
-- Para CATEGORIA, use EXATAMENTE um dos nomes da lista
-- Para PRIORIDADE, use EXATAMENTE um dos níveis da lista
-- Para PODE_RESOLVER, use apenas SIM ou NÃO
-- Seja direto e prático na SOLUÇÃO";
-
-            // Chamar API OpenAI
-            var chatCompletion = await client.CompleteChatAsync(prompt);
-            var respostaIA = chatCompletion.Value.Content[0].Text;
+            // Analisar o problema com o serviço de IA configurado
+            var respostaIA = await _ia.AnalisarPreliminarAsync(
+                request.Titulo,
+                request.Descricao,
+                categorias.Select(c => c.NomeCategoria).ToList(),
+                prioridades.Select(p => p.NivelPrioridade).ToList());
 
             _logger.LogInformation("Resposta da IA recebida: {Resposta}", respostaIA);
 
@@ -157,7 +124,7 @@ IMPORTANTE:
     /// Valida se categoria e prioridade existem no banco.
     /// Usa fallback para "Outros" e "Média" se não encontrar.
     /// </remarks>
-    /// <param name="respostaIA">Texto retornado pela OpenAI</param>
+    /// <param name="respostaIA">Texto retornado pelo serviço de IA</param>
     /// <param name="categorias">Lista de categorias disponíveis no sistema</param>
     /// <param name="prioridades">Lista de prioridades disponíveis no sistema</param>
     /// <returns>Tupla com categoria, prioridade, indicador booleano e texto da solução</returns>

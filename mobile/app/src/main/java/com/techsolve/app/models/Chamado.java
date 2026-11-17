@@ -29,6 +29,8 @@ public class Chamado {
     public static class PrioridadeSimples {
         @SerializedName("idPrioridade")
         private int id;
+        // A API envia o nome da prioridade no campo "nivel"
+        @SerializedName(value = "nivel", alternate = {"nome"})
         private String nome;
 
         public int getId() { return id; }

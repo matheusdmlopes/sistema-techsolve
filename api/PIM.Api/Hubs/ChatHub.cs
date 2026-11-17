@@ -75,7 +75,7 @@ public class ChatHub : Hub
                 IdChamado = idChamado,
                 IdUsuario = idUsuario,
                 Mensagem = mensagem,
-                DataHoraEnvio = DateTime.UtcNow,
+                DataHoraEnvio = DateTime.Now,
                 Lido = false
             };
 

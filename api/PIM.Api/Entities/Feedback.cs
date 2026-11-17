@@ -18,7 +18,7 @@ public class Feedback
     [StringLength(500, ErrorMessage = "Comentário deve ter no máximo 500 caracteres")]
     public string? Comentario { get; set; }
     
-    public DateTime DataHoraFeedback { get; set; } = DateTime.UtcNow;
+    public DateTime DataHoraFeedback { get; set; } = DateTime.Now;
     
     // Navigation Properties
     public Chamado Chamado { get; set; } = null!;

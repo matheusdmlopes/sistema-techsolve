@@ -353,3 +353,16 @@ mobile/.DS_Store
 
 # docs-projeto/
 
+
+# Banco SQLite local e anexos enviados durante os testes
+*.db
+*.db-shm
+*.db-wal
+api/PIM.Api/wwwroot/uploads/*
+!api/PIM.Api/wwwroot/uploads/.gitkeep
+
+# Pacote offline gerado por pacote/montar-pacote.sh
+pacote/saida/
+
+# Os workflows do GitHub Actions entram no repositório (a regra *.yml acima é só para o DocFX)
+!.github/workflows/*.yml

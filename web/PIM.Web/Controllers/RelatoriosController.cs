@@ -11,6 +11,8 @@ namespace PIM.Web.Controllers
     [AuthorizeSession]
     public class RelatoriosController : Controller
     {
+        private static readonly string[] OrdemPrioridades = ["Crítica", "Alta", "Média", "Baixa"];
+
         private readonly ApiService _apiService;
         private readonly ILogger<RelatoriosController> _logger;
 
@@ -92,7 +94,7 @@ namespace PIM.Web.Controllers
                         Prioridade = g.Key,
                         Total = g.Count()
                     })
-                    .OrderByDescending(x => x.Total)
+                    .OrderBy(x => Array.IndexOf(OrdemPrioridades, x.Prioridade)) // da mais grave para a mais leve
                     .ToList();
 
                 // 4. Performance de Técnicos
@@ -113,12 +115,12 @@ namespace PIM.Web.Controllers
                 // 5. Evolução Temporal (por dia)
                 var evolucaoTemporal = chamados
                     .GroupBy(c => c.DataAbertura.Date)
+                    .OrderBy(g => g.Key) // ordena pela data, não pelo texto "dd/MM"
                     .Select(g => new
                     {
                         Data = g.Key.ToString("dd/MM"),
                         Total = g.Count()
                     })
-                    .OrderBy(x => x.Data)
                     .ToList();
 
                 // 6. Métricas Gerais

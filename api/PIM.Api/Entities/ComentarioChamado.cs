@@ -21,7 +21,7 @@ public class ComentarioChamado
     [StringLength(2000, MinimumLength = 1, ErrorMessage = "Mensagem deve ter entre 1 e 2000 caracteres")]
     public string Mensagem { get; set; } = string.Empty;
 
-    public DateTime DataHoraEnvio { get; set; } = DateTime.UtcNow;
+    public DateTime DataHoraEnvio { get; set; } = DateTime.Now;
 
     public bool Lido { get; set; } = false;
 

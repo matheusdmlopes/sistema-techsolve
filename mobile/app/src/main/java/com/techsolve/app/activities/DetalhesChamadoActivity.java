@@ -69,7 +69,7 @@ public class DetalhesChamadoActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         layoutContent.setVisibility(View.GONE);
 
-        ApiService apiService = ApiClient.getClient(tokenManager.getToken()).create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this, tokenManager.getToken()).create(ApiService.class);
 
         apiService.getChamado(chamadoId).enqueue(new Callback<Chamado>() {
             @Override

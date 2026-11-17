@@ -17,7 +17,7 @@ namespace PIM.Desktop.Utils
                 // Tenta ler do app.config, se não existir usa a URL de desenvolvimento local
                 string url = ConfigurationManager.AppSettings["ApiBaseUrl"];
                 return string.IsNullOrEmpty(url)
-                    ? "https://localhost:7095"
+                    ? "http://localhost:5080"
                     : url;
             }
         }

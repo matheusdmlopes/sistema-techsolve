@@ -37,7 +37,7 @@
     <div class="col-md-3">
         <div class="card text-white bg-warning mb-3">
             <div class="card-body">
-                <h5 class="card-title">Em Atendimento</h5>
+                <h5 class="card-title">Em Andamento</h5>
                 <h2 class="display-4">@(metricas?.ChamadosEmAndamento ?? 0)</h2>
                 <p class="card-text">@(isSolicitante ? "Seus chamados em análise" : "Sendo resolvidos")</p>
             </div>
@@ -120,6 +120,7 @@
                                                     "baixa" => "bg-success",
                                                     "média" => "bg-warning",
                                                     "alta" => "bg-danger",
+                                                    "crítica" => "bg-danger",
                                                     _ => "bg-secondary"
                                                 };
                                             }

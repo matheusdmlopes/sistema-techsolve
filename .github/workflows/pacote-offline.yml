@@ -1,0 +1,191 @@
+# Monta o pacote offline do TechSolve: servidor, site, desktop e aplicativo Android em um único .zip,
+# pronto para rodar em um computador com Windows sem instalar nada.
+#
+# - A cada envio para a main (ou manualmente, pela aba Actions): o .zip fica como artefato da execução.
+# - Ao criar uma tag iniciada por "v" (ex.: v2.0): o .zip também é publicado na página de Releases.
+name: Pacote offline
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  desktop:
+    name: Desktop (WinForms)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: microsoft/setup-msbuild@v2
+
+      - uses: NuGet/setup-nuget@v2
+
+      # A restauração é feita pelo packages.config porque o .csproj procura os pacotes em desktop\packages.
+      - name: Restaurar pacotes
+        run: nuget restore desktop\PIM.Desktop\packages.config -PackagesDirectory desktop\packages
+
+      - name: Compilar
+        run: msbuild desktop\PIM.Desktop\PIM.Desktop.csproj /p:Configuration=Release /p:Platform=AnyCPU /v:m
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop
+          if-no-files-found: error
+          path: |
+            desktop/PIM.Desktop/bin/Release/*.exe
+            desktop/PIM.Desktop/bin/Release/*.exe.config
+            desktop/PIM.Desktop/bin/Release/*.dll
+
+  android:
+    name: Aplicativo Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Compilar APK
+        working-directory: mobile
+        run: ./gradlew assembleDebug --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          if-no-files-found: error
+          path: mobile/app/build/outputs/apk/debug/app-debug.apk
+
+  pacote:
+    name: Pacote completo
+    needs: [desktop, android]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # necessário para publicar na página de Releases
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: desktop
+          path: ${{ runner.temp }}/desktop
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: android
+          path: ${{ runner.temp }}/android
+
+      - name: Montar pacote
+        env:
+          DESKTOP_DIR: ${{ runner.temp }}/desktop
+          APK: ${{ runner.temp }}/android/app-debug.apk
+        run: bash pacote/montar-pacote.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TechSolve-Offline
+          if-no-files-found: error
+          path: pacote/saida/TechSolve
+
+      - name: Publicar na página de Releases
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" pacote/saida/TechSolve-Offline.zip
+          --title "TechSolve offline $GITHUB_REF_NAME"
+          --notes "Baixe o TechSolve-Offline.zip, extraia e abra o arquivo Iniciar TechSolve.bat. As instruções estão no LEIA-ME.txt."
+
+  # Prova o pacote em um Windows de verdade, do jeito que a pessoa vai usar: abre pelos arquivos .bat,
+  # entra no sistema e confere o servidor, o banco, a IA e o site.
+  teste-windows:
+    name: Teste no Windows
+    needs: pacote
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: TechSolve-Offline
+          path: TechSolve
+
+      - name: Conferir o conteúdo do pacote
+        shell: pwsh
+        run: |
+          $esperados = 'Iniciar TechSolve.bat', 'Parar TechSolve.bat', 'Restaurar dados de exemplo.bat', 'Abrir Desktop.bat',
+                       'LEIA-ME.txt', 'api\PIM.Api.exe', 'site\PIM.Web.exe', 'desktop\PIM.Desktop.exe', 'celular\TechSolve.apk'
+          $faltando = $esperados | Where-Object { -not (Test-Path (Join-Path 'TechSolve' $_)) }
+          if ($faltando) { throw "Faltam no pacote: $($faltando -join ', ')" }
+
+      # Sem teclado, o "pause" volta na hora: o arquivo sobe o servidor e o site, confere se respondem e encerra.
+      - name: Abrir pelo Iniciar TechSolve.bat
+        shell: cmd
+        working-directory: TechSolve
+        run: call "Iniciar TechSolve.bat" < NUL
+
+      - name: Conferir o sistema no ar
+        shell: pwsh
+        working-directory: TechSolve
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          function Aguardar($endereco) {
+            foreach ($tentativa in 1..60) {
+              try { Invoke-WebRequest -UseBasicParsing -TimeoutSec 2 $endereco | Out-Null; return } catch { Start-Sleep -Seconds 1 }
+            }
+            throw "Sem resposta de $endereco"
+          }
+
+          Start-Process -FilePath "$PWD\api\PIM.Api.exe" -WorkingDirectory "$PWD\api"
+          Aguardar 'http://localhost:5080/health'
+          Start-Process -FilePath "$PWD\site\PIM.Web.exe" -WorkingDirectory "$PWD\site"
+          Aguardar 'http://localhost:5000/'
+
+          if (-not (Test-Path 'api\techsolve.db')) { throw 'O banco de dados não foi criado na pasta api.' }
+
+          # Servidor: login e triagem da IA.
+          $login = Invoke-RestMethod -Method Post -Uri 'http://localhost:5080/api/Auth/login' -ContentType 'application/json' `
+            -Body '{"email":"pedro.costa@empresa.com","senha":"senha123"}'
+          if (-not $login.token) { throw 'O login no servidor não devolveu o token.' }
+
+          $analise = Invoke-RestMethod -Method Post -Uri 'http://localhost:5080/api/ia/analisar-preliminar' -ContentType 'application/json' `
+            -Headers @{ Authorization = "Bearer $($login.token)" } `
+            -Body '{"titulo":"Impressora parada","descricao":"Minha impressora nao imprime, os documentos ficam na fila"}'
+          if ($analise.categoriaSugerida.nome -notmatch 'Impress') {
+            throw "A IA não classificou o problema de impressora: $($analise | ConvertTo-Json -Depth 5 -Compress)"
+          }
+          if (-not $analise.sugestaoSolucao) { throw 'A IA não devolveu sugestão de solução.' }
+
+          # Site: login pela tela e uma página que depende do servidor.
+          $tela = Invoke-WebRequest -UseBasicParsing -Uri 'http://localhost:5000/Auth/Login' -SessionVariable sessao
+          if ($tela.Content -notmatch 'name="__RequestVerificationToken"[^>]*value="([^"]+)"') {
+            throw 'A tela de login do site não veio como esperado.'
+          }
+          $entrada = Invoke-WebRequest -UseBasicParsing -Uri 'http://localhost:5000/Auth/Login' -Method Post -WebSession $sessao `
+            -Body @{ Email = 'admin@empresa.com'; Senha = 'admin123'; __RequestVerificationToken = $Matches[1] }
+          $destino = $entrada.BaseResponse.RequestMessage.RequestUri.AbsolutePath
+          if ($destino -like '/Auth/Login*') { throw "O login pelo site não entrou (parou em $destino)." }
+
+          $relatorios = Invoke-WebRequest -UseBasicParsing -Uri 'http://localhost:5000/Relatorios/Index' -WebSession $sessao
+          if ($relatorios.BaseResponse.RequestMessage.RequestUri.AbsolutePath -ne '/Relatorios/Index') {
+            throw 'A página de relatórios não abriu para o administrador.'
+          }
+
+          Write-Host "Servidor, banco, IA e site conferidos. Categoria sugerida pela IA: $($analise.categoriaSugerida.nome)"
+
+      # Responde "S" à pergunta do arquivo. Ele fecha o sistema e apaga o banco criado nos testes.
+      - name: Restaurar dados de exemplo.bat
+        shell: cmd
+        working-directory: TechSolve
+        run: |
+          echo S| call "Restaurar dados de exemplo.bat"
+          if exist "api\techsolve.db" exit /b 1
