@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Identidade do TechSolve, as mesmas cores do site -->
+    <color name="techsolve_escuro">#FF2D3748</color>
+    <color name="techsolve_mais_escuro">#FF1A202C</color>
+    <color name="techsolve_destaque">#FFFBBF24</color>
+    <color name="techsolve_destaque_claro">#FFFDE9A8</color>
+    <color name="techsolve_fundo">#FFF5F5F5</color>
 </resources>

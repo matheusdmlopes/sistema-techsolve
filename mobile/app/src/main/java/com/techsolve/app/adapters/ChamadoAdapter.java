@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.techsolve.app.R;
 import com.techsolve.app.models.Chamado;
+import com.techsolve.app.utils.Formatacao;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,15 +80,7 @@ public class ChamadoAdapter extends RecyclerView.Adapter<ChamadoAdapter.ChamadoV
             tvCategoria.setText(chamado.getNomeCategoria());
             tvPrioridadeValor.setText(chamado.getNomePrioridade());
 
-            // Formatar data
-            try {
-                String dataOriginal = chamado.getDataAbertura();
-                if (dataOriginal != null && dataOriginal.length() >= 10) {
-                    tvData.setText(dataOriginal.substring(0, 10));
-                }
-            } catch (Exception e) {
-                tvData.setText("");
-            }
+            tvData.setText(Formatacao.data(chamado.getDataAbertura()));
 
             // Cores do status
             String status = chamado.getNomeStatus();

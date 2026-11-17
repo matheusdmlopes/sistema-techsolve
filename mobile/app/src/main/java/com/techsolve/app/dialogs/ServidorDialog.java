@@ -58,8 +58,10 @@ public class ServidorDialog {
         progressTeste = view.findViewById(R.id.progressTeste);
         tvResultadoTeste = view.findViewById(R.id.tvResultadoTeste);
 
-        // Endereço salvo ou, na primeira vez, o endereço padrão
-        etServidor.setText(servidorConfig.getEndereco());
+        // Na primeira vez o campo fica vazio, para a pessoa digitar o endereço do computador
+        if (servidorConfig.isConfigurado()) {
+            etServidor.setText(servidorConfig.getEndereco());
+        }
         btnTestarConexao.setOnClickListener(v -> testarConexao());
 
         dialog = new MaterialAlertDialogBuilder(context)

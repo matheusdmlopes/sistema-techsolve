@@ -19,7 +19,7 @@
             android:text="TechSolve"
             android:textSize="36sp"
             android:textStyle="bold"
-            android:textColor="@color/design_default_color_primary"
+            android:textColor="@color/techsolve_escuro"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

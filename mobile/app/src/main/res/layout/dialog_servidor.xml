@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Endereço do computador onde a API está aberta."
+            android:text="Digite o endereço que aparece na janela do TechSolve no computador, na linha &quot;Celular&quot;. O celular precisa estar na mesma rede Wi-Fi."
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout

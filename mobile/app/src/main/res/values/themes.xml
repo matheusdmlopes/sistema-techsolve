@@ -1,8 +1,28 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.TechSolve" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+    <!--
+        Tema sempre claro, nas cores do site. As telas usam fundos e textos claros fixos,
+        então o aplicativo não acompanha o modo escuro do celular.
+    -->
+    <style name="Base.Theme.TechSolve" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/techsolve_escuro</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/techsolve_destaque</item>
+        <item name="colorOnPrimaryContainer">@color/techsolve_mais_escuro</item>
+        <item name="colorSecondary">@color/techsolve_escuro</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/techsolve_destaque_claro</item>
+        <item name="colorOnSecondaryContainer">@color/techsolve_mais_escuro</item>
+
+        <!-- Superfícies neutras, sem o tom lilás padrão do Material 3 -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorSurfaceContainerLowest">@color/white</item>
+        <item name="colorSurfaceContainerLow">@color/white</item>
+        <item name="colorSurfaceContainer">@color/white</item>
+        <item name="colorSurfaceContainerHigh">@color/white</item>
+        <item name="colorSurfaceContainerHighest">@color/techsolve_fundo</item>
+
+        <item name="android:statusBarColor">@color/techsolve_mais_escuro</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.TechSolve" parent="Base.Theme.TechSolve" />

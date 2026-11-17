@@ -11,7 +11,9 @@ android {
     defaultConfig {
         applicationId = "com.techsolve.app"
         minSdk = 24
-        targetSdk = 36
+        // Com alvo 35 ou maior, o Android 15+ desenha o app por baixo da barra de status e as telas
+        // não foram feitas para isso. O alvo 34 mantém as barras do sistema fora da área do app.
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
