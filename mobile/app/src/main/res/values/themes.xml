@@ -20,6 +20,9 @@
         <item name="colorSurfaceContainer">@color/white</item>
         <item name="colorSurfaceContainerHigh">@color/white</item>
         <item name="colorSurfaceContainerHighest">@color/techsolve_fundo</item>
+        <item name="android:colorBackground">@color/techsolve_fundo</item>
+        <!-- Sem o tom acinzentado que o Material aplica em caixas de diálogo e na barra de baixo -->
+        <item name="elevationOverlayEnabled">false</item>
 
         <item name="android:statusBarColor">@color/techsolve_mais_escuro</item>
         <item name="android:windowLightStatusBar">false</item>

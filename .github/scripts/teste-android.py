@@ -99,7 +99,7 @@ def rolar_ate(identificador):
         elemento = achar(ler_tela(), identificador)
         if elemento is not None:
             x1, y1, x2, y2 = posicao(elemento)
-            if y2 - y1 >= 90:
+            if y2 - y1 >= 60:
                 return elemento
         meio = str(largura // 2)
         adb("shell", "input", "swipe", meio, str(int(altura * 0.7)), meio, str(int(altura * 0.4)), "400")
