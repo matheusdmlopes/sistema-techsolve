@@ -80,11 +80,10 @@ public class ChamadosActivity extends AppCompatActivity implements ChamadoAdapte
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
         bottomNavigation.setSelectedItemId(R.id.nav_chamados);
         bottomNavigation.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_perfil) {
+            if (item.getItemId() == R.id.nav_perfil) {
                 startActivity(new Intent(this, PerfilActivity.class));
-                return true;
             }
+            // Devolve false para a aba "Chamados" continuar marcada quando a pessoa voltar do perfil
             return false;
         });
     }
