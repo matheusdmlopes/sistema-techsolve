@@ -74,6 +74,41 @@ def tocar(elemento):
     adb("shell", "input", "tap", str((x1 + x2) // 2), str((y1 + y2) // 2))
 
 
+def fechar_aviso_do_android(elementos):
+    """
+    Fecha o aviso "o aplicativo não está respondendo". No emulador ele aparece para a tela inicial do Android,
+    que às vezes trava na partida. O aviso abre na frente do TechSolve e engole os toques. "Aguardar" só faz
+    ele voltar alguns segundos depois, então o teste escolhe "Fechar app": a tela inicial reabre sozinha.
+    Devolve True se havia aviso.
+    """
+    botao = achar(elementos, "aerr_close")
+    if botao is None:
+        botao = achar(elementos, "aerr_wait")
+    if botao is None:
+        return False
+
+    titulo = achar(elementos, "alertTitle")
+    nome = titulo.get("text", "") if titulo is not None else ""
+    if "techsolve" in nome.lower():
+        raise Falha(f"O Android avisou que o aplicativo travou: {nome}")
+
+    tocar(botao)
+    return True
+
+
+def resolver_travamento_da_partida():
+    """Se a tela inicial do Android travou na partida do emulador, espera o aviso aparecer e fecha antes de começar."""
+    registro = adb("logcat", "-d", "-s", "ActivityManager:E").decode(errors="replace")
+    if "ANR in" not in registro:
+        return
+    limite = time.time() + 40
+    while time.time() < limite:
+        if fechar_aviso_do_android(ler_tela()):
+            print("Aviso de travamento da tela inicial do Android fechado.", flush=True)
+            return
+        time.sleep(2)
+
+
 def esperar(o_que, identificador=None, texto=None, segundos=45):
     limite = time.time() + segundos
     while True:
@@ -82,14 +117,39 @@ def esperar(o_que, identificador=None, texto=None, segundos=45):
         if elemento is not None:
             return elemento
 
-        # Aviso do Android de que algum programa demorou a responder: escolher "Aguardar".
-        aguardar = achar(elementos, "aerr_wait")
-        if aguardar is not None:
-            tocar(aguardar)
+        fechar_aviso_do_android(elementos)
 
         if time.time() > limite:
             raise Falha(f"Não apareceu na tela: {o_que}")
         time.sleep(1)
+
+
+def tocar_e_esperar(alvo, o_que, identificador=None, texto=None):
+    """
+    Toca no elemento e espera o resultado aparecer. Se o resultado não vier e o elemento continuar na tela,
+    pronto para ser tocado, o toque se perdeu (um aviso do Android abriu na frente): toca de novo.
+    """
+    for _ in range(3):
+        tocar(esperar(f"{alvo}, para tocar", alvo))
+        try:
+            return esperar(o_que, identificador, texto, segundos=20)
+        except Falha:
+            elemento = achar(ler_tela(), alvo)
+            if elemento is None or elemento.get("enabled") != "true":
+                break  # o toque funcionou; é o resultado que está demorando
+    return esperar(o_que, identificador, texto)
+
+
+def voltar_e_esperar(tela_atual, o_que, identificador):
+    """Aperta Voltar e espera a tela anterior. Se continuar na mesma tela, o aperto se perdeu: aperta de novo."""
+    for _ in range(3):
+        adb("shell", "input", "keyevent", "4")
+        try:
+            return esperar(o_que, identificador, segundos=20)
+        except Falha:
+            if achar(ler_tela(), tela_atual) is None:
+                raise
+    raise Falha(f"Não apareceu na tela: {o_que}")
 
 
 def rolar_ate(identificador):
@@ -116,7 +176,14 @@ def rolar_ate(identificador):
 
 
 def digitar(identificador, texto, conferir=True):
-    tocar(esperar(f"o campo {identificador}", identificador))
+    for _ in range(3):
+        tocar(esperar(f"o campo {identificador}", identificador))
+        time.sleep(0.5)
+        campo = achar(ler_tela(), identificador)
+        if campo is not None and campo.get("focused") == "true":
+            break
+    else:
+        raise Falha(f"O cursor não foi para o campo {identificador}")
     adb("shell", "input", "text", "'" + texto.replace(" ", "%s") + "'")
     if conferir:
         esperar(f"o texto digitado no campo {identificador}", identificador, texto)
@@ -124,6 +191,8 @@ def digitar(identificador, texto, conferir=True):
 
 def foto(nome):
     time.sleep(1.5)  # tempo para a tela terminar de desenhar
+    if fechar_aviso_do_android(ler_tela()):
+        time.sleep(1.5)
     (pasta_das_fotos / f"{nome}.png").write_bytes(adb("exec-out", "screencap", "-p"))
     print(f"Foto: {nome}.png", flush=True)
 
@@ -163,6 +232,7 @@ def percorrer_o_aplicativo(apk):
     instalacao = adb("install", "-r", apk).decode()
     if "Success" not in instalacao:
         raise Falha(f"O aplicativo não instalou: {instalacao}")
+    resolver_travamento_da_partida()
     adb("shell", "wm", "dismiss-keyguard")
     adb("shell", "am", "start", "-W", "-n", f"{PACOTE}/.activities.LoginActivity")
 
@@ -174,44 +244,39 @@ def percorrer_o_aplicativo(apk):
     foto("01-servidor-na-primeira-abertura")
 
     digitar("etServidor", SERVIDOR_NO_EMULADOR)
-    tocar(esperar("o botão Testar conexão", "btnTestarConexao"))
-    esperar("a resposta do teste de conexão", "tvResultadoTeste", "Conexão OK")
+    tocar_e_esperar("btnTestarConexao", "a resposta do teste de conexão", "tvResultadoTeste", "Conexão OK")
     foto("02-servidor-conexao-ok")
-    tocar(esperar("o botão Salvar", "button1"))
 
-    # Entrada
-    esperar("a tela de entrada", "btnLogin")
+    # Entrada (o botão "Salvar" da caixa de diálogo tem o identificador button1)
+    tocar_e_esperar("button1", "a tela de entrada", "btnLogin")
     conferir_endereco_do_servidor(ler_tela())
     digitar("etEmail", EMAIL)
     digitar("etSenha", SENHA, conferir=False)
     foto("03-entrada")
-    tocar(esperar("o botão Entrar", "btnLogin"))
 
     # Lista de chamados
-    esperar("a lista de chamados", "fabNovo")
+    tocar_e_esperar("btnLogin", "a lista de chamados", "fabNovo")
     esperar("um chamado na lista", "tvTitulo")
     conferir_datas(ler_tela(), "Meus Chamados")
     foto("04-meus-chamados")
 
     # Detalhes de um chamado
-    tocar(esperar("um chamado na lista", "tvTitulo"))
-    esperar("os detalhes do chamado", "tvDescricao")
+    tocar_e_esperar("tvTitulo", "os detalhes do chamado", "tvDescricao")
     conferir_datas(ler_tela(), "Detalhes do Chamado")
     foto("05-detalhes-do-chamado")
-    adb("shell", "input", "keyevent", "4")  # botão Voltar
+    voltar_e_esperar("tvDescricao", "a lista de chamados depois de voltar", "fabNovo")
 
     # Chamado novo, com a triagem da IA
-    tocar(esperar("o botão de chamado novo", "fabNovo"))
+    tocar_e_esperar("fabNovo", "a tela de chamado novo", "etTitulo")
     digitar("etTitulo", TITULO)
     digitar("etDescricao", DESCRICAO)
-    tocar(rolar_ate("btnAnalisarIA"))
-    esperar("a categoria sugerida pela IA", "tvCategoriaSugerida", "impress")
+    rolar_ate("btnAnalisarIA")
+    tocar_e_esperar("btnAnalisarIA", "a categoria sugerida pela IA", "tvCategoriaSugerida", "impress")
     foto("06-chamado-novo-sugestao-da-ia")
-    botao_criar = rolar_ate("btnCriar")
+    rolar_ate("btnCriar")
     foto("07-chamado-novo-categoria-e-prioridade")
-    tocar(botao_criar)
+    tocar_e_esperar("btnCriar", "a lista de chamados depois de criar", "fabNovo")
 
-    esperar("a lista de chamados depois de criar", "fabNovo")
     esperar("o chamado novo na lista", "tvTitulo", TITULO)
     foto("08-chamado-criado")
     criados = chamados_do_teste()
@@ -220,8 +285,7 @@ def percorrer_o_aplicativo(apk):
     print("Chamado gravado no servidor: " + json.dumps(criados[0], ensure_ascii=False)[:600], flush=True)
 
     # Perfil
-    tocar(esperar("a aba Perfil", "nav_perfil"))
-    esperar("a tela de perfil", "btnLogout")
+    tocar_e_esperar("nav_perfil", "a tela de perfil", "btnLogout")
     esperar("o e-mail no perfil", "tvEmail", EMAIL)
     foto("09-perfil")
 
@@ -230,15 +294,13 @@ def percorrer_o_aplicativo(apk):
     time.sleep(3)
     esperar("a tela de perfil com o celular no modo escuro", "btnLogout")
     foto("10-perfil-celular-no-modo-escuro")
-    tocar(esperar("a aba Chamados", "nav_chamados"))
-    esperar("a lista de chamados com o celular no modo escuro", "fabNovo")
+    tocar_e_esperar("nav_chamados", "a lista de chamados com o celular no modo escuro", "fabNovo")
     esperar("um chamado na lista", "tvTitulo")
     foto("11-chamados-celular-no-modo-escuro")
 
     # Sair: volta para a entrada, sem pedir o servidor de novo.
-    tocar(esperar("a aba Perfil", "nav_perfil"))
-    tocar(esperar("o botão Sair", "btnLogout"))
-    esperar("a tela de entrada depois de sair", "btnLogin")
+    tocar_e_esperar("nav_perfil", "a tela de perfil", "btnLogout")
+    tocar_e_esperar("btnLogout", "a tela de entrada depois de sair", "btnLogin")
     conferir_endereco_do_servidor(ler_tela())
     foto("12-saiu-da-conta")
 
